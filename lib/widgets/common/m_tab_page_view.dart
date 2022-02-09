@@ -4,18 +4,19 @@ import 'package:get/get.dart';
 import 'package:mvideo/config/color/m_colors.dart';
 
 class MTabPageView extends StatefulWidget {
-  MTabPageView({
-    Key? key,
-    required this.tabs,
-    required this.children,
-    this.isScrollable = false,
-    this.elevation = 0.0,
-    this.tabBackgroundColor,
-    this.indicatorColor,
-    this.labelColor,
-    this.initialIndex,
-    this.animateToPage = true,
-  }) : super(key: key);
+  MTabPageView(
+      {Key? key,
+      required this.tabs,
+      required this.children,
+      this.isScrollable = false,
+      this.elevation = 0.0,
+      this.tabBackgroundColor,
+      this.indicatorColor,
+      this.labelColor,
+      this.initialIndex,
+      this.animateToPage = true,
+      this.padding})
+      : super(key: key);
 
   final List<Widget> tabs;
 
@@ -30,6 +31,8 @@ class MTabPageView extends StatefulWidget {
   final Color? labelColor;
 
   final Color? indicatorColor;
+
+  final EdgeInsetsGeometry? padding;
 
   /// 初始页(初始页不能变更)
   final int? initialIndex;
@@ -100,9 +103,10 @@ class MTabPageViewState extends State<MTabPageView>
             color: widget.tabBackgroundColor ?? Theme.of(context).cardColor,
             elevation: widget.elevation,
             child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: 44),
+                constraints: BoxConstraints(minHeight: 40),
                 child: TabBar(
-                  padding: EdgeInsets.symmetric(horizontal: Get.size.width / 4),
+                  padding: widget.padding ??
+                      EdgeInsets.symmetric(horizontal: Get.size.width / 4),
                   labelStyle: TextStyle(fontSize: 16),
                   unselectedLabelColor: Colors.grey,
                   indicatorWeight: 4,

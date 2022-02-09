@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
-import 'package:mvideo/widgets/common/m_tab_page_view.dart';
 import 'package:mvideo/widgets/public.dart';
 
 import '../controllers/user_zone_controller.dart';
