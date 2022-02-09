@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
-import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/utils/utils.dart';
 
 class MenuItem {
@@ -42,6 +41,6 @@ class UserController extends GetxController {
   }
 
   gg() {
-    Get.toNamed(Routes.HOME);
+    // show
   }
 }

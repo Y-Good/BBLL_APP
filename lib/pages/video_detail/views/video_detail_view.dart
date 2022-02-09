@@ -1,8 +1,10 @@
+import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
+import 'package:mvideo/widgets/fijkplayer_skin/fijkplayer_skin.dart';
 import 'package:mvideo/widgets/public.dart';
 
 import '../controllers/video_detail_controller.dart';
@@ -22,18 +24,43 @@ class VideoDetailView extends GetView<VideoDetailController> {
           CustomScrollView(
             slivers: [
               SliverAppBar(
+                automaticallyImplyLeading: false,
                 elevation: 0,
                 pinned: true,
-                actions: [
-                  IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.more_vert),
-                      splashColor: Colors.transparent)
-                ],
+                // actions: [
+                //   IconButton(
+                //       onPressed: () {},
+                //       icon: Icon(Icons.more_vert),
+                //       splashColor: Colors.transparent)
+                // ],
                 backgroundColor: Colors.black,
-                flexibleSpace: Image.network(
-                    "https://img0.baidu.com/it/u=4183146585,2121935578&fm=26&fmt=auto"),
-                // expandedHeight: 230,
+                flexibleSpace: FijkView(
+                  height: Get.size.width * 9 / 16,
+                  color: Colors.black,
+                  fit: FijkFit.cover,
+                  player: controller.player,
+                  cover: NetworkImage(
+                      'http://192.168.0.189:3000/static/covers/2022-02-09/jsSk7jvWCBpMGnAn.webp'),
+                  panelBuilder: (
+                    FijkPlayer player,
+                    FijkData data,
+                    BuildContext context,
+                    Size viewSize,
+                    Rect texturePos,
+                  ) {
+                    /// 使用自定义的布局
+                    return CustomFijkPanel(
+                      player: player,
+                      playerTitle: '我无敌我五点',
+                      viewSize: viewSize,
+                      texturePos: texturePos,
+                      pageContent: context,
+                      showConfig: controller.vSkinCfg,
+                      curPlayUrl:
+                          'https://192.168.0.189:3000/static/videos/2022-02-09/47-l5SOL3L2srbag.mp4',
+                    );
+                  },
+                ),
                 collapsedHeight: Get.size.width * 9 / 16,
               ),
               SliverPersistentHeader(
@@ -91,7 +118,8 @@ class VideoDetailView extends GetView<VideoDetailController> {
           Positioned(
               bottom: 0,
               child: Container(
-                height: 48,
+                // height: 56,
+                alignment: Alignment.center,
                 width: Get.size.width,
                 color: Colors.white,
                 padding: EdgeInsets.symmetric(horizontal: 16),
@@ -101,7 +129,8 @@ class VideoDetailView extends GetView<VideoDetailController> {
                     children: [
                       Expanded(
                           child: Padding(
-                        padding: const EdgeInsets.only(top: 8, right: 8),
+                        padding:
+                            const EdgeInsets.only(top: 8, right: 8, bottom: 8),
                         child: MInput(
                           textEditingController: controller.contentController,
                           bgColor: MColors.backgroundColor,
