@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/color/m_colors.dart';
-import 'package:mvideo/widgets/common/m_cell.dart';
 import 'package:mvideo/widgets/public.dart';
-import 'package:mvideo/widgets/text/m_text.dart';
 import '../controllers/setting_controller.dart';
 
 class SettingView extends GetView<SettingController> {

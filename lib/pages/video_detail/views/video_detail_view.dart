@@ -3,12 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
-import 'package:mvideo/widgets/common/m_avatar.dart';
-import 'package:mvideo/widgets/common/m_button.dart';
-import 'package:mvideo/widgets/common/m_input.dart';
-import 'package:mvideo/widgets/common/m_label.dart';
-import 'package:mvideo/widgets/text/m_icon_text.dart';
-import 'package:mvideo/widgets/text/m_text.dart';
+import 'package:mvideo/widgets/public.dart';
 
 import '../controllers/video_detail_controller.dart';
 
@@ -41,17 +36,20 @@ class VideoDetailView extends GetView<VideoDetailController> {
                 // expandedHeight: 230,
                 collapsedHeight: Get.size.width * 9 / 16,
               ),
-              SliverToBoxAdapter(
-                child: ListTile(
-                  leading: MAvatar(
-                    'https://img0.baidu.com/it/u=4183146585,2121935578&fm=26&fmt=auto',
-                  ),
-                  title: MText('阿西吧'),
-                  subtitle: MText('3小时前'),
-                  trailing: MButton(
-                    label: '关注',
-                    width: 64,
-                    height: 32,
+              SliverPersistentHeader(
+                pinned: true,
+                delegate: StickyTabBarDelegate(
+                  child: MListTile(
+                    backgroundColor: Colors.white,
+                    url:
+                        'https://img0.baidu.com/it/u=4183146585,2121935578&fm=26&fmt=auto',
+                    title: '阿西吧',
+                    subtitle: '3小时前',
+                    trailing: MButton(
+                      label: '关注',
+                      width: 64,
+                      height: 32,
+                    ),
                   ),
                 ),
               ),
@@ -165,13 +163,13 @@ class VideoDetailView extends GetView<VideoDetailController> {
                             ],
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            padding: const EdgeInsets.symmetric(vertical: 4),
                             child: MText(
                               controller.contents[index]['text'],
                               maxLines: 8,
                             ),
                           ),
-                          SizedBox(height: 4),
+                          SizedBox(height: 8),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -200,5 +198,28 @@ class VideoDetailView extends GetView<VideoDetailController> {
         ],
       ),
     );
+  }
+}
+
+class StickyTabBarDelegate extends SliverPersistentHeaderDelegate {
+  final Widget child;
+
+  StickyTabBarDelegate({required this.child});
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return this.child;
+  }
+
+  @override
+  double get maxExtent => 56;
+
+  @override
+  double get minExtent => 56;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
+    return true;
   }
 }

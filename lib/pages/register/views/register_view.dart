@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:mvideo/config/color/m_colors.dart';
-import 'package:mvideo/widgets/common/m_button.dart';
 import 'package:mvideo/widgets/public.dart';
 
 import '../controllers/register_controller.dart';

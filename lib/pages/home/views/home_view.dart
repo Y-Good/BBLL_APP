@@ -3,10 +3,8 @@ import 'package:get/get.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
 import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/routes/app_pages.dart';
-import 'package:mvideo/widgets/common/m_search.dart';
 import 'package:mvideo/widgets/common/m_swiper.dart';
 import 'package:mvideo/widgets/public.dart';
-import 'package:mvideo/widgets/videos/video_list.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {

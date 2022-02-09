@@ -8,14 +8,21 @@ class MListTile extends StatelessWidget {
   final String? title;
   final String? subtitle;
   final Widget? trailing;
+  final Color? backgroundColor;
 
   const MListTile(
-      {Key? key, this.title, this.subtitle, this.url, this.trailing})
+      {Key? key,
+      this.title,
+      this.subtitle,
+      this.url,
+      this.trailing,
+      this.backgroundColor})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: backgroundColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       height: 56,
       width: MediaQuery.of(context).size.width,
@@ -36,7 +43,7 @@ class MListTile extends StatelessWidget {
                   SizedBox(height: 4),
                   MText(
                     subtitle ?? '-',
-                    size: 10,
+                    size: 12,
                     color: MColors.grey6,
                   ),
                 ],

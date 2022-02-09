@@ -3,13 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
-import 'package:mvideo/widgets/common/m_avatar.dart';
-import 'package:mvideo/widgets/common/m_button.dart';
-import 'package:mvideo/widgets/common/m_list_tile.dart';
 import 'package:mvideo/widgets/common/m_tab_page_view.dart';
 import 'package:mvideo/widgets/public.dart';
-import 'package:mvideo/widgets/text/m_text.dart';
-import 'package:mvideo/widgets/videos/video_list.dart';
 
 import '../controllers/user_zone_controller.dart';
 

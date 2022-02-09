@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/widgets/public.dart';
-import 'package:mvideo/widgets/text/m_icon_text.dart';
-import 'package:mvideo/widgets/text/m_text.dart';
 
 import '../controllers/live_detail_controller.dart';
 
