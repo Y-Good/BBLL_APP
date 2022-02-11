@@ -48,7 +48,7 @@ class UploadView extends GetView<UploadController> {
         body: ListView.builder(
             itemCount: uploadList.length,
             itemBuilder: (_, index) => Padding(
-                  padding: EdgeInsets.only(top: 4),
+                  padding: EdgeInsets.only(top: .5),
                   child: uploadList[index],
                 )));
   }

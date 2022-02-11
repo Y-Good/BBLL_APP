@@ -41,7 +41,7 @@ class UserZoneView extends GetView<UserZoneController> {
                 SizedBox(height: 30),
                 Flexible(
                   child: MTabPageView(
-                      initialIndex: 1,
+                      initialIndex: controller.initialIndex,
                       tabs: controller.tabs,
                       children: [
                         userFollow(),

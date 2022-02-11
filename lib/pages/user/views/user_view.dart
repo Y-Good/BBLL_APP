@@ -26,7 +26,11 @@ class UserView extends GetView<UserController> {
                   return MCell(
                     icon: items[index].icon,
                     label: items[index].title,
-                    onTap: items[index].onTap ?? null,
+                    onTap: () {
+                      if (items[index].onTap != null) {
+                        items[index].onTap!(index);
+                      }
+                    },
                   );
                 },
                 separatorBuilder: (_, index) => Divider(

@@ -4,8 +4,10 @@ import 'dart:ui';
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:mvideo/config/color/m_colors.dart';
+import 'package:mvideo/config/fonts/m_iconfont.dart';
 import 'package:mvideo/widgets/fijkplayer_skin/slider.dart'
     show NewFijkSliderColors, NewFijkSlider;
+import 'package:mvideo/widgets/public.dart';
 import 'package:wakelock/wakelock.dart';
 
 double speed = 1.0;
@@ -22,6 +24,7 @@ abstract class ShowConfigAbs {
   late bool topBar;
   late bool bottomPro;
   late bool stateAuto;
+  late bool liveMode;
 }
 
 String _duration2String(Duration duration) {
@@ -159,10 +162,10 @@ class _CustomFijkPanelState extends State<CustomFijkPanel>
                 top: 0,
                 right: 0,
                 child: Container(
-                  height:
-                      showConfig.stateAuto && !widget.player.value.fullScreen
-                          ? barFillingHeight
-                          : barHeight,
+                  // height:
+                  //     showConfig.stateAuto && !widget.player.value.fullScreen
+                  //         ? barFillingHeight
+                  //         : barHeight,
                   alignment: Alignment.bottomLeft,
                   child: SizedBox(
                     height: barHeight,
@@ -193,17 +196,11 @@ class _CustomFijkPanelState extends State<CustomFijkPanel>
           bottom: 0,
           top: 0,
           child: Center(
-            child: Padding(
-              padding: EdgeInsets.only(
-                  top: showConfig.stateAuto && !widget.player.value.fullScreen
-                      ? barGap
-                      : 0),
-              child: const SizedBox(
-                width: barHeight * 0.8,
-                height: barHeight * 0.8,
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation(Colors.white),
-                ),
+            child: const SizedBox(
+              width: barHeight * 0.8,
+              height: barHeight * 0.8,
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation(Colors.white),
               ),
             ),
           ),
@@ -251,10 +248,10 @@ class _CustomFijkPanelState extends State<CustomFijkPanel>
       height: barHeight,
       alignment: Alignment.centerLeft,
       child: IconButton(
-        icon: const Icon(Icons.arrow_back),
+        icon: const Icon(IconFonts.iconFanhui),
         padding: const EdgeInsets.only(
-          left: 10.0,
-          right: 10.0,
+          left: 16.0,
+          right: 16.0,
         ),
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
@@ -280,11 +277,6 @@ class _CustomFijkPanelState extends State<CustomFijkPanel>
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            height: showConfig.stateAuto && !widget.player.value.fullScreen
-                ? barGap
-                : 0,
-          ),
           // 失败图标
           const Icon(
             Icons.error,
@@ -296,11 +288,11 @@ class _CustomFijkPanelState extends State<CustomFijkPanel>
             "播放失败，您可以点击重试！",
             style: TextStyle(
               color: Colors.white,
-              fontSize: 15,
+              fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 5),
+          const SizedBox(height: 8),
           // 重试
           ElevatedButton(
             style: ButtonStyle(
@@ -339,10 +331,10 @@ class _CustomFijkPanelState extends State<CustomFijkPanel>
                   top: 0,
                   right: 0,
                   child: Container(
-                    height:
-                        showConfig.stateAuto && !widget.player.value.fullScreen
-                            ? barFillingHeight
-                            : barHeight,
+                    // height:
+                    //     showConfig.stateAuto && !widget.player.value.fullScreen
+                    //         ? barFillingHeight
+                    //         : barHeight,
                     alignment: Alignment.bottomLeft,
                     child: SizedBox(
                       height: barHeight,
@@ -379,6 +371,37 @@ class _CustomFijkPanelState extends State<CustomFijkPanel>
     );
   }
 
+//重新播放
+  Widget _buildRestartWidget() {
+    return Stack(
+      children: [
+        Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Container(
+              color: Colors.black54,
+            )),
+        Center(
+          //自定义组件
+          child: MButton(
+            width: 100,
+            radius: 20,
+            onTap: () async {
+              await player.start();
+            },
+            bgColor: Colors.white,
+            child: MIconText(
+              icon: Icons.refresh,
+              text: "重新播放",
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   // ignore: must_call_super
   Widget build(BuildContext context) {
@@ -405,6 +428,10 @@ class _CustomFijkPanelState extends State<CustomFijkPanel>
     } else if (_playerState == FijkState.asyncPreparing && !_isPlaying) {
       ws.add(
         _buildLoadingWidget(),
+      );
+    } else if (_playerState == FijkState.completed) {
+      ws.add(
+        _buildRestartWidget(),
       );
     } else {
       if (_lockStuff == true &&
@@ -489,6 +516,7 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
 
   bool _playing = false;
   bool _prepared = false;
+  bool _completed = false;
   String? _exception;
 
   double? updatePrevDx;
@@ -561,6 +589,7 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
     _playing = player.state == FijkState.started;
     _exception = player.value.exception.message;
     _buffering = player.isBuffering;
+    _completed = player.state == FijkState.completed;
 
     player.addListener(_playerValueChanged);
 
@@ -595,20 +624,24 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
     //     '+++++ $value.state  播放器状态  ${value.state == FijkState.started} +++++');
     bool playing = (value.state == FijkState.started);
     bool prepared = value.prepared;
+    bool completed = value.state == FijkState.completed;
     String? exception = value.exception.message;
     // 状态不一致，修改
     if (playing != _playing ||
         prepared != _prepared ||
-        exception != _exception) {
+        exception != _exception ||
+        completed != _completed) {
       setState(() {
         _playing = playing;
         _prepared = prepared;
         _exception = exception;
+        _completed = completed;
       });
     }
   }
 
   _onHorizontalDragStart(detills) {
+    if (showConfig.liveMode) return;
     setState(() {
       updatePrevDx = detills.globalPosition.dx;
       updatePosX = _currentPos.inMilliseconds;
@@ -616,6 +649,7 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
   }
 
   _onHorizontalDragUpdate(detills) {
+    if (showConfig.liveMode) return;
     double curDragDx = detills.globalPosition.dx;
     // 确定当前是前进或者后退
     int cdx = curDragDx.toInt();
@@ -657,6 +691,7 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
   }
 
   _onHorizontalDragEnd(detills) {
+    if (showConfig.liveMode) return;
     player.seekTo(_dargPos.inMilliseconds);
     setState(() {
       _isHorizontalMove = false;
@@ -832,79 +867,103 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
                     // 已播放时间
                     Padding(
                       padding: const EdgeInsets.only(right: 5.0, left: 5),
-                      child: Text(
-                        _duration2String(_currentPos),
-                        style: const TextStyle(
-                          fontSize: 14.0,
-                          color: Colors.white,
+                      child: SizedBox(
+                        width: 50,
+                        child: Text(
+                          _duration2String(_currentPos),
+                          style: const TextStyle(
+                            fontSize: 14.0,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
-                    // 播放进度 if 没有开始播放 占满，空ui， else fijkSlider widget
-                    _duration.inMilliseconds == 0
-                        ? Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 5, left: 5),
-                              child: NewFijkSlider(
-                                colors: NewFijkSliderColors(
-                                  cursorColor: MColors.primiaryColor,
-                                  playedColor: MColors.primiaryColor,
-                                ),
-                                onChangeEnd: (double value) {},
-                                value: 0,
-                                onChanged: (double value) {},
-                              ),
-                            ),
-                          )
-                        : Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 5, left: 5),
-                              child: NewFijkSlider(
-                                colors: NewFijkSliderColors(
-                                  cursorColor: MColors.primiaryColor,
-                                  playedColor: MColors.primiaryColor,
-                                ),
-                                value: currentValue,
-                                cacheValue:
-                                    _bufferPos.inMilliseconds.toDouble(),
-                                min: 0.0,
-                                max: duration,
-                                onChanged: (v) {
-                                  _startHideTimer();
-                                  setState(() {
-                                    _seekPos = v;
-                                  });
-                                },
-                                onChangeEnd: (v) {
-                                  setState(() {
-                                    player.seekTo(v.toInt());
-                                    // ignore: avoid_print
-                                    print("seek to $v");
-                                    _currentPos = Duration(
-                                        milliseconds: _seekPos.toInt());
-                                    _seekPos = -1;
-                                  });
-                                },
-                              ),
-                            ),
-                          ),
 
-                    // 总播放时间
-                    _duration.inMilliseconds == 0
-                        ? const Text(
-                            "00:00",
+                    showConfig.liveMode
+                        ? Text(
+                            '直播',
                             style: TextStyle(color: Colors.white),
                           )
-                        : Padding(
-                            padding: const EdgeInsets.only(right: 5.0, left: 5),
-                            child: Text(
-                              _duration2String(_duration),
-                              style: const TextStyle(
-                                fontSize: 14.0,
-                                color: Colors.white,
+                        : Container(),
+                    // 播放进度 if 没有开始播放 占满，空ui， else fijkSlider widget
+                    showConfig.liveMode
+                        ? Expanded(
+                            child: Padding(
+                                padding:
+                                    const EdgeInsets.only(right: 5, left: 5),
+                                child: Container(
+                                  width: double.infinity,
+                                )),
+                          )
+                        : _duration.inMilliseconds == 0
+                            ? Expanded(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(right: 5, left: 5),
+                                  child: NewFijkSlider(
+                                    colors: NewFijkSliderColors(
+                                      cursorColor: MColors.primiaryColor,
+                                      playedColor: MColors.primiaryColor,
+                                    ),
+                                    onChangeEnd: (double value) {},
+                                    value: 0,
+                                    onChanged: (double value) {},
+                                  ),
+                                ),
+                              )
+                            : Expanded(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(right: 5, left: 5),
+                                  child: NewFijkSlider(
+                                    colors: NewFijkSliderColors(
+                                      cursorColor: MColors.primiaryColor,
+                                      playedColor: MColors.primiaryColor,
+                                    ),
+                                    value: currentValue,
+                                    cacheValue:
+                                        _bufferPos.inMilliseconds.toDouble(),
+                                    min: 0.0,
+                                    max: duration,
+                                    onChanged: (v) {
+                                      _startHideTimer();
+                                      setState(() {
+                                        _seekPos = v;
+                                      });
+                                    },
+                                    onChangeEnd: (v) {
+                                      setState(() {
+                                        player.seekTo(v.toInt());
+                                        // ignore: avoid_print
+                                        print("seek to $v");
+                                        _currentPos = Duration(
+                                            milliseconds: _seekPos.toInt());
+                                        _seekPos = -1;
+                                      });
+                                    },
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
+
+                    // 总播放时间
+                    showConfig.liveMode
+                        ? Container()
+                        : _duration.inMilliseconds == 0
+                            ? const Text(
+                                "00:00",
+                                style: TextStyle(color: Colors.white),
+                              )
+                            : Padding(
+                                padding:
+                                    const EdgeInsets.only(right: 5.0, left: 5),
+                                child: Text(
+                                  _duration2String(_duration),
+                                  style: const TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
                     // 倍数按钮
                     widget.player.value.fullScreen && showConfig.speedBtn
                         ? Ink(
@@ -1195,14 +1254,18 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
       onVerticalDragEnd: _onVerticalDragEnd,
       onLongPressStart: (context) {
         setState(() {
-          _speed = speed = 2.0;
-          player.setSpeed(2.0);
+          if (showConfig.liveMode == false) {
+            _speed = speed = 2.0;
+            player.setSpeed(2.0);
+          }
         });
       },
       onLongPressEnd: (context) {
         setState(() {
-          _speed = speed = 1.0;
-          player.setSpeed(1.0);
+          if (showConfig.liveMode == false) {
+            _speed = speed = 1.0;
+            player.setSpeed(1.0);
+          }
         });
       },
       child: AbsorbPointer(

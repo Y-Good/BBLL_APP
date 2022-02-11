@@ -27,20 +27,14 @@ class VideoDetailView extends GetView<VideoDetailController> {
                 automaticallyImplyLeading: false,
                 elevation: 0,
                 pinned: true,
-                // actions: [
-                //   IconButton(
-                //       onPressed: () {},
-                //       icon: Icon(Icons.more_vert),
-                //       splashColor: Colors.transparent)
-                // ],
                 backgroundColor: Colors.black,
                 flexibleSpace: FijkView(
                   height: Get.size.width * 9 / 16,
                   color: Colors.black,
-                  fit: FijkFit.cover,
+                  fit: FijkFit.fill,
                   player: controller.player,
                   cover: NetworkImage(
-                      'http://192.168.0.189:3000/static/covers/2022-02-09/jsSk7jvWCBpMGnAn.webp'),
+                      'https://img0.baidu.com/it/u=2811705907,124584203&fm=253&fmt=auto&app=138&f=PNG?w=600&h=307'),
                   panelBuilder: (
                     FijkPlayer player,
                     FijkData data,
@@ -56,8 +50,7 @@ class VideoDetailView extends GetView<VideoDetailController> {
                       texturePos: texturePos,
                       pageContent: context,
                       showConfig: controller.vSkinCfg,
-                      curPlayUrl:
-                          'https://192.168.0.189:3000/static/videos/2022-02-09/47-l5SOL3L2srbag.mp4',
+                      curPlayUrl: controller.videoUrl,
                     );
                   },
                 ),
@@ -72,11 +65,14 @@ class VideoDetailView extends GetView<VideoDetailController> {
                         'https://img0.baidu.com/it/u=4183146585,2121935578&fm=26&fmt=auto',
                     title: '阿西吧',
                     subtitle: '3小时前',
-                    trailing: MButton(
-                      label: '关注',
-                      width: 64,
-                      height: 32,
-                    ),
+                    trailing: Obx(() => MButton(
+                          label: controller.isFollow.value ? '已关注' : '关注',
+                          width: 64,
+                          height: 32,
+                          bgColor:
+                              controller.isFollow.value ? MColors.grey9 : null,
+                          onTap: controller.userFollow,
+                        )),
                   ),
                 ),
               ),
@@ -152,6 +148,7 @@ class VideoDetailView extends GetView<VideoDetailController> {
     );
   }
 
+  ///评论区
   Widget comment() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -165,65 +162,97 @@ class VideoDetailView extends GetView<VideoDetailController> {
           Obx(() => ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemBuilder: (_, index) => Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      MAvatar(
-                        'https://img0.baidu.com/it/u=4183146585,2121935578&fm=26&fmt=auto',
-                      ),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      Expanded(
-                          child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              MText(
-                                '阿西吧',
-                                size: 12,
-                                color: Colors.grey,
-                              ),
-                              MText('3小时前', size: 12, color: Colors.grey),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 4),
-                            child: MText(
-                              controller.contents[index]['text'],
-                              maxLines: 8,
-                            ),
-                          ),
-                          SizedBox(height: 8),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Obx(() => MIconText(
-                                    icon: controller.isLike.value
-                                        ? IconFonts.iconDianzan2
-                                        : IconFonts.iconDianzan1,
-                                    color: controller.isLike.value == true
-                                        ? MColors.primiaryColor
-                                        : null,
-                                    text: controller.like.value.toString(),
-                                    onTap: () => controller.increment(),
-                                  )),
-                              SizedBox(width: 16),
-                              MIconText(icon: IconFonts.iconPinglun, text: '99')
-                            ],
-                          ),
-                        ],
-                      )),
-                    ],
-                  ),
-                ),
+                itemBuilder: (_, index) =>
+                    commentWidget(controller.contents[index]['text']),
                 itemCount: controller.contents.length,
               )),
           SizedBox(height: 48)
+        ],
+      ),
+    );
+  }
+
+  ///评论组件
+  Widget commentWidget(String content) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          MAvatar(
+            'https://img0.baidu.com/it/u=4183146585,2121935578&fm=26&fmt=auto',
+          ),
+          SizedBox(
+            width: 8,
+          ),
+          Expanded(
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  MText(
+                    '阿西吧',
+                    size: 12,
+                    color: Colors.grey,
+                  ),
+                  // MText('删除', size: 12, color: Colors.red),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: MText(
+                  content,
+                  maxLines: 8,
+                ),
+              ),
+              SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  MText('3小时前', size: 12, color: Colors.grey),
+                  Row(
+                    children: [
+                      Obx(() => MIconText(
+                            icon: controller.isLike.value
+                                ? IconFonts.iconDianzan2
+                                : IconFonts.iconDianzan1,
+                            color: controller.isLike.value == true
+                                ? MColors.primiaryColor
+                                : null,
+                            text: controller.like.value.toString(),
+                            onTap: () => controller.increment(),
+                          )),
+                      SizedBox(width: 16),
+                      MIconText(
+                        icon: IconFonts.iconPinglun,
+                        text: '99',
+                        onTap: () {
+                          Get.bottomSheet(
+                              Container(
+                                  color: Colors.white,
+                                  height: Get.height / 1.57,
+                                  child: ListView.builder(
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16),
+                                        child: commentWidget('哈哈'),
+                                      );
+                                    },
+                                    itemCount: 20,
+                                  )),
+                              barrierColor: Colors.transparent,
+                              isScrollControlled: true);
+                        },
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ],
+          )),
         ],
       ),
     );

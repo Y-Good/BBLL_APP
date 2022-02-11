@@ -16,6 +16,7 @@ class MIconText extends StatelessWidget {
         child: Container(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Icon(
                 icon,

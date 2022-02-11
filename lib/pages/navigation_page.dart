@@ -50,15 +50,11 @@ class _MBottomNavigationBarPageState extends State<MBottomNavigationBarPage> {
         bottomNavigationBar: SalomonBottomBar(
           currentIndex: _currentIndex,
           itemPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-          // selectedItemColor: MColors.primiaryColor,
           selectedItemColor: Colors.black,
           onTap: (int index) {
             setState(() {
               if (index == 2) {
                 Get.toNamed(Routes.UPLOAD);
-                // Get.to(() => UploadView(),
-                //     binding: UploadBinding(),
-                //     transition: Transition.noTransition);
               } else {
                 _currentIndex = index;
               }

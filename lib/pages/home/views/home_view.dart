@@ -50,15 +50,6 @@ class HomeView extends GetView<HomeController> {
             ),
           )
         ],
-        // bottom: TabBar(
-        //   labelColor: Colors.black,
-        //   labelStyle: TextStyle(fontSize: 16),
-        //   unselectedLabelColor: Colors.grey,
-        //   indicatorColor: MColors.primiaryColor,
-        //   indicatorWeight: 4,
-        //   indicatorSize: TabBarIndicatorSize.label,
-        //   tabs: tabs,
-        // ),
       ),
       body: MTabPageView(
           initialIndex: 0,

@@ -1,7 +1,9 @@
+import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:mvideo/config/color/m_colors.dart';
+import 'package:mvideo/widgets/fijkplayer_skin/fijkplayer_skin.dart';
 import 'package:mvideo/widgets/public.dart';
 
 import '../controllers/live_detail_controller.dart';
@@ -22,34 +24,68 @@ class LiveDetailView extends GetView<LiveDetailController> {
             // shrinkWrap: true,
             slivers: [
               SliverAppBar(
+                automaticallyImplyLeading: false,
                 elevation: 0,
                 pinned: true,
-                actions: [
-                  IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.more_vert),
-                      splashColor: Colors.transparent)
-                ],
                 backgroundColor: Colors.black,
-                flexibleSpace: Image.network(
-                    "https://img1.baidu.com/it/u=2782121391,3115389701&fm=253&fmt=auto&app=138&f=PNG?w=500&h=281"),
+                flexibleSpace: FijkView(
+                  height: Get.size.width * 9 / 16,
+                  color: Colors.black,
+                  fit: FijkFit.fill,
+                  player: controller.player,
+                  // cover: NetworkImage(
+                  //     'https://img0.baidu.com/it/u=2811705907,124584203&fm=253&fmt=auto&app=138&f=PNG?w=600&h=307'),
+                  panelBuilder: (
+                    FijkPlayer player,
+                    FijkData data,
+                    BuildContext context,
+                    Size viewSize,
+                    Rect texturePos,
+                  ) {
+                    /// 使用自定义的布局
+                    return CustomFijkPanel(
+                      player: player,
+                      playerTitle: '我是直播 ',
+                      viewSize: viewSize,
+                      texturePos: texturePos,
+                      pageContent: context,
+                      showConfig: controller.vSkinCfg,
+                      curPlayUrl: controller.videoUrl,
+                    );
+                  },
+                ),
                 // expandedHeight: 230,
                 collapsedHeight: Get.size.width * 9 / 16,
               ),
               SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: MIconText(icon: Icons.person, text: "100人"),
-                ),
+                child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    color: Colors.white,
+                    child: MIconText(icon: Icons.person, text: "100人")),
               ),
               SliverToBoxAdapter(
                 child: ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: 15,
+                  itemCount: 35,
                   itemBuilder: (_, index) => Padding(
-                    padding: EdgeInsets.symmetric(vertical: 30),
-                    child: MText("text"),
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    child: Container(
+                      child: RichText(
+                          text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: '基地u西安市啊：',
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                          TextSpan(
+                              text: index % 3 == 0
+                                  ? 'Get提供高级动态URL，就像在Web上一样。Web开发者可能已经在Flutter上想要这个功能了，Get也解决了这个问题。'
+                                  : 'Get提供高Get也解决了这个问题。',
+                              style: TextStyle(color: Colors.black)),
+                        ],
+                      )),
+                    ),
                   ),
                 ),
               ),
@@ -68,7 +104,8 @@ class LiveDetailView extends GetView<LiveDetailController> {
                     children: [
                       Expanded(
                           child: Padding(
-                        padding: const EdgeInsets.only(top: 8, right: 8),
+                        padding:
+                            const EdgeInsets.only(top: 8, right: 8, bottom: 8),
                         child: MInput(
                           // textEditingController: controller.contentController,
                           bgColor: MColors.backgroundColor,

@@ -13,7 +13,7 @@ class RouteAuthMiddleware extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
     GetStorage storage = GetStorage();
-    if (storage.hasData('token')) {
+    if (storage.read('token') == null) {
       Get.snackbar("提示", "请先登录APP", duration: Duration(seconds: 2));
       return RouteSettings(name: Routes.LOGIN);
     }

@@ -4,6 +4,8 @@ import 'package:mvideo/models/video_model.dart';
 import 'package:mvideo/utils/http.dart';
 
 class UserZoneController extends GetxController {
+  int initialIndex = Get.arguments ?? 1;
+
   List<Widget> tabs = [
     Tab(text: "关注", height: 36),
     Tab(text: '视频', height: 36),
@@ -16,7 +18,6 @@ class UserZoneController extends GetxController {
     var response = await HttpUtil().get(
       '/aip/video',
     );
-
     videoList.value = Video.fromJson(response['data']);
     super.onInit();
   }

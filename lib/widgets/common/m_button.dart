@@ -3,7 +3,7 @@ import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/widgets/text/m_text.dart';
 
 class MButton extends StatelessWidget {
-  final String label;
+  final String? label;
   final VoidCallback? onTap;
   final double? width;
   final double? height;
@@ -11,16 +11,18 @@ class MButton extends StatelessWidget {
   final Color? color;
   final Color? bgColor;
   final double? radius;
+  final Widget? child;
 
   const MButton(
       {Key? key,
-      required this.label,
+      this.label,
       this.onTap,
       this.width,
       this.height = 40,
       this.size,
       this.bgColor,
       this.radius,
+      this.child,
       this.color})
       : super(key: key);
 
@@ -35,11 +37,12 @@ class MButton extends StatelessWidget {
           decoration: BoxDecoration(
               color: bgColor ?? MColors.primiaryColor,
               borderRadius: BorderRadius.all(Radius.circular(radius ?? 10))),
-          child: MText(
-            label,
-            size: size,
-            color: color ?? Colors.white,
-          ),
+          child: child ??
+              MText(
+                label ?? '',
+                size: size,
+                color: color ?? Colors.white,
+              ),
         ));
   }
 }

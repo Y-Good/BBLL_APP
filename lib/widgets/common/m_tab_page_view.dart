@@ -44,7 +44,7 @@ class MTabPageView extends StatefulWidget {
 }
 
 class MTabPageViewState extends State<MTabPageView>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   TabController? _tabController;
   PageController? _pageController;
   bool _canDradding = true;
@@ -188,8 +188,13 @@ class MTabPageViewState extends State<MTabPageView>
   }
 
   @override
-  Widget build(BuildContext context) =>
-      _onePage ? _buildOnePage() : _buildPages();
+  Widget build(BuildContext context) {
+    super.build(context);
+    return _onePage ? _buildOnePage() : _buildPages();
+  }
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void dispose() {

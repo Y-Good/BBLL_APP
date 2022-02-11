@@ -16,26 +16,32 @@ class PlayerShowConfig implements ShowConfigAbs {
   bool bottomPro = true;
   @override
   bool stateAuto = true;
+  @override
+  bool liveMode = false;
 }
 
 class VideoDetailController extends GetxController {
   final like = 33.obs;
   final isLike = false.obs;
   final isText = false.obs;
+  final isFollow = false.obs;
+  final contents = [].obs;
+
   final contentController = TextEditingController();
   FijkPlayer player = FijkPlayer();
   ShowConfigAbs vSkinCfg = PlayerShowConfig();
+  FocusNode focus = FocusNode();
   String? content;
-  final contents = [].obs;
+
+  String videoUrl =
+      'http://192.168.0.189:3000/static/videos/2022-02-09/47-l5SOL3L2srbag.mp4';
   @override
   void onInit() async {
     var res = await HttpUtil().get(
       '/api/comment',
     );
     FijkVolume.setUIMode(2);
-    player.setDataSource(
-        'http://192.168.0.189:3000/static/videos/2022-02-09/47-l5SOL3L2srbag.mp4',
-        autoPlay: true);
+    player.setDataSource(videoUrl, autoPlay: true);
     contents.value = res['data'];
     contentController.addListener(() {
       isText.value = isNotNull(contentController.text);
@@ -44,11 +50,18 @@ class VideoDetailController extends GetxController {
   }
 
   void submit() {
-    print(content);
+    contents.insert(0, {'text': content});
+    focus.unfocus();
+    // FocusScope.of(Get.context!).requestFocus(focus);
+    contentController.clear();
   }
 
   void increment() {
     isLike.value ? like.value-- : like.value++;
     isLike.value = !(isLike.value);
+  }
+
+  void userFollow() {
+    isFollow.value = !isFollow.value;
   }
 }
