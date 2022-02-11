@@ -35,9 +35,9 @@ class AppPages {
         page: () => MBottomNavigationBarPage(),
         bindings: [
           HomeBinding(),
-          UserBinding(),
           LiveBinding(),
           FindBinding(),
+          UserBinding(),
           // UploadBinding()
         ]),
     GetPage(

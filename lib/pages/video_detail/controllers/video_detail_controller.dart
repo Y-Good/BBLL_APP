@@ -1,5 +1,6 @@
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/utils/http.dart';
@@ -18,9 +19,8 @@ class VideoDetailController extends GetxController {
   ShowConfigAbs vSkinCfg = VideoShowConfig();
   FocusNode focus = FocusNode();
   String? content;
-
   String videoUrl =
-      'http://192.168.0.189:3000/static/videos/2022-02-09/47-l5SOL3L2srbag.mp4';
+      'http://192.168.1.111:3000/static/videos/2022-02-09/47-l5SOL3L2srbag.mp4';
   @override
   void onInit() async {
     var res = await HttpUtil().get(
@@ -28,6 +28,8 @@ class VideoDetailController extends GetxController {
     );
     FijkVolume.setUIMode(2);
     player.setDataSource(videoUrl, autoPlay: true);
+    // await DefaultCacheManager().getSingleFile(videoUrl, key: 'test');
+
     contents.value = res['data'];
     contentController.addListener(() {
       isText.value = isNotNull(contentController.text);

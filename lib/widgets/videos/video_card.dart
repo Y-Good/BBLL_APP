@@ -31,7 +31,7 @@ class VideoCard extends StatelessWidget {
                       // height: 100,
                       width: double.infinity,
                       image: NetworkImage(
-                          'https://img2.baidu.com/it/u=3893441224,507443731&fm=26&fmt=auto'),
+                          'https://img1.baidu.com/it/u=2480363312,429752488&fm=253&fmt=auto&app=120&f=JPEG?w=1422&h=800'),
                       fit: BoxFit.fitWidth,
                     ),
                   ),

@@ -10,16 +10,13 @@ class LiveView extends GetView<LiveController> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<LiveController>(
-      init: LiveController(),
-      builder: (_) => Scaffold(
-        body: Padding(
-          padding: EdgeInsets.only(top: context.mediaQueryPadding.top),
-          child: MTabPageView(
-            initialIndex: 1,
-            tabs: controller.tabs,
-            children: controller.pageList,
-          ),
+    return Scaffold(
+      body: Padding(
+        padding: EdgeInsets.only(top: context.mediaQueryPadding.top),
+        child: MTabPageView(
+          initialIndex: 1,
+          tabs: controller.tabs,
+          children: controller.pageList,
         ),
       ),
     );

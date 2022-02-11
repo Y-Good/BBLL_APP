@@ -122,7 +122,9 @@ class VideoDetailView extends GetView<VideoDetailController> {
                             color: controller.isText.value
                                 ? MColors.primiaryColor
                                 : Colors.grey,
-                            onTap: () => controller.submit(),
+                            onTap: () => controller.isText.value
+                                ? controller.submit()
+                                : () {},
                           ))
                     ]),
               ))

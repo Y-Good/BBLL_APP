@@ -31,6 +31,7 @@ class UploadView extends GetView<UploadController> {
       MCell(label: '标签'),
       MCell(label: '#话题'),
     ];
+
     return Scaffold(
         appBar: uploadAppBar(),
         body: ListView.builder(
@@ -78,13 +79,43 @@ class UploadView extends GetView<UploadController> {
             ),
           )
         : Center(
-            child: MIcon(
-              IconFonts.iconShangchuan,
-              color: Colors.black54,
-              size: 104,
-              onTap: controller.videoPick,
-            ),
+            child: MIcon(IconFonts.iconShangchuan,
+                color: Colors.black54,
+                size: 104,
+                onTap: () => Get.bottomSheet(videoPickWidget())),
           ));
+  }
+
+  ///弹出区域
+  Widget videoPickWidget() {
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+          )),
+      height: 100,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: List.generate(
+          2,
+          (index) => Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              MIcon(
+                controller.pickList[index].icon ?? Icons.add,
+                size: 64,
+                color: Colors.orangeAccent,
+                onTap: () =>
+                    controller.videoPick(controller.pickList[index].pickType),
+              ),
+              MText(controller.pickList[index].label ?? '')
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   ///皮翻
