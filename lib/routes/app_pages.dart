@@ -33,7 +33,13 @@ class AppPages {
     GetPage(
         name: _Paths.ROOT,
         page: () => MBottomNavigationBarPage(),
-        bindings: [HomeBinding(), UserBinding(), LiveBinding(), FindBinding()]),
+        bindings: [
+          HomeBinding(),
+          UserBinding(),
+          LiveBinding(),
+          FindBinding(),
+          // UploadBinding()
+        ]),
     GetPage(
       name: _Paths.HOME,
       page: () => HomeView(),
@@ -103,6 +109,7 @@ class AppPages {
     GetPage(
       name: _Paths.USER_ZONE,
       page: () => UserZoneView(),
+      middlewares: [RouteAuthMiddleware()],
       binding: UserZoneBinding(),
     ),
   ];

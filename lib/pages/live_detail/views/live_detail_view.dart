@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:mvideo/config/color/m_colors.dart';
-import 'package:mvideo/widgets/fijkplayer_skin/fijkplayer_skin.dart';
+import 'package:mvideo/pages/live_detail/controllers/live_detail_controller.dart';
+import 'package:mvideo/widgets/common/m_player.dart';
 import 'package:mvideo/widgets/public.dart';
-
-import '../controllers/live_detail_controller.dart';
 
 class LiveDetailView extends GetView<LiveDetailController> {
   @override
@@ -28,31 +27,13 @@ class LiveDetailView extends GetView<LiveDetailController> {
                 elevation: 0,
                 pinned: true,
                 backgroundColor: Colors.black,
-                flexibleSpace: FijkView(
+                flexibleSpace: MPlayer(
                   height: Get.size.width * 9 / 16,
-                  color: Colors.black,
                   fit: FijkFit.fill,
                   player: controller.player,
-                  // cover: NetworkImage(
-                  //     'https://img0.baidu.com/it/u=2811705907,124584203&fm=253&fmt=auto&app=138&f=PNG?w=600&h=307'),
-                  panelBuilder: (
-                    FijkPlayer player,
-                    FijkData data,
-                    BuildContext context,
-                    Size viewSize,
-                    Rect texturePos,
-                  ) {
-                    /// 使用自定义的布局
-                    return CustomFijkPanel(
-                      player: player,
-                      playerTitle: '我是直播 ',
-                      viewSize: viewSize,
-                      texturePos: texturePos,
-                      pageContent: context,
-                      showConfig: controller.vSkinCfg,
-                      curPlayUrl: controller.videoUrl,
-                    );
-                  },
+                  title: '我是直播 ',
+                  showConfig: controller.vSkinCfg,
+                  curPlayUrl: controller.videoUrl,
                 ),
                 // expandedHeight: 230,
                 collapsedHeight: Get.size.width * 9 / 16,

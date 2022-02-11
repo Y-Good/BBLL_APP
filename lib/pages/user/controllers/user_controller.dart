@@ -16,10 +16,11 @@ class UserController extends GetxController {
   final isLogin = true.obs;
   GetStorage? st;
   List<MenuItem> get menuList => [
-        MenuItem(icon: IconFonts.iconXihuan, title: '我的关注', onTap: onMyZone),
-        MenuItem(icon: IconFonts.iconXihuan, title: '我的视频', onTap: onMyZone),
-        MenuItem(icon: IconFonts.iconXihuan, title: '我的评论', onTap: onMyZone),
-        MenuItem(icon: IconFonts.iconXihuan, title: '浏览记录'),
+        MenuItem(
+            icon: IconFonts.iconWodeguanzhu, title: '我的关注', onTap: onMyZone),
+        MenuItem(icon: IconFonts.iconLive, title: '我的视频', onTap: onMyZone),
+        MenuItem(icon: IconFonts.iconPinglun, title: '我的评论', onTap: onMyZone),
+        MenuItem(icon: IconFonts.iconLishijilu, title: '浏览记录'),
       ];
   @override
   void onInit() async {

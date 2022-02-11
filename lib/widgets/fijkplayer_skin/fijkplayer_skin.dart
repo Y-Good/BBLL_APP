@@ -804,14 +804,15 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
 
   // 底部控制栏 - 播放按钮
   Widget _buildPlayStateBtn() {
-    IconData iconData = _playing ? Icons.pause : Icons.play_arrow;
+    IconData iconData =
+        _playing ? IconFonts.iconBofangqiZanting : IconFonts.iconBofangqiBofang;
 
     return IconButton(
       icon: Icon(iconData),
       color: Colors.white,
       padding: const EdgeInsets.only(
-        left: 10.0,
-        right: 10.0,
+        left: 16.0,
+        right: 16.0,
       ),
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,

@@ -5,8 +5,17 @@ class MIconText extends StatelessWidget {
   final IconData? icon;
   final String? text;
   final VoidCallback? onTap;
+  final double? iconSize;
+  final double? textSize;
   final Color? color;
-  const MIconText({Key? key, this.onTap, this.icon, this.text, this.color})
+  const MIconText(
+      {Key? key,
+      this.onTap,
+      this.icon,
+      this.text,
+      this.color,
+      this.iconSize,
+      this.textSize})
       : super(key: key);
 
   @override
@@ -20,12 +29,13 @@ class MIconText extends StatelessWidget {
             children: [
               Icon(
                 icon,
-                size: 20,
+                size: iconSize ?? 20,
                 color: color ?? Colors.grey,
               ),
               MText(
                 text ?? '',
                 color: color ?? Colors.grey,
+                size: textSize,
               ),
             ],
           ),

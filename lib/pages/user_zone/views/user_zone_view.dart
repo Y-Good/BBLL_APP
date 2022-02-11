@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
+import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/widgets/public.dart';
 
 import '../controllers/user_zone_controller.dart';
@@ -72,12 +73,14 @@ class UserZoneView extends GetView<UserZoneController> {
                       'https://img2.baidu.com/it/u=1052567076,3275246168&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=800',
                   title: '我的姓还是快点回家咯撒',
                   subtitle: '了了了了了了',
-                  trailing: MButton(
-                    label: '已关注',
-                    height: 32,
-                    bgColor: Colors.grey,
-                    width: 64,
-                  ),
+                  trailing: Obx(() => MButton(
+                        label: controller.isFollow.value ? '已关注' : '关注',
+                        width: 64,
+                        height: 32,
+                        bgColor:
+                            controller.isFollow.value ? MColors.grey9 : null,
+                        onTap: controller.userFollow,
+                      )),
                 ),
             itemCount: 5,
             separatorBuilder: (_, index) => Divider(
@@ -107,25 +110,28 @@ class UserZoneView extends GetView<UserZoneController> {
                 decoration: BoxDecoration(
                     color: MColors.backgroundColor,
                     borderRadius: BorderRadius.all(Radius.circular(8))),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: MText(
-                          '每个人都有属于自己的舞台，这个舞台，是那么光灿，美丽，生命从此辉煌无悔!只要坚韧不拔的走下去!',
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
+                child: InkWell(
+                  onTap: () => Get.toNamed(Routes.VIDEO_DETAIL),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: MText(
+                            '每个人都有属于自己的舞台，这个舞台，是那么光灿，美丽，生命从此辉煌无悔!只要坚韧不拔的走下去!',
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                          ),
                         ),
                       ),
-                    ),
-                    MAvatar(
-                      'https://img0.baidu.com/it/u=4117713405,2961605581&fm=253&fmt=auto&app=138&f=JPEG?w=400&h=400',
-                      radius: 0,
-                      height: 52,
-                      width: 52,
-                    )
-                  ],
+                      MAvatar(
+                        'https://img0.baidu.com/it/u=4117713405,2961605581&fm=253&fmt=auto&app=138&f=JPEG?w=400&h=400',
+                        radius: 0,
+                        height: 52,
+                        width: 52,
+                      )
+                    ],
+                  ),
                 ),
               ),
               SizedBox(height: 8)

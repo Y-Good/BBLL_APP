@@ -1,24 +1,10 @@
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mvideo/config/public.dart';
 import 'package:mvideo/utils/http.dart';
 import 'package:mvideo/utils/utils.dart';
-import 'package:mvideo/widgets/fijkplayer_skin/fijkplayer_skin.dart';
-
-class PlayerShowConfig implements ShowConfigAbs {
-  @override
-  bool speedBtn = true;
-  @override
-  bool topBar = true;
-  @override
-  bool lockBtn = true;
-  @override
-  bool bottomPro = true;
-  @override
-  bool stateAuto = true;
-  @override
-  bool liveMode = false;
-}
+import 'package:mvideo/widgets/public.dart';
 
 class VideoDetailController extends GetxController {
   final like = 33.obs;
@@ -29,7 +15,7 @@ class VideoDetailController extends GetxController {
 
   final contentController = TextEditingController();
   FijkPlayer player = FijkPlayer();
-  ShowConfigAbs vSkinCfg = PlayerShowConfig();
+  ShowConfigAbs vSkinCfg = VideoShowConfig();
   FocusNode focus = FocusNode();
   String? content;
 

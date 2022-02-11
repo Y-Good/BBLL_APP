@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
-import 'package:mvideo/widgets/fijkplayer_skin/fijkplayer_skin.dart';
+import 'package:mvideo/pages/video_detail/controllers/video_detail_controller.dart';
+import 'package:mvideo/widgets/common/m_player.dart';
 import 'package:mvideo/widgets/public.dart';
-
-import '../controllers/video_detail_controller.dart';
 
 class VideoDetailView extends GetView<VideoDetailController> {
   @override
@@ -28,31 +27,15 @@ class VideoDetailView extends GetView<VideoDetailController> {
                 elevation: 0,
                 pinned: true,
                 backgroundColor: Colors.black,
-                flexibleSpace: FijkView(
+                flexibleSpace: MPlayer(
                   height: Get.size.width * 9 / 16,
-                  color: Colors.black,
                   fit: FijkFit.fill,
+                  cover:
+                      'https://img0.baidu.com/it/u=2811705907,124584203&fm=253&fmt=auto&app=138&f=PNG?w=600&h=307',
                   player: controller.player,
-                  cover: NetworkImage(
-                      'https://img0.baidu.com/it/u=2811705907,124584203&fm=253&fmt=auto&app=138&f=PNG?w=600&h=307'),
-                  panelBuilder: (
-                    FijkPlayer player,
-                    FijkData data,
-                    BuildContext context,
-                    Size viewSize,
-                    Rect texturePos,
-                  ) {
-                    /// 使用自定义的布局
-                    return CustomFijkPanel(
-                      player: player,
-                      playerTitle: '我无敌我五点',
-                      viewSize: viewSize,
-                      texturePos: texturePos,
-                      pageContent: context,
-                      showConfig: controller.vSkinCfg,
-                      curPlayUrl: controller.videoUrl,
-                    );
-                  },
+                  showConfig: controller.vSkinCfg,
+                  curPlayUrl: controller.videoUrl,
+                  title: '我无敌我五点',
                 ),
                 collapsedHeight: Get.size.width * 9 / 16,
               ),
@@ -150,32 +133,29 @@ class VideoDetailView extends GetView<VideoDetailController> {
 
   ///评论区
   Widget comment() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          MText(
-            '评论',
-            size: 16,
-          ),
-          Obx(() => ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (_, index) =>
-                    commentWidget(controller.contents[index]['text']),
-                itemCount: controller.contents.length,
-              )),
-          SizedBox(height: 48)
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: MText('评论', size: 16),
+        ),
+        Obx(() => ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemBuilder: (_, index) =>
+                  commentWidget(controller.contents[index]['text']),
+              itemCount: controller.contents.length,
+            )),
+        SizedBox(height: 48)
+      ],
     );
   }
 
   ///评论组件
   Widget commentWidget(String content) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8),
+      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -205,6 +185,9 @@ class VideoDetailView extends GetView<VideoDetailController> {
                 child: MText(
                   content,
                   maxLines: 8,
+                  onTap: () {
+                    controller.contentController.text = '回复：啊西部';
+                  },
                 ),
               ),
               SizedBox(height: 8),
@@ -228,20 +211,27 @@ class VideoDetailView extends GetView<VideoDetailController> {
                       MIconText(
                         icon: IconFonts.iconPinglun,
                         text: '99',
+                        iconSize: 19,
                         onTap: () {
                           Get.bottomSheet(
                               Container(
                                   color: Colors.white,
-                                  height: Get.height / 1.57,
-                                  child: ListView.builder(
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16),
-                                        child: commentWidget('哈哈'),
-                                      );
-                                    },
-                                    itemCount: 20,
+                                  height: Get.height / 1.56,
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      children: [
+                                        commentWidget(content),
+                                        ListView.builder(
+                                          physics:
+                                              NeverScrollableScrollPhysics(),
+                                          shrinkWrap: true,
+                                          itemBuilder: (context, index) {
+                                            return commentWidget('哈哈');
+                                          },
+                                          itemCount: 20,
+                                        ),
+                                      ],
+                                    ),
                                   )),
                               barrierColor: Colors.transparent,
                               isScrollControlled: true);

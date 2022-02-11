@@ -5,6 +5,7 @@ import 'package:mvideo/utils/http.dart';
 
 class UserZoneController extends GetxController {
   int initialIndex = Get.arguments ?? 1;
+  final isFollow = true.obs;
 
   List<Widget> tabs = [
     Tab(text: "关注", height: 36),
@@ -20,5 +21,9 @@ class UserZoneController extends GetxController {
     );
     videoList.value = Video.fromJson(response['data']);
     super.onInit();
+  }
+
+  void userFollow() {
+    isFollow.value = !isFollow.value;
   }
 }

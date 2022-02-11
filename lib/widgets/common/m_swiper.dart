@@ -9,7 +9,7 @@ class MSwiper extends StatelessWidget {
     return Container(
         width: double.infinity,
         child: AspectRatio(
-          aspectRatio: 16 / 9,
+          aspectRatio: 16 / 6,
           child: Swiper(
             pagination: SwiperPagination(alignment: Alignment.bottomRight),
             itemBuilder: (context, index) {

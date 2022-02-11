@@ -8,6 +8,7 @@ class MCell extends StatelessWidget {
   final String? label;
   final Widget? trailing;
   final Widget? title;
+  final Color? iconColor;
   final EdgeInsetsGeometry? margin;
   final VoidCallback? onTap;
 
@@ -18,6 +19,7 @@ class MCell extends StatelessWidget {
       this.trailing,
       this.onTap,
       this.label,
+      this.iconColor,
       this.margin})
       : super(key: key);
 
@@ -37,7 +39,11 @@ class MCell extends StatelessWidget {
               children: [
                 ...isNotNull(icon)
                     ? [
-                        Icon(icon, size: 24),
+                        Icon(
+                          icon,
+                          size: 24,
+                          color: iconColor,
+                        ),
                         SizedBox(width: 8),
                       ]
                     : [],

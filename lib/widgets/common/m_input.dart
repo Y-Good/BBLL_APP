@@ -60,6 +60,13 @@ class MInput extends StatelessWidget {
         controller: textEditingController,
         padding: EdgeInsets.zero,
         placeholder: placeholder ?? '请输入',
+        // prefix: Padding(
+        //   padding: const EdgeInsets.only(right: 4),
+        //   child: MText(
+        //     '回复：阿西吧',
+        //     color: MColors.grey9,
+        //   ),
+        // ),
         style: TextStyle(fontSize: 14),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.zero,

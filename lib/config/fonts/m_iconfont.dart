@@ -31,4 +31,10 @@ class IconFonts {
   static const IconData iconTongzhi = IconData(0xe64f, fontFamily: 'iconfont');
   static const IconData iconYoujian1 = IconData(0xe607, fontFamily: 'iconfont');
   static const IconData iconBianji = IconData(0xe623, fontFamily: 'iconfont');
+  static const IconData iconLishijilu =
+      IconData(0xe613, fontFamily: 'iconfont');
+  static const IconData iconWodeguanzhu =
+      IconData(0xe8bc, fontFamily: 'iconfont');
+  static const IconData iconShangchuan =
+      IconData(0xe63b, fontFamily: 'iconfont');
 }

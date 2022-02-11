@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:mvideo/config/color/m_colors.dart';
+import 'package:mvideo/config/fonts/m_iconfont.dart';
+import 'package:mvideo/widgets/common/m_player.dart';
 import 'package:mvideo/widgets/public.dart';
 
 import '../controllers/upload_controller.dart';
@@ -9,7 +11,6 @@ import '../controllers/upload_controller.dart';
 class UploadView extends GetView<UploadController> {
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(UploadController());
     final List<Widget> uploadList = [
       MCell(
         label: '标题',
@@ -22,22 +23,9 @@ class UploadView extends GetView<UploadController> {
       Container(
         padding: EdgeInsets.all(16),
         color: Colors.white,
-        child: AspectRatio(
-          aspectRatio: 16 / 7,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              MText('内容'),
-              Center(
-                child: MIcon(
-                  Icons.cloud_upload,
-                  color: Colors.black54,
-                  size: 128,
-                  onTap: controller.imagePick,
-                ),
-              )
-            ],
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [MText('内容'), SizedBox(height: 4), uplaodPlay()],
         ),
       ),
       MCell(label: '标签'),
@@ -51,6 +39,52 @@ class UploadView extends GetView<UploadController> {
                   padding: EdgeInsets.only(top: .5),
                   child: uploadList[index],
                 )));
+  }
+
+  ///上传  视频的显示
+  Widget uplaodPlay() {
+    return Obx(() => controller.videoPath.value.isNotEmpty
+        ? MPlayer(
+            player: controller.player,
+            height: Get.size.width * 9 / 16,
+            customSkin: Stack(
+              children: [
+                Positioned(
+                    top: 8,
+                    right: 8,
+                    child: MIcon(
+                      Icons.close,
+                      color: Colors.white,
+                      onTap: controller.delVideo,
+                    )),
+                Center(
+                  child: MIcon(
+                    IconFonts.iconBofangqiBofang,
+                    color: Colors.white,
+                    size: 48,
+                    onTap: () => Get.bottomSheet(
+                        Container(
+                            height: Get.height,
+                            width: Get.width,
+                            child: MPlayer(
+                              player: controller.playerView,
+                              showConfig: controller.vSkinCfg,
+                              curPlayUrl: controller.videoPath.value,
+                            )),
+                        isScrollControlled: true),
+                  ),
+                ),
+              ],
+            ),
+          )
+        : Center(
+            child: MIcon(
+              IconFonts.iconShangchuan,
+              color: Colors.black54,
+              size: 104,
+              onTap: controller.videoPick,
+            ),
+          ));
   }
 
   ///皮翻
