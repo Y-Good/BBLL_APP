@@ -10,6 +10,7 @@ export '../widgets/common/m_cell.dart';
 export '../widgets/common/m_label.dart';
 export '../widgets/common/m_search.dart';
 export '../widgets/common/m_tab_page_view.dart';
+export '../widgets/common/m_bottom_bar.dart';
 
 export '../widgets/text/m_text.dart';
 export '../widgets/text/m_icon_text.dart';

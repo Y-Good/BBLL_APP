@@ -24,7 +24,7 @@ class RankPage extends GetView<HomeController> {
                     fit: BoxFit.cover)),
             child: ClipRRect(
               child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                filter: ImageFilter.blur(sigmaX: 50, sigmaY: 30),
                 child: Row(
                   children: [
                     Image.network(
@@ -53,8 +53,7 @@ class RankPage extends GetView<HomeController> {
                                   color: MColors.grey9,
                                 ),
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [MText("text"), MText("text")],
                                 )
                               ],

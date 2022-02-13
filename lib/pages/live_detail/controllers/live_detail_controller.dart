@@ -6,7 +6,7 @@ import 'package:mvideo/widgets/public.dart';
 class LiveDetailController extends GetxController {
   FijkPlayer player = FijkPlayer();
   ShowConfigAbs vSkinCfg = LiveShowConfig();
-  String videoUrl = "http://192.168.0.189:8000/live/test.flv";
+  String videoUrl = "http://192.168.1.111:8000/live/test.flv";
   @override
   void onInit() {
     player.setDataSource(videoUrl, autoPlay: true, showCover: true);

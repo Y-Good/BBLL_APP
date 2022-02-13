@@ -7,14 +7,25 @@ import 'package:mvideo/pages/user/controllers/user_controller.dart';
 import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/widgets/public.dart';
 
+class UserHeadItem {
+  IconData icon;
+  String? path;
+  UserHeadItem({required this.icon, this.path});
+}
+
 class UserViewHead extends GetView<UserController> {
   const UserViewHead({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    List<UserHeadItem> userHeadList = [
+      UserHeadItem(icon: IconFonts.iconBianji, path: Routes.USER_EDIT),
+      UserHeadItem(icon: IconFonts.iconTongzhi, path: Routes.NOTICES),
+      UserHeadItem(icon: IconFonts.iconWodeshoucang),
+      UserHeadItem(icon: IconFonts.iconShezhi, path: Routes.SETTING),
+    ];
     return Container(
-      padding:
-          EdgeInsets.only(top: MediaQueryData.fromWindow(window).padding.top),
+      padding: EdgeInsets.only(top: MediaQueryData.fromWindow(window).padding.top),
       width: double.infinity,
       decoration: BoxDecoration(
           color: Colors.white,
@@ -49,33 +60,20 @@ class UserViewHead extends GetView<UserController> {
                 height: 48,
                 margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                 decoration: BoxDecoration(
-                    color: Colors.white24,
-                    borderRadius: BorderRadius.all(Radius.circular(24))),
+                    color: Colors.white24, borderRadius: BorderRadius.all(Radius.circular(24))),
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(24)),
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Icon(
-                          IconFonts.iconBianji,
-                          size: 26,
-                        ),
-                        Icon(
-                          IconFonts.iconTongzhi,
-                          size: 26,
-                        ),
-                        Icon(
-                          IconFonts.iconWodeshoucang,
-                          size: 26,
-                        ),
-                        MIcon(
-                          IconFonts.iconShezhi,
-                          size: 26,
-                          onTap: () => controller.onPages(Routes.SETTING),
-                        ),
-                      ],
+                      children: List.generate(
+                          userHeadList.length,
+                          (index) => MIcon(
+                                userHeadList[index].icon,
+                                size: 26,
+                                onTap: () => controller.onPages(userHeadList[index].path ?? ''),
+                              )),
                     ),
                   ),
                 ),

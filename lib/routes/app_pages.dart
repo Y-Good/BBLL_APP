@@ -17,6 +17,8 @@ import '../pages/setting/bindings/setting_binding.dart';
 import '../pages/setting/views/setting_view.dart';
 import '../pages/upload/bindings/upload_binding.dart';
 import '../pages/upload/views/upload_view.dart';
+import '../pages/user_edit/bindings/user_edit_binding.dart';
+import '../pages/user_edit/views/user_edit_view.dart';
 import '../pages/user_zone/bindings/user_zone_binding.dart';
 import '../pages/user_zone/views/user_zone_view.dart';
 import '../pages/video_detail/bindings/video_detail_binding.dart';
@@ -111,6 +113,11 @@ class AppPages {
       page: () => UserZoneView(),
       middlewares: [RouteAuthMiddleware()],
       binding: UserZoneBinding(),
+    ),
+    GetPage(
+      name: _Paths.USER_EDIT,
+      page: () => UserEditView(),
+      binding: UserEditBinding(),
     ),
   ];
 }

@@ -9,7 +9,7 @@ class MAppBar extends AppBar {
       Widget? titleWidget,
       Widget? actionWidget,
       //显示leading
-      bool isLeading = true,
+      bool hiddenLeading = false,
       //按钮文本切换
       bool isText = false,
       double? elevation = 0,
@@ -25,10 +25,7 @@ class MAppBar extends AppBar {
             title: titleWidget ??
                 Text(
                   title ?? '',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: color,
-                  ),
+                  style: TextStyle(fontSize: 18, color: color),
                 ),
             centerTitle: true,
             toolbarHeight: toolbarHeight ?? 44,
@@ -36,22 +33,28 @@ class MAppBar extends AppBar {
             elevation: elevation,
             backgroundColor: bgcolor,
             // brightness: Brightness.dark,
-            leading: isLeading
-                ? leading ??
-                    InkWell(
-                      onTap: () => Get.back(),
-                      child: Icon(
-                        IconFonts.iconFanhui,
-                        color: Colors.black,
-                        size: 24,
-                      ),
-                    )
-                : null,
+            leading: hiddenLeading
+                ? null
+                : IconButton(
+                    padding: const EdgeInsets.only(left: 16),
+                    alignment: Alignment.centerLeft,
+                    onPressed: () {},
+                    icon: leading ??
+                        InkWell(
+                          onTap: () => Get.back(),
+                          child: Icon(
+                            IconFonts.iconFanhui,
+                            color: Colors.black,
+                            size: 24,
+                          ),
+                        ),
+                  ),
             actions: actions ??
                 [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 16, top: 10),
-                    child: actionWidget,
+                  IconButton(
+                    onPressed: () {},
+                    padding: const EdgeInsets.only(right: 16),
+                    icon: actionWidget ?? Container(),
                   )
                 ],
             bottom: bottom);

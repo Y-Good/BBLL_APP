@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mvideo/common/enums/video_mode_enum.dart';
 import 'package:mvideo/pages/live/controllers/live_controller.dart';
 import 'package:mvideo/widgets/videos/video_card.dart';
 
@@ -20,7 +21,10 @@ class LiveViewMy extends GetView<LiveController> {
           mainAxisSpacing: 8,
           crossAxisSpacing: 8,
         ),
-        itemBuilder: (_, index) => VideoCard(),
+        itemBuilder: (_, index) => VideoCard(
+          isLive: index == 0 ? true : false,
+          videoMode: VideoMode.live,
+        ),
         itemCount: 4,
       ),
     ));

@@ -80,9 +80,7 @@ class UploadView extends GetView<UploadController> {
           )
         : Center(
             child: MIcon(IconFonts.iconShangchuan,
-                color: Colors.black54,
-                size: 104,
-                onTap: () => Get.bottomSheet(videoPickWidget())),
+                color: Colors.black54, size: 104, onTap: () => Get.bottomSheet(videoPickWidget())),
           ));
   }
 
@@ -107,8 +105,7 @@ class UploadView extends GetView<UploadController> {
                 controller.pickList[index].icon ?? Icons.add,
                 size: 64,
                 color: Colors.orangeAccent,
-                onTap: () =>
-                    controller.videoPick(controller.pickList[index].pickType),
+                onTap: () => controller.videoPick(controller.pickList[index].pickType),
               ),
               MText(controller.pickList[index].label ?? '')
             ],
@@ -121,13 +118,10 @@ class UploadView extends GetView<UploadController> {
   ///皮翻
   PreferredSizeWidget uploadAppBar() {
     return MAppBar(
-      leading: Padding(
-        padding: const EdgeInsets.only(left: 16, top: 10),
-        child: MText('取消', size: 18, onTap: () => Get.back()),
-      ),
+      leading: MText('取消', size: 16, onTap: () => Get.back()),
       actionWidget: MText(
         '发布',
-        size: 18,
+        size: 16,
         color: MColors.primiaryColor,
         onTap: () => controller.sumbit(),
       ),

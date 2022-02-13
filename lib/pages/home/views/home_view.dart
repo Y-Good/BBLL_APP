@@ -13,32 +13,21 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> tabs = [
-      Tab(
-        text: '推荐',
+    List<String> tabText = ['推荐', '热门', '排行', '电影'];
+    List<Widget> tabs = List.generate(
+      tabText.length,
+      (index) => Tab(
+        text: tabText[index],
         height: 36,
       ),
-      Tab(
-        text: '热门',
-        height: 36,
-      ),
-      Tab(
-        text: '排行',
-        height: 36,
-      ),
-      Tab(
-        text: '电影',
-        height: 36,
-      )
-    ];
+    );
+
     return Scaffold(
       appBar: MAppBar(
-        isLeading: false,
+        hiddenLeading: true,
         titleWidget: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 48),
-          child: InkWell(
-              onTap: () => Get.toNamed(Routes.SEARCH),
-              child: MSearch(enabled: false)),
+          child: InkWell(onTap: () => Get.toNamed(Routes.SEARCH), child: MSearch(enabled: false)),
         ),
         actions: [
           Padding(

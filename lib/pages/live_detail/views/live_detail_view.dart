@@ -95,7 +95,7 @@ class LiveDetailView extends GetView<LiveDetailController> {
                         ),
                       )),
                       MText(
-                        '发布',
+                        '发送',
                         // color: controller.isText.value
                         //     ? MColors.primiaryColor
                         //     : Colors.grey,

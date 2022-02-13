@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
 import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/utils/common/common_utils.dart';
 import 'package:mvideo/utils/utils.dart';
-import 'package:mvideo/widgets/public.dart';
 
 class MenuItem {
   IconData icon;

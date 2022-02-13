@@ -5,6 +5,7 @@ import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
 import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/widgets/public.dart';
+import 'package:mvideo/widgets/text/m_double_text.dart';
 
 import '../controllers/user_zone_controller.dart';
 
@@ -12,7 +13,7 @@ class UserZoneView extends GetView<UserZoneController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: MAppBar(actionWidget: MIcon(IconFonts.iconSousuo)),
+        appBar: MAppBar(actionWidget: MIcon(IconFonts.iconSousuo, color: Colors.black)),
         body: Container(
             width: double.infinity,
             color: Colors.white,
@@ -31,15 +32,17 @@ class UserZoneView extends GetView<UserZoneController> {
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("data"),
-                    SizedBox(width: 48),
-                    Text("123"),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      MDoubleText(label: '获赞', value: '1233万', lableColor: Colors.grey),
+                      SizedBox(width: 48),
+                      MDoubleText(label: '粉丝', value: '13万', lableColor: Colors.grey)
+                    ],
+                  ),
                 ),
-                SizedBox(height: 30),
                 Flexible(
                   child: MTabPageView(
                       initialIndex: controller.initialIndex,
@@ -77,8 +80,7 @@ class UserZoneView extends GetView<UserZoneController> {
                         label: controller.isFollow.value ? '已关注' : '关注',
                         width: 64,
                         height: 32,
-                        bgColor:
-                            controller.isFollow.value ? MColors.grey9 : null,
+                        bgColor: controller.isFollow.value ? MColors.grey9 : null,
                         onTap: controller.userFollow,
                       )),
                 ),
