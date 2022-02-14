@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
 import 'package:mvideo/routes/app_pages.dart';
-import 'package:mvideo/utils/common/common_utils.dart';
 import 'package:mvideo/utils/utils.dart';
 
 class MenuItem {
@@ -22,7 +21,8 @@ class UserController extends GetxController {
             icon: IconFonts.iconWodeguanzhu, title: '我的关注', onTap: onMyZone),
         MenuItem(icon: IconFonts.iconLive, title: '我的视频', onTap: onMyZone),
         MenuItem(icon: IconFonts.iconPinglun, title: '我的评论', onTap: onMyZone),
-        MenuItem(icon: IconFonts.iconLishijilu, title: '浏览记录', onTap: onTest),
+        MenuItem(
+            icon: IconFonts.iconLishijilu, title: '历史记录', onTap: onHistory),
       ];
   @override
   void onInit() async {
@@ -36,8 +36,8 @@ class UserController extends GetxController {
     isLogin.value = isNull(st?.read('token') ?? null);
   }
 
-  void onTest(int index) async {
-    CommonUtils.toast();
+  void onHistory(int index) {
+    Get.toNamed(Routes.USER_HISTORY);
   }
 
   void onMyZone(int index) {

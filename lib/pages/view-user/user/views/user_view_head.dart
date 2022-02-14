@@ -3,9 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
-import 'package:mvideo/pages/user/controllers/user_controller.dart';
 import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/widgets/public.dart';
+import '../controllers/user_controller.dart';
 
 class UserHeadItem {
   IconData icon;
@@ -25,7 +25,8 @@ class UserViewHead extends GetView<UserController> {
       UserHeadItem(icon: IconFonts.iconShezhi, path: Routes.SETTING),
     ];
     return Container(
-      padding: EdgeInsets.only(top: MediaQueryData.fromWindow(window).padding.top),
+      padding:
+          EdgeInsets.only(top: MediaQueryData.fromWindow(window).padding.top),
       width: double.infinity,
       decoration: BoxDecoration(
           color: Colors.white,
@@ -60,7 +61,8 @@ class UserViewHead extends GetView<UserController> {
                 height: 48,
                 margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                 decoration: BoxDecoration(
-                    color: Colors.white24, borderRadius: BorderRadius.all(Radius.circular(24))),
+                    color: Colors.white24,
+                    borderRadius: BorderRadius.all(Radius.circular(24))),
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(24)),
                   child: BackdropFilter(
@@ -72,7 +74,8 @@ class UserViewHead extends GetView<UserController> {
                           (index) => MIcon(
                                 userHeadList[index].icon,
                                 size: 26,
-                                onTap: () => controller.onPages(userHeadList[index].path ?? ''),
+                                onTap: () => controller
+                                    .onPages(userHeadList[index].path ?? ''),
                               )),
                     ),
                   ),

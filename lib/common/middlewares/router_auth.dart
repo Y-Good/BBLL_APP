@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mvideo/routes/app_pages.dart';
+import 'package:mvideo/utils/common/common_utils.dart';
 
 class RouteAuthMiddleware extends GetMiddleware {
   // final int p;
@@ -14,7 +15,7 @@ class RouteAuthMiddleware extends GetMiddleware {
   RouteSettings? redirect(String? route) {
     GetStorage storage = GetStorage();
     if (storage.read('token') == null) {
-      Get.snackbar("提示", "请先登录APP", duration: Duration(seconds: 2));
+      CommonUtils.toast("请先登录APP");
       return RouteSettings(name: Routes.LOGIN);
     }
     return super.redirect(route);

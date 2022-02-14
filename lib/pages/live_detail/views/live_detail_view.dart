@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:mvideo/config/color/m_colors.dart';
-import 'package:mvideo/pages/live_detail/controllers/live_detail_controller.dart';
+import '../controllers/live_detail_controller.dart';
 import 'package:mvideo/widgets/common/m_player.dart';
 import 'package:mvideo/widgets/public.dart';
 

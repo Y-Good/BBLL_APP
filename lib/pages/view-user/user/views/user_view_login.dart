@@ -2,9 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mvideo/pages/user/controllers/user_controller.dart';
 import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/widgets/common/m_button.dart';
+import '../controllers/user_controller.dart';
 
 class UserViewLogin extends GetView<UserController> {
   @override

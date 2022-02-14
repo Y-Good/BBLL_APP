@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
 import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/pages/public.dart';
+import 'package:mvideo/pages/view-user/user/views/user_view.dart';
 import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/widgets/public.dart';
 
@@ -11,7 +12,8 @@ class MBottomNavigationBarPage extends StatefulWidget {
   const MBottomNavigationBarPage({Key? key, this.indexs}) : super(key: key);
 
   @override
-  _MBottomNavigationBarPageState createState() => _MBottomNavigationBarPageState();
+  _MBottomNavigationBarPageState createState() =>
+      _MBottomNavigationBarPageState();
 }
 
 class _MBottomNavigationBarPageState extends State<MBottomNavigationBarPage> {
@@ -30,8 +32,9 @@ class _MBottomNavigationBarPageState extends State<MBottomNavigationBarPage> {
     MBottomBarItem(
       icon: Container(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-          decoration:
-              BoxDecoration(color: MColors.primiaryColor, borderRadius: BorderRadius.circular(10)),
+          decoration: BoxDecoration(
+              color: MColors.primiaryColor,
+              borderRadius: BorderRadius.circular(10)),
           child: Icon(
             Icons.add,
             color: Colors.white,

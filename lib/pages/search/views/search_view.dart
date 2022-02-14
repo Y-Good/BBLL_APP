@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:mvideo/pages/search/views/search_video.dart';
 import 'package:mvideo/widgets/public.dart';
 
 import '../controllers/search_controller.dart';
@@ -26,7 +27,7 @@ class SearchView extends GetView<SearchController> {
           padding: EdgeInsets.zero,
           children: [
             VideoList(),
-            VideoList(),
+            SearchVideoPage(),
             VideoList(),
             VideoList(),
           ],

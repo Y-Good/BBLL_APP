@@ -8,16 +8,16 @@ class CommonUtils {
   CommonUtils._();
 
   ///提示
-  static void toast() {
+  static void toast(String msg) {
     Widget widget = Center(
       child: Material(
         color: Colors.transparent,
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
           decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.4),
-              borderRadius: BorderRadius.all(Radius.circular(50))),
-          child: MText("消息测试", color: Colors.white),
+              color: Colors.black.withOpacity(0.5),
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          child: MText(msg, color: Colors.white),
         ),
       ),
     );

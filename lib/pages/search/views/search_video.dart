@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:mvideo/config/color/m_colors.dart';
-import 'package:mvideo/config/fonts/m_iconfont.dart';
-import 'package:mvideo/pages/home/controllers/home_controller.dart';
+import 'package:mvideo/config/public.dart';
 import 'package:mvideo/widgets/public.dart';
 
-class RankPage extends GetView<HomeController> {
-  const RankPage({Key? key}) : super(key: key);
+class SearchVideoPage extends StatelessWidget {
+  const SearchVideoPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +13,7 @@ class RankPage extends GetView<HomeController> {
           padding: EdgeInsets.only(
               left: 10, right: 10, top: 8, bottom: index == 19 ? 8 : 0),
           child: Container(
-            height: 100,
+            height: 80,
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(4))),
@@ -26,9 +23,9 @@ class RankPage extends GetView<HomeController> {
                   borderRadius: BorderRadius.all(Radius.circular(4)),
                   child: Image.network(
                     'http://img.netbian.com/file/2021/1219/small2155455WXHD1639922145.jpg',
-                    height: 100,
+                    height: 80,
                     fit: BoxFit.cover,
-                    width: 100 * 16 / 9,
+                    width: 80 * 16 / 9,
                   ),
                 ),
                 Expanded(
@@ -53,11 +50,11 @@ class RankPage extends GetView<HomeController> {
                               color: MColors.grey9,
                               size: 10,
                             ),
-                            MText(
-                              "2020-12-32",
-                              color: MColors.grey9,
-                              size: 10,
-                            ),
+                            // MText(
+                            //   "2020-12-32",
+                            //   color: MColors.grey9,
+                            //   size: 10,
+                            // ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -67,11 +64,10 @@ class RankPage extends GetView<HomeController> {
                                   textSize: 12,
                                   text: '123万',
                                 ),
-                                MIconText(
-                                  icon: IconFonts.iconDianzan2,
-                                  iconSize: 14,
-                                  textSize: 12,
-                                  text: '123万',
+                                MText(
+                                  '12-12',
+                                  size: 12,
+                                  color: Colors.grey,
                                 ),
                               ],
                             )
