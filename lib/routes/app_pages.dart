@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 
 import '../common/middlewares/router_auth.dart';
-import '../pages/live_detail/bindings/live_detail_binding.dart';
-import '../pages/live_detail/views/live_detail_view.dart';
 import '../pages/login/bindings/login_binding.dart';
 import '../pages/login/views/login_view.dart';
 import '../pages/navigation_page.dart';
@@ -17,6 +15,10 @@ import '../pages/setting/bindings/setting_binding.dart';
 import '../pages/setting/views/setting_view.dart';
 import '../pages/upload/bindings/upload_binding.dart';
 import '../pages/upload/views/upload_view.dart';
+import '../pages/video_detail/bindings/video_detail_binding.dart';
+import '../pages/video_detail/views/video_detail_view.dart';
+import '../pages/view-live/live_detail/bindings/live_detail_binding.dart';
+import '../pages/view-live/live_detail/views/live_detail_view.dart';
 import '../pages/view-user/user/bindings/user_binding.dart';
 import '../pages/view-user/user/views/user_view.dart';
 import '../pages/view-user/user_edit/bindings/user_edit_binding.dart';
@@ -25,8 +27,6 @@ import '../pages/view-user/user_history/bindings/user_history_binding.dart';
 import '../pages/view-user/user_history/views/user_history_view.dart';
 import '../pages/view-user/user_zone/bindings/user_zone_binding.dart';
 import '../pages/view-user/user_zone/views/user_zone_view.dart';
-import '../pages/view-user/video_detail/bindings/video_detail_binding.dart';
-import '../pages/view-user/video_detail/views/video_detail_view.dart';
 
 part 'app_routes.dart';
 

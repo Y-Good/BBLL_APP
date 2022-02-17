@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/common/enums/video_mode_enum.dart';
-import 'package:mvideo/pages/live/controllers/live_controller.dart';
+import 'package:mvideo/pages/view-live/live/controllers/live_controller.dart';
 import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/widgets/videos/video_card.dart';
 
