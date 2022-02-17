@@ -2,28 +2,15 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mvideo/config/fonts/m_iconfont.dart';
 import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/widgets/public.dart';
 import '../controllers/user_controller.dart';
-
-class UserHeadItem {
-  IconData icon;
-  String? path;
-  UserHeadItem({required this.icon, this.path});
-}
 
 class UserViewHead extends GetView<UserController> {
   const UserViewHead({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<UserHeadItem> userHeadList = [
-      UserHeadItem(icon: IconFonts.iconBianji, path: Routes.USER_EDIT),
-      UserHeadItem(icon: IconFonts.iconTongzhi, path: Routes.NOTICES),
-      UserHeadItem(icon: IconFonts.iconWodeshoucang),
-      UserHeadItem(icon: IconFonts.iconShezhi, path: Routes.SETTING),
-    ];
     return Container(
       padding:
           EdgeInsets.only(top: MediaQueryData.fromWindow(window).padding.top),
@@ -70,12 +57,12 @@ class UserViewHead extends GetView<UserController> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: List.generate(
-                          userHeadList.length,
+                          controller.userHeadList.length,
                           (index) => MIcon(
-                                userHeadList[index].icon,
+                                controller.userHeadList[index].icon,
                                 size: 26,
-                                onTap: () => controller
-                                    .onPages(userHeadList[index].path ?? ''),
+                                onTap: () => controller.onPages(
+                                    controller.userHeadList[index].path ?? ''),
                               )),
                     ),
                   ),

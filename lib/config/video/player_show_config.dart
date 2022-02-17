@@ -9,7 +9,7 @@ class VideoShowConfig implements ShowConfigAbs {
   @override
   bool lockBtn = true;
   @override
-  bool bottomPro = false;
+  bool bottomPro = true;
   @override
   bool stateAuto = true;
   @override

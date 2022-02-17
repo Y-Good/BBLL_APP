@@ -17,7 +17,7 @@ class DefaultPage extends GetView<HomeController> {
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: MSwiper(),
             ),
-            Obx(() => VideoList(
+            Obx(() => VideoGrid(
                   // ignore: invalid_use_of_protected_member
                   videoList: controller.videoList.value,
                   physics: NeverScrollableScrollPhysics(),

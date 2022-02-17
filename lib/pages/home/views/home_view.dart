@@ -5,6 +5,7 @@ import 'package:mvideo/pages/home/views/default.dart';
 import 'package:mvideo/pages/home/views/hot.dart';
 import 'package:mvideo/pages/home/views/rank.dart';
 import 'package:mvideo/routes/app_pages.dart';
+import 'package:mvideo/widgets/common/m_badge.dart';
 import 'package:mvideo/widgets/public.dart';
 import '../controllers/home_controller.dart';
 
@@ -27,15 +28,22 @@ class HomeView extends GetView<HomeController> {
         hiddenLeading: true,
         titleWidget: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 48),
-          child: InkWell(onTap: () => Get.toNamed(Routes.SEARCH), child: MSearch(enabled: false)),
+          child: InkWell(
+              onTap: () => Get.toNamed(Routes.SEARCH),
+              child: MSearch(enabled: false)),
         ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16),
-            child: MIcon(
-              IconFonts.iconTongzhi,
-              onTap: () => Get.toNamed(Routes.NOTICES),
-              color: Colors.black,
+            child: MBadge(
+              hidden: false,
+              dot: true,
+              offset: Offset(-2, 8),
+              child: MIcon(
+                IconFonts.iconTongzhi,
+                onTap: () => Get.toNamed(Routes.NOTICES),
+                color: Colors.black,
+              ),
             ),
           )
         ],

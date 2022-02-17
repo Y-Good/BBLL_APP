@@ -13,9 +13,21 @@ class MenuItem {
   MenuItem({required this.icon, required this.title, this.onTap});
 }
 
+class UserHeadItem {
+  IconData icon;
+  String? path;
+  UserHeadItem({required this.icon, this.path});
+}
+
 class UserController extends GetxController {
   final isLogin = true.obs;
-  GetStorage? st;
+  GetStorage? st = GetStorage();
+  List<UserHeadItem> userHeadList = [
+    UserHeadItem(icon: IconFonts.iconBianji, path: Routes.USER_EDIT),
+    UserHeadItem(icon: IconFonts.iconTongzhi, path: Routes.NOTICES),
+    UserHeadItem(icon: IconFonts.iconWodeshoucang),
+    UserHeadItem(icon: IconFonts.iconShezhi, path: Routes.SETTING),
+  ];
   List<MenuItem> get menuList => [
         MenuItem(
             icon: IconFonts.iconWodeguanzhu, title: '我的关注', onTap: onMyZone),
@@ -26,7 +38,6 @@ class UserController extends GetxController {
       ];
   @override
   void onInit() async {
-    st = GetStorage();
     isLogin.value = isNull(st?.read('token'));
     super.onInit();
   }
@@ -36,7 +47,7 @@ class UserController extends GetxController {
     isLogin.value = isNull(st?.read('token') ?? null);
   }
 
-  void onHistory(int index) {
+  Future<void> onHistory(int index) async {
     Get.toNamed(Routes.USER_HISTORY);
   }
 

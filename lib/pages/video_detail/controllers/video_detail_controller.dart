@@ -19,7 +19,7 @@ class VideoDetailController extends GetxController {
   FocusNode focus = FocusNode();
   String? content;
   String videoUrl =
-      'http://192.168.1.113:3000/static/videos/2022-02-09/47-l5SOL3L2srbag.mp4';
+      'http://192.168.0.174:3000/static/videos/2022-02-12/EZHZDr17RMRij-W0.mp4';
   @override
   void onInit() async {
     var res = await HttpUtil().get(

@@ -13,7 +13,8 @@ class UserZoneView extends GetView<UserZoneController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: MAppBar(actionWidget: MIcon(IconFonts.iconSousuo, color: Colors.black)),
+        appBar: MAppBar(
+            actionWidget: MIcon(IconFonts.iconSousuo, color: Colors.black)),
         body: Container(
             width: double.infinity,
             color: Colors.white,
@@ -37,9 +38,11 @@ class UserZoneView extends GetView<UserZoneController> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      MDoubleText(label: '获赞', value: '1233万', lableColor: Colors.grey),
+                      MDoubleText(
+                          label: '获赞', value: '1233万', lableColor: Colors.grey),
                       SizedBox(width: 48),
-                      MDoubleText(label: '粉丝', value: '13万', lableColor: Colors.grey)
+                      MDoubleText(
+                          label: '粉丝', value: '13万', lableColor: Colors.grey)
                     ],
                   ),
                 ),
@@ -60,7 +63,7 @@ class UserZoneView extends GetView<UserZoneController> {
   Widget userVideo() {
     return Obx(() => Container(
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-          child: VideoList(
+          child: VideoGrid(
             // ignore: invalid_use_of_protected_member
             videoList: controller.videoList.value,
           ),
@@ -80,7 +83,8 @@ class UserZoneView extends GetView<UserZoneController> {
                         label: controller.isFollow.value ? '已关注' : '关注',
                         width: 64,
                         height: 32,
-                        bgColor: controller.isFollow.value ? MColors.grey9 : null,
+                        bgColor:
+                            controller.isFollow.value ? MColors.grey9 : null,
                         onTap: controller.userFollow,
                       )),
                 ),

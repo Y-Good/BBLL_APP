@@ -26,10 +26,10 @@ class SearchView extends GetView<SearchController> {
           tabs: tabs,
           padding: EdgeInsets.zero,
           children: [
-            VideoList(),
+            VideoGrid(),
             SearchVideoPage(),
-            VideoList(),
-            VideoList(),
+            VideoGrid(),
+            VideoGrid(),
           ],
         ));
   }

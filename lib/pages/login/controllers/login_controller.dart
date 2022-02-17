@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mvideo/config/server/server.dart';
+import 'package:mvideo/utils/common/common_utils.dart';
 
 class LoginController extends GetxController {
   final numberController = TextEditingController();
@@ -19,7 +20,8 @@ class LoginController extends GetxController {
       // print(SpUtil().getString('token'));
       Get.back(result: res.data['data']['token']);
     } on DioError catch (error) {
-      print(error.message);
+      // print(error.response?.data);
+      CommonUtils.toast(error.response?.data['message']);
     }
   }
 

@@ -12,16 +12,18 @@ class MInput extends StatelessWidget {
   final String? placeholder;
   final TextEditingController? textEditingController;
   final ValueChanged<String>? onChange;
-  const MInput(
-      {Key? key,
-      this.textEditingController,
-      this.onChange,
-      this.label,
-      this.height,
-      this.bgColor,
-      this.placeholder,
-      this.direction = Axis.horizontal})
-      : super(key: key);
+  final TextAlign textAlign;
+  const MInput({
+    Key? key,
+    this.textEditingController,
+    this.onChange,
+    this.label,
+    this.height,
+    this.bgColor,
+    this.placeholder,
+    this.direction = Axis.horizontal,
+    this.textAlign = TextAlign.start,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +58,7 @@ class MInput extends StatelessWidget {
           color: bgColor ?? Colors.white,
           borderRadius: BorderRadius.circular(10)),
       child: CupertinoTextField(
+        textAlign: textAlign,
         cursorHeight: 20.0,
         controller: textEditingController,
         padding: EdgeInsets.zero,

@@ -391,9 +391,11 @@ class _CustomFijkPanelState extends State<CustomFijkPanel>
             onTap: () async {
               await player.start();
             },
-            bgColor: Colors.white,
+            border: Border.all(width: 1, color: Colors.white70),
+            bgColor: Colors.transparent,
             child: MIconText(
               icon: Icons.refresh,
+              color: Colors.white,
               text: "重新播放",
             ),
           ),

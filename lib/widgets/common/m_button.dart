@@ -12,19 +12,21 @@ class MButton extends StatelessWidget {
   final Color? bgColor;
   final double? radius;
   final Widget? child;
+  final BoxBorder? border;
 
-  const MButton(
-      {Key? key,
-      this.label,
-      this.onTap,
-      this.width,
-      this.height = 40,
-      this.size,
-      this.bgColor,
-      this.radius,
-      this.child,
-      this.color})
-      : super(key: key);
+  const MButton({
+    Key? key,
+    this.label,
+    this.onTap,
+    this.width,
+    this.height = 40,
+    this.size,
+    this.bgColor,
+    this.radius,
+    this.child,
+    this.color,
+    this.border,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class MButton extends StatelessWidget {
           width: width,
           height: height,
           decoration: BoxDecoration(
+              border: border,
               color: bgColor ?? MColors.primiaryColor,
               borderRadius: BorderRadius.all(Radius.circular(radius ?? 10))),
           child: child ??

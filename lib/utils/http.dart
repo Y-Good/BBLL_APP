@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:mvideo/config/server/server.dart';
+import 'package:mvideo/utils/utils.dart';
 
 class HttpUtil {
   static HttpUtil _instance = HttpUtil._internal();
   factory HttpUtil() => _instance;
-
+  final GetStorage? st = GetStorage();
   late Dio dio;
 
   HttpUtil._internal() {
@@ -14,6 +16,7 @@ class HttpUtil {
       // baseUrl: Server.host,
       baseUrl:
           'https://www.fastmock.site/mock/660fba6a82ec2c0d81b0661a3eaacd9f',
+      // baseUrl: 'http://192.168.0.174:3000',
 
       // baseUrl: storage.read(key: STORAGE_KEY_APIURL) ?? SERVICE_API_BASEURL,
       //连接服务器超时时间，单位是毫秒.
@@ -23,7 +26,10 @@ class HttpUtil {
       receiveTimeout: 5000,
 
       // Http请求头.
-      headers: {},
+      headers: {
+        'Authorization':
+            isNotNull(st?.read('token')) ? 'Bearer ${st?.read('token')}' : null
+      },
 
       /// 请求的Content-Type，默认值是"application/json; charset=utf-8".
       /// 如果您想以"application/x-www-form-urlencoded"格式编码请求数据,
@@ -55,6 +61,19 @@ class HttpUtil {
     Options? options,
   }) async {
     var response = await dio.get(
+      path,
+      queryParameters: queryParameters,
+      options: options,
+    );
+    return response.data;
+  }
+
+  Future post(
+    String path, {
+    dynamic queryParameters,
+    Options? options,
+  }) async {
+    var response = await dio.post(
       path,
       queryParameters: queryParameters,
       options: options,

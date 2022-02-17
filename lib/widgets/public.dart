@@ -16,6 +16,7 @@ export '../widgets/text/m_text.dart';
 export '../widgets/text/m_icon_text.dart';
 
 export '../widgets/videos/video_card.dart';
+export '../widgets/videos/video_grid.dart';
 export '../widgets/videos/video_list.dart';
 
 export '../widgets//fijkplayer_skin/fijkplayer_skin.dart';

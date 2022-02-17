@@ -13,9 +13,9 @@ class CommonUtils {
       child: Material(
         color: Colors.transparent,
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
+          padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 32.0),
           decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.5),
+              color: Colors.black.withOpacity(0.6),
               borderRadius: BorderRadius.all(Radius.circular(10))),
           child: MText(msg, color: Colors.white),
         ),
