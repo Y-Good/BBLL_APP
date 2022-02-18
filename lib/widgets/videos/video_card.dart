@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mvideo/common/enums/video_mode_enum.dart';
-import 'package:mvideo/config/fonts/m_iconfont.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/models/video_model.dart';
 import 'package:mvideo/utils/utils.dart';

@@ -31,3 +31,20 @@ class LiveShowConfig implements ShowConfigAbs {
   @override
   bool liveMode = true;
 }
+
+///发现页视频配置
+
+class DiscoverShowConfig implements ShowConfigAbs {
+  @override
+  bool speedBtn = false;
+  @override
+  bool topBar = false;
+  @override
+  bool lockBtn = false;
+  @override
+  bool bottomPro = false;
+  @override
+  bool stateAuto = false;
+  @override
+  bool liveMode = false;
+}

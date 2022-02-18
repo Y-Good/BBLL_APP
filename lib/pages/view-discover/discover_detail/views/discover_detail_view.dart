@@ -1,8 +1,5 @@
-import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/widgets/common/m_player.dart';
 import 'package:mvideo/widgets/public.dart';
@@ -53,9 +50,13 @@ class DiscoverDetailView extends GetView<DiscoverDetailController> {
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 16),
-                height: Get.width * 9 / 16,
-                width: Get.width,
-                color: MColors.white,
+                color: MColors.black,
+                child: MPlayer(
+                  width: Get.width,
+                  height: Get.width * 9 / 16,
+                  player: controller.player,
+                  curPlayUrl: controller.gg,
+                ),
               ),
               Container(
                 height: 88,

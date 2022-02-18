@@ -33,7 +33,6 @@ class VideoDetailView extends GetView<VideoDetailController> {
                   cover:
                       'https://img0.baidu.com/it/u=2811705907,124584203&fm=253&fmt=auto&app=138&f=PNG?w=600&h=307',
                   player: controller.player,
-                  showConfig: controller.vSkinCfg,
                   curPlayUrl: controller.videoUrl,
                   title: '我无敌我五点',
                 ),

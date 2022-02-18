@@ -405,8 +405,8 @@ class _CustomFijkPanelState extends State<CustomFijkPanel>
   }
 
   @override
-  // ignore: must_call_super
   Widget build(BuildContext context) {
+    super.build(context);
     Rect rect = player.value.fullScreen
         ? Rect.fromLTWH(
             0,

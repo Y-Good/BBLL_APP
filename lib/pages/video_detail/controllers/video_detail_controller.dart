@@ -1,10 +1,8 @@
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mvideo/config/public.dart';
 import 'package:mvideo/utils/http.dart';
 import 'package:mvideo/utils/utils.dart';
-import 'package:mvideo/widgets/public.dart';
 
 class VideoDetailController extends GetxController {
   final like = 33.obs;
@@ -15,7 +13,6 @@ class VideoDetailController extends GetxController {
 
   final contentController = TextEditingController();
   FijkPlayer player = FijkPlayer();
-  ShowConfigAbs vSkinCfg = VideoShowConfig();
   FocusNode focus = FocusNode();
   String? content;
   String videoUrl =

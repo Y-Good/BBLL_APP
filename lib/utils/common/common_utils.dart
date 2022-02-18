@@ -9,6 +9,7 @@ class CommonUtils {
 
   ///提示
   static void toast(String msg) {
+    OverlayEntry? entry;
     Widget widget = Center(
       child: Material(
         color: Colors.transparent,
@@ -21,14 +22,16 @@ class CommonUtils {
         ),
       ),
     );
-    var entry = OverlayEntry(
+    entry?.remove();
+    entry = null;
+    entry = OverlayEntry(
       builder: (_) => widget,
     );
 
     Overlay.of(Get.overlayContext!)?.insert(entry);
 
     Timer(const Duration(seconds: 2), () {
-      entry.remove();
+      entry?.remove();
     });
   }
 }
