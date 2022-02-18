@@ -12,7 +12,7 @@ class VideoDetailView extends GetView<VideoDetailController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: MColors.white,
       appBar: AppBar(
         backgroundColor: Colors.black,
         elevation: 0,
@@ -43,7 +43,7 @@ class VideoDetailView extends GetView<VideoDetailController> {
                 pinned: true,
                 delegate: StickyTabBarDelegate(
                   child: MListTile(
-                    backgroundColor: Colors.white,
+                    backgroundColor: MColors.white,
                     url:
                         'https://img0.baidu.com/it/u=4183146585,2121935578&fm=26&fmt=auto',
                     title: '阿西吧',
@@ -88,7 +88,7 @@ class VideoDetailView extends GetView<VideoDetailController> {
                 child: Container(
                   height: 10,
                   width: Get.size.width,
-                  color: MColors.backgroundColor,
+                  color: MColors.background,
                 ),
               ),
               SliverToBoxAdapter(child: comment()),
@@ -100,7 +100,7 @@ class VideoDetailView extends GetView<VideoDetailController> {
                 // height: 56,
                 alignment: Alignment.center,
                 width: Get.size.width,
-                color: Colors.white,
+                color: MColors.white,
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -112,7 +112,7 @@ class VideoDetailView extends GetView<VideoDetailController> {
                             const EdgeInsets.only(top: 8, right: 8, bottom: 8),
                         child: MInput(
                           textEditingController: controller.contentController,
-                          bgColor: MColors.backgroundColor,
+                          bgColor: MColors.background,
                           height: 32,
                           onChange: (value) => controller.content = value,
                         ),
@@ -217,7 +217,7 @@ class VideoDetailView extends GetView<VideoDetailController> {
                         onTap: () {
                           Get.bottomSheet(
                               Container(
-                                  color: Colors.white,
+                                  color: MColors.white,
                                   height: Get.height / 1.56,
                                   child: SingleChildScrollView(
                                     child: Column(

@@ -48,7 +48,7 @@ class LoginView extends GetView<LoginController> {
                     MInput(
                       direction: Axis.vertical,
                       label: '账号',
-                      bgColor: MColors.backgroundColor,
+                      bgColor: MColors.background,
                       textEditingController: controller.numberController,
                       onChange: (value) => controller.number = value,
                     ),
@@ -58,7 +58,7 @@ class LoginView extends GetView<LoginController> {
                     MInput(
                       direction: Axis.vertical,
                       label: '密码',
-                      bgColor: MColors.backgroundColor,
+                      bgColor: MColors.background,
                       textEditingController: controller.passwordController,
                       onChange: (value) => controller.password = value,
                     )

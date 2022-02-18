@@ -22,7 +22,7 @@ class UploadView extends GetView<UploadController> {
       ),
       Container(
         padding: EdgeInsets.all(16),
-        color: Colors.white,
+        color: MColors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [MText('内容'), SizedBox(height: 4), uplaodPlay()],
@@ -55,13 +55,13 @@ class UploadView extends GetView<UploadController> {
                     right: 8,
                     child: MIcon(
                       Icons.close,
-                      color: Colors.white,
+                      color: MColors.white,
                       onTap: controller.delVideo,
                     )),
                 Center(
                   child: MIcon(
                     IconFonts.iconBofangqiBofang,
-                    color: Colors.white,
+                    color: MColors.white,
                     size: 48,
                     onTap: () => Get.bottomSheet(
                         Container(
@@ -80,7 +80,9 @@ class UploadView extends GetView<UploadController> {
           )
         : Center(
             child: MIcon(IconFonts.iconShangchuan,
-                color: Colors.black54, size: 104, onTap: () => Get.bottomSheet(videoPickWidget())),
+                color: Colors.black54,
+                size: 104,
+                onTap: () => Get.bottomSheet(videoPickWidget())),
           ));
   }
 
@@ -88,7 +90,7 @@ class UploadView extends GetView<UploadController> {
   Widget videoPickWidget() {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white,
+          color: MColors.white,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(10),
             topRight: Radius.circular(10),
@@ -105,7 +107,8 @@ class UploadView extends GetView<UploadController> {
                 controller.pickList[index].icon ?? Icons.add,
                 size: 64,
                 color: Colors.orangeAccent,
-                onTap: () => controller.videoPick(controller.pickList[index].pickType),
+                onTap: () =>
+                    controller.videoPick(controller.pickList[index].pickType),
               ),
               MText(controller.pickList[index].label ?? '')
             ],

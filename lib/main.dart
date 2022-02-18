@@ -17,9 +17,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
         theme: ThemeData(
-            scaffoldBackgroundColor: MColors.backgroundColor,
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent),
+          scaffoldBackgroundColor: MColors.background,
+          primarySwatch: MColors.materialWhite,
+        ),
         initialRoute: AppPages.INITIAL,
         debugShowCheckedModeBanner: false,
         getPages: AppPages.routes,

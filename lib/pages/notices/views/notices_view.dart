@@ -11,7 +11,7 @@ class NoticesView extends GetView<NoticesController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: MColors.backgroundColor,
+        backgroundColor: MColors.background,
         appBar: MAppBar(
           title: "通知",
         ),
@@ -21,7 +21,7 @@ class NoticesView extends GetView<NoticesController> {
             shrinkWrap: true,
             itemCount: 15,
             itemBuilder: (_, index) => Container(
-              color: Colors.white,
+              color: MColors.white,
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,

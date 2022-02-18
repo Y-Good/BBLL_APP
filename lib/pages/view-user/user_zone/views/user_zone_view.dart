@@ -17,7 +17,7 @@ class UserZoneView extends GetView<UserZoneController> {
             actionWidget: MIcon(IconFonts.iconSousuo, color: Colors.black)),
         body: Container(
             width: double.infinity,
-            color: Colors.white,
+            color: MColors.white,
             child: Flex(
               direction: Axis.vertical,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -114,7 +114,7 @@ class UserZoneView extends GetView<UserZoneController> {
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                 decoration: BoxDecoration(
-                    color: MColors.backgroundColor,
+                    color: MColors.background,
                     borderRadius: BorderRadius.all(Radius.circular(8))),
                 child: InkWell(
                   onTap: () => Get.toNamed(Routes.VIDEO_DETAIL),
@@ -146,7 +146,7 @@ class UserZoneView extends GetView<UserZoneController> {
         },
         separatorBuilder: (_, idnex) => Container(
               height: 8,
-              color: MColors.backgroundColor,
+              color: MColors.background,
             ),
         itemCount: 13);
   }

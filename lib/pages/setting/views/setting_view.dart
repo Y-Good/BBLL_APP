@@ -9,7 +9,7 @@ class SettingView extends GetView<SettingController> {
   Widget build(BuildContext context) {
     List<List<SettingItem>> items = controller.items;
     return Scaffold(
-      backgroundColor: MColors.backgroundColor,
+      backgroundColor: MColors.background,
       appBar: MAppBar(title: '设置'),
       body: SingleChildScrollView(
           child: Column(
@@ -39,7 +39,7 @@ class SettingView extends GetView<SettingController> {
             onTap: () => controller.loginOut(),
             child: Container(
               height: 48,
-              color: Colors.white,
+              color: MColors.white,
               width: Get.size.width,
               alignment: Alignment.center,
               child: MText('退出登录'),

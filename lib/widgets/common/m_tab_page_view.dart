@@ -15,7 +15,8 @@ class MTabPageView extends StatefulWidget {
       this.labelColor,
       this.initialIndex,
       this.animateToPage = true,
-      this.padding})
+      this.padding,
+      this.minHeight})
       : super(key: key);
 
   final List<Widget> tabs;
@@ -33,6 +34,8 @@ class MTabPageView extends StatefulWidget {
   final Color? indicatorColor;
 
   final EdgeInsetsGeometry? padding;
+
+  final double? minHeight;
 
   /// 初始页(初始页不能变更)
   final int? initialIndex;
@@ -103,11 +106,13 @@ class MTabPageViewState extends State<MTabPageView>
             color: widget.tabBackgroundColor ?? Theme.of(context).cardColor,
             elevation: widget.elevation,
             child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: 40),
+                constraints: BoxConstraints(minHeight: widget.minHeight ?? 40),
                 child: TabBar(
                   padding: widget.padding ??
                       EdgeInsets.symmetric(horizontal: Get.size.width / 4),
-                  labelStyle: TextStyle(fontSize: 16),
+                  labelStyle:
+                      TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  unselectedLabelStyle: TextStyle(fontSize: 16),
                   unselectedLabelColor: Colors.grey,
                   indicatorWeight: 4,
                   isScrollable: widget.isScrollable,

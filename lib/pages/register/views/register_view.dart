@@ -11,7 +11,7 @@ class RegisterView extends GetView<RegisterController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MAppBar(title: '注册'),
-      backgroundColor: Colors.white,
+      backgroundColor: MColors.white,
       resizeToAvoidBottomInset: false,
       body: Stack(
         alignment: Alignment.center,
@@ -26,7 +26,7 @@ class RegisterView extends GetView<RegisterController> {
                       MInput(
                         direction: Axis.vertical,
                         label: '账号',
-                        bgColor: MColors.backgroundColor,
+                        bgColor: MColors.background,
                         // textEditingController: controller.numberController,
                         // onChange: (value) => controller.number = value,
                       ),
@@ -34,17 +34,17 @@ class RegisterView extends GetView<RegisterController> {
                       MInput(
                         direction: Axis.vertical,
                         label: '密码',
-                        bgColor: MColors.backgroundColor,
+                        bgColor: MColors.background,
                       ),
                       MInput(
                         direction: Axis.vertical,
                         label: '再次输入密码',
-                        bgColor: MColors.backgroundColor,
+                        bgColor: MColors.background,
                       ),
                       MInput(
                         direction: Axis.vertical,
                         label: '昵称',
-                        bgColor: MColors.backgroundColor,
+                        bgColor: MColors.background,
                       )
                     ],
                   ),

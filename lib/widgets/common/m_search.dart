@@ -17,7 +17,7 @@ class MSearch extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 4),
       alignment: Alignment.center,
       decoration: BoxDecoration(
-          color: MColors.backgroundColor,
+          color: MColors.background,
           borderRadius: BorderRadius.all(Radius.circular(16))),
       child: TextField(
         maxLines: 1,

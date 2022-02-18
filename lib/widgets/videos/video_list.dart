@@ -39,7 +39,7 @@ class VideoList extends StatelessWidget {
                 child: Container(
                   height: 100,
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: MColors.white,
                       borderRadius: BorderRadius.all(Radius.circular(4))),
                   child: Row(
                     children: [

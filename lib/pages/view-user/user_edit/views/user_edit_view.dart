@@ -51,7 +51,7 @@ class UserEditView extends GetView<UserEditController> {
                                 // padding: EdgeInsets.all(8),
                                 child: MIcon(
                                   IconFonts.iconBianji,
-                                  color: Colors.white,
+                                  color: MColors.white,
                                   size: 24,
                                 )),
                           ),
@@ -77,7 +77,7 @@ class UserEditView extends GetView<UserEditController> {
     return Container(
       height: 50,
       constraints: BoxConstraints(minHeight: 50),
-      color: Colors.white,
+      color: MColors.white,
       width: double.infinity,
       margin: EdgeInsets.only(bottom: 1),
       padding: EdgeInsets.symmetric(horizontal: 16),

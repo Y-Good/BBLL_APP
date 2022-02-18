@@ -8,7 +8,10 @@ class MListTile extends StatelessWidget {
   final String? title;
   final String? subtitle;
   final Widget? trailing;
+  final EdgeInsetsGeometry? padding;
   final Color? backgroundColor;
+  final Color? subtitleColor;
+  final Color? titleColor;
 
   const MListTile(
       {Key? key,
@@ -16,14 +19,17 @@ class MListTile extends StatelessWidget {
       this.subtitle,
       this.url,
       this.trailing,
-      this.backgroundColor})
+      this.backgroundColor,
+      this.padding,
+      this.subtitleColor,
+      this.titleColor})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: backgroundColor,
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: padding ?? EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       height: 56,
       width: MediaQuery.of(context).size.width,
       child: Row(
@@ -39,12 +45,16 @@ class MListTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  MText(title ?? '-'),
+                  MText(
+                    title ?? '-',
+                    color: titleColor,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                   SizedBox(height: 4),
                   MText(
                     subtitle ?? '-',
                     size: 12,
-                    color: MColors.grey6,
+                    color: subtitleColor ?? MColors.grey6,
                   ),
                 ],
               ),

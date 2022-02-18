@@ -19,6 +19,7 @@ abstract class Routes {
   static const USER_ZONE = _Paths.USER_ZONE;
   static const USER_EDIT = _Paths.USER_EDIT;
   static const USER_HISTORY = _Paths.USER_HISTORY;
+  static const DISCOVER_DETAIL = _Paths.DISCOVER_DETAIL;
 }
 
 abstract class _Paths {
@@ -39,4 +40,5 @@ abstract class _Paths {
   static const USER_ZONE = '/user-zone';
   static const USER_EDIT = '/user-edit';
   static const USER_HISTORY = '/user-history';
+  static const DISCOVER_DETAIL = '/discover-detail';
 }

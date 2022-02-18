@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mvideo/config/public.dart';
 import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/widgets/public.dart';
 import '../controllers/user_controller.dart';
@@ -16,7 +17,7 @@ class UserViewHead extends GetView<UserController> {
           EdgeInsets.only(top: MediaQueryData.fromWindow(window).padding.top),
       width: double.infinity,
       decoration: BoxDecoration(
-          color: Colors.white,
+          color: MColors.white,
           image: DecorationImage(
               image: NetworkImage(
                 "https://img1.baidu.com/it/u=2471177670,3575582393&fm=26&fmt=auto",

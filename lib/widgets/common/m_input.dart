@@ -13,6 +13,8 @@ class MInput extends StatelessWidget {
   final TextEditingController? textEditingController;
   final ValueChanged<String>? onChange;
   final TextAlign textAlign;
+  final Color? placeholderColor;
+  final Color? inputColor;
   const MInput({
     Key? key,
     this.textEditingController,
@@ -20,9 +22,11 @@ class MInput extends StatelessWidget {
     this.label,
     this.height,
     this.bgColor,
+    this.inputColor,
     this.placeholder,
     this.direction = Axis.horizontal,
     this.textAlign = TextAlign.start,
+    this.placeholderColor,
   }) : super(key: key);
 
   @override
@@ -63,6 +67,11 @@ class MInput extends StatelessWidget {
         controller: textEditingController,
         padding: EdgeInsets.zero,
         placeholder: placeholder ?? '请输入',
+
+        placeholderStyle: TextStyle(
+          fontWeight: FontWeight.w400,
+          color: placeholderColor ?? CupertinoColors.placeholderText,
+        ),
         // prefix: Padding(
         //   padding: const EdgeInsets.only(right: 4),
         //   child: MText(
@@ -70,7 +79,7 @@ class MInput extends StatelessWidget {
         //     color: MColors.grey9,
         //   ),
         // ),
-        style: TextStyle(fontSize: 14),
+        style: TextStyle(fontSize: 14, color: inputColor),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.zero,
         ),

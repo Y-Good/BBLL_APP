@@ -10,7 +10,7 @@ class HomeController extends GetxController {
     var response = await HttpUtil().get(
       '/aip/video',
     );
-
+    print(response);
     videoList.value = Video.fromJson(response['data']);
     super.onInit();
   }

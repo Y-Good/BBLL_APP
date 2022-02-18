@@ -41,7 +41,7 @@ class LiveDetailView extends GetView<LiveDetailController> {
               SliverToBoxAdapter(
                 child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    color: Colors.white,
+                    color: MColors.white,
                     child: MIconText(icon: Icons.person, text: "100人")),
               ),
               SliverToBoxAdapter(
@@ -77,7 +77,7 @@ class LiveDetailView extends GetView<LiveDetailController> {
               child: Container(
                 height: 48,
                 width: Get.size.width,
-                color: Colors.white,
+                color: MColors.white,
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -89,7 +89,7 @@ class LiveDetailView extends GetView<LiveDetailController> {
                             const EdgeInsets.only(top: 8, right: 8, bottom: 8),
                         child: MInput(
                           // textEditingController: controller.contentController,
-                          bgColor: MColors.backgroundColor,
+                          bgColor: MColors.background,
                           height: 32,
                           // onChange: (value) => controller.content = value,
                         ),

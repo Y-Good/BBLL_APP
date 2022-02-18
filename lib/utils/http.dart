@@ -68,16 +68,16 @@ class HttpUtil {
     return response.data;
   }
 
-  Future post(
-    String path, {
-    dynamic queryParameters,
-    Options? options,
-  }) async {
-    var response = await dio.post(
-      path,
-      queryParameters: queryParameters,
-      options: options,
-    );
-    return response.data;
-  }
+  // Future post(
+  //   String path, {
+  //   dynamic queryParameters,
+  //   Options? options,
+  // }) async {
+  //   var response = await dio.post(
+  //     path,
+  //     queryParameters: queryParameters,
+  //     options: options,
+  //   );
+  //   return response.data;
+  // }
 }

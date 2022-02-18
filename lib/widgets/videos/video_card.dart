@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mvideo/common/enums/video_mode_enum.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
+import 'package:mvideo/config/public.dart';
 import 'package:mvideo/models/video_model.dart';
 import 'package:mvideo/utils/utils.dart';
 import 'package:mvideo/widgets/text/m_text.dart';
@@ -11,7 +12,11 @@ class VideoCard extends StatelessWidget {
   final bool isLive;
   final VideoMode? videoMode;
   const VideoCard(
-      {Key? key, this.onTap, this.video, this.isLive = false, this.videoMode = VideoMode.video})
+      {Key? key,
+      this.onTap,
+      this.video,
+      this.isLive = false,
+      this.videoMode = VideoMode.video})
       : super(key: key);
 
   @override
@@ -27,8 +32,9 @@ class VideoCard extends StatelessWidget {
               children: [
                 Positioned(
                     child: ClipRRect(
-                  borderRadius:
-                      BorderRadius.only(topLeft: Radius.circular(4), topRight: Radius.circular(4)),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(4),
+                      topRight: Radius.circular(4)),
                   child: AspectRatio(
                     aspectRatio: 16 / 9,
                     child: Image(
@@ -64,19 +70,19 @@ class VideoCard extends StatelessWidget {
                                   Icon(
                                     IconFonts.iconBofangqiBofang,
                                     size: 12,
-                                    color: Colors.white,
+                                    color: MColors.white,
                                   ),
                                   MText(
                                     transformView(video?.views ?? 0),
                                     size: 10,
-                                    color: Colors.white,
+                                    color: MColors.white,
                                   )
                                 ],
                               ),
                               MText(
                                 "2:34",
                                 size: 10,
-                                color: Colors.white,
+                                color: MColors.white,
                               )
                             ],
                           ),

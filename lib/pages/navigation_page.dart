@@ -37,7 +37,7 @@ class _MBottomNavigationBarPageState extends State<MBottomNavigationBarPage> {
               borderRadius: BorderRadius.circular(10)),
           child: Icon(
             Icons.add,
-            color: Colors.white,
+            color: MColors.white,
           )),
     ),
     MBottomBarItem(icon: Icon(IconFonts.iconLive), title: "直播"),
@@ -50,9 +50,13 @@ class _MBottomNavigationBarPageState extends State<MBottomNavigationBarPage> {
         bottomNavigationBar: MBottomBar(
           currentIndex: _currentIndex,
           items: bottomNavBarItems,
+          bgColor: _currentIndex == 1 ? Color(0xFF252836) : null,
+          selectColor: _currentIndex == 1 ? MColors.white : null,
+          unselectColor: _currentIndex == 1 ? MColors.blackTipColor : null,
           onTap: (int index) {
             setState(() {
               if (index == 2) {
+                // _currentIndex = _currentIndex;
                 Get.toNamed(Routes.UPLOAD);
               } else {
                 _currentIndex = index;

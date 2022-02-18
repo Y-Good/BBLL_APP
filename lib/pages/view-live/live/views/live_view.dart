@@ -17,6 +17,7 @@ class LiveView extends GetView<LiveController> {
           initialIndex: 1,
           tabs: controller.tabs,
           children: controller.pageList,
+          minHeight: 44,
         ),
       ),
     );

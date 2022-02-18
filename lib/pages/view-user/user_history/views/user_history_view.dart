@@ -20,7 +20,7 @@ class UserHistoryView extends GetView<UserHistoryController> {
             child: Container(
               height: 80,
               decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: MColors.white,
                   borderRadius: BorderRadius.all(Radius.circular(4))),
               child: Row(
                 children: [

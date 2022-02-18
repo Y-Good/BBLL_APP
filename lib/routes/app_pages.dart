@@ -17,6 +17,8 @@ import '../pages/upload/bindings/upload_binding.dart';
 import '../pages/upload/views/upload_view.dart';
 import '../pages/video_detail/bindings/video_detail_binding.dart';
 import '../pages/video_detail/views/video_detail_view.dart';
+import '../pages/view-discover/discover_detail/bindings/discover_detail_binding.dart';
+import '../pages/view-discover/discover_detail/views/discover_detail_view.dart';
 import '../pages/view-live/live_detail/bindings/live_detail_binding.dart';
 import '../pages/view-live/live_detail/views/live_detail_view.dart';
 import '../pages/view-user/user/bindings/user_binding.dart';
@@ -127,6 +129,11 @@ class AppPages {
       name: _Paths.USER_HISTORY,
       page: () => UserHistoryView(),
       binding: UserHistoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.DISCOVER_DETAIL,
+      page: () => DiscoverDetailView(),
+      binding: DiscoverDetailBinding(),
     ),
   ];
 }
