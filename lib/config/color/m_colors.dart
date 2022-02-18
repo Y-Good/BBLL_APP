@@ -22,6 +22,9 @@ class MColors {
   ///黑色背景
   static Color blackBackground = Color(0xFF1F1D2B);
 
+  ///浅黑
+  static Color blackBackground1 = Color(0xFF252836);
+
   ///黑色背景提示文字
   static Color blackTipColor = Color(0xFF808191);
 

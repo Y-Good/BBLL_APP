@@ -1276,7 +1276,7 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
         child: Column(
           children: <Widget>[
             // 播放器顶部控制器
-            showConfig.topBar
+            showConfig.topBar || widget.player.value.fullScreen
                 ? _buildTopBar()
                 : Container(
                     height:

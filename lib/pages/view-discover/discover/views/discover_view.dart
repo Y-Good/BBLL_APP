@@ -23,10 +23,10 @@ class DiscoverView extends GetView<DiscoverController> {
           child: Stack(alignment: Alignment.center, children: [
             Positioned(
                 left: 0,
-                top: 16,
+                top: 32,
                 child: MText(
                   '发现',
-                  size: 30,
+                  size: 32,
                   color: MColors.white,
                 )),
             Positioned(

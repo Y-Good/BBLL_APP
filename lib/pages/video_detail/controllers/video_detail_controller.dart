@@ -35,6 +35,7 @@ class VideoDetailController extends GetxController {
 
   void submit() {
     contents.insert(0, {'text': content});
+    print(content);
     focus.unfocus();
     // FocusScope.of(Get.context!).requestFocus(focus);
     contentController.clear();

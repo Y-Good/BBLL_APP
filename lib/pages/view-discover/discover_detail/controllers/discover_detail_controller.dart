@@ -4,14 +4,12 @@ import 'package:mvideo/config/public.dart';
 
 class DiscoverDetailController extends GetxController {
   FijkPlayer player = FijkPlayer();
-  DiscoverShowConfig videoShowConfig = DiscoverShowConfig();
+  DiscoverShowConfig discoverShowConfig = DiscoverShowConfig();
   String gg =
-      'https://gd-sycdn.kuwo.cn/30b2f651e79c7cd625bdc992d0cb1319/620f48c2/resource/m1/97/9/2373198294.mp4';
+      'https://gd-sycdn.kuwo.cn/697efad4abe961b6cbbdb9ed0c8a0602/620f5859/resource/m3/35/83/2343069577.mp4';
   @override
   void onInit() {
-    player.setDataSource(
-        'https://gd-sycdn.kuwo.cn/30b2f651e79c7cd625bdc992d0cb1319/620f48c2/resource/m1/97/9/2373198294.mp4',
-        showCover: true);
+    player.setDataSource(gg, showCover: true, autoPlay: true);
     super.onInit();
   }
 }
