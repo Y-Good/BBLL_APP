@@ -11,6 +11,7 @@ class MSwiper extends StatelessWidget {
         child: AspectRatio(
           aspectRatio: 16 / 7,
           child: Swiper(
+            autoplay: true,
             pagination: SwiperPagination(alignment: Alignment.bottomRight),
             itemBuilder: (context, index) {
               return Container(

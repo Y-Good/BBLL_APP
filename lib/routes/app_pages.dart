@@ -42,7 +42,7 @@ class AppPages {
         bindings: [
           HomeBinding(),
           LiveBinding(),
-          FindBinding(),
+          DiscoverBinding(),
           UserBinding(),
           // UploadBinding()
         ]),
@@ -62,9 +62,9 @@ class AppPages {
       binding: LiveBinding(),
     ),
     GetPage(
-      name: _Paths.FIND,
-      page: () => FindView(),
-      binding: FindBinding(),
+      name: _Paths.DISCOVER,
+      page: () => DiscoverView(),
+      binding: DiscoverBinding(),
     ),
     GetPage(
       name: _Paths.LOGIN,

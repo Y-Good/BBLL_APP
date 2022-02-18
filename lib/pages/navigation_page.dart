@@ -21,7 +21,7 @@ class _MBottomNavigationBarPageState extends State<MBottomNavigationBarPage> {
 
   final List<Widget> pages = [
     HomeView(),
-    FindView(),
+    DiscoverView(),
     Container(),
     LiveView(),
     UserView(),

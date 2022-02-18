@@ -7,7 +7,7 @@ abstract class Routes {
   static const HOME = _Paths.HOME;
   static const USER = _Paths.USER;
   static const LIVE = _Paths.LIVE;
-  static const FIND = _Paths.FIND;
+  static const FIND = _Paths.DISCOVER;
   static const LOGIN = _Paths.LOGIN;
   static const REGISTER = _Paths.REGISTER;
   static const SEARCH = _Paths.SEARCH;
@@ -27,7 +27,7 @@ abstract class _Paths {
   static const HOME = '/home';
   static const USER = '/user';
   static const LIVE = '/live';
-  static const FIND = '/find';
+  static const DISCOVER = '/discover';
   static const LOGIN = '/login';
   static const REGISTER = '/register';
   static const SEARCH = '/search';

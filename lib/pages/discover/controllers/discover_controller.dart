@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class FindController extends GetxController {
+class DiscoverController extends GetxController {
   final count = 0.obs;
   @override
   void onInit() {

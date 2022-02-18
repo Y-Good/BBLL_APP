@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/widgets/public.dart';
 
 class MBottomBarItem {
@@ -12,7 +11,12 @@ class MBottomBar extends StatefulWidget {
   final int currentIndex;
   final ValueChanged<int> onTap;
   final List<MBottomBarItem> items;
-  const MBottomBar({Key? key, required this.currentIndex, required this.onTap, required this.items}) : super(key: key);
+  const MBottomBar(
+      {Key? key,
+      required this.currentIndex,
+      required this.onTap,
+      required this.items})
+      : super(key: key);
 
   @override
   _MBottomBarState createState() => _MBottomBarState();
@@ -24,7 +28,10 @@ class _MBottomBarState extends State<MBottomBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: Colors.white, border: Border(top: BorderSide(width: .5, color: Colors.grey.withOpacity(0.3)))),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(
+              top: BorderSide(width: .5, color: Colors.grey.withOpacity(0.3)))),
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.symmetric(horizontal: 32),
       height: 50,
@@ -40,14 +47,21 @@ class _MBottomBarState extends State<MBottomBar> {
                     children: [
                       IconTheme(
                           data: IconThemeData(
-                            color: widget.items.indexOf(widget.items[index]) == _currentIndex ? MColors.primiaryColor : Colors.black,
+                            color: widget.items.indexOf(widget.items[index]) ==
+                                    _currentIndex
+                                ? Colors.black
+                                : Colors.grey,
                             size: 24,
                           ),
                           child: widget.items[index].icon),
                       widget.items[index].title != null
                           ? MText(
                               widget.items[index].title ?? '',
-                              color: widget.items.indexOf(widget.items[index]) == _currentIndex ? MColors.primiaryColor : Colors.black,
+                              color:
+                                  widget.items.indexOf(widget.items[index]) ==
+                                          _currentIndex
+                                      ? Colors.black
+                                      : Colors.grey,
                               size: 10,
                             )
                           : SizedBox()

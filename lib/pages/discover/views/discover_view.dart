@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/find_controller.dart';
+import '../controllers/discover_controller.dart';
 
-class FindView extends GetView<FindController> {
-  const FindView({Key? key}) : super(key: key);
+class DiscoverView extends GetView<DiscoverController> {
+  const DiscoverView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
