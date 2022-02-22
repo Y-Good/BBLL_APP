@@ -3,6 +3,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mvideo/config/color/m_colors.dart';
+import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/widgets/common/m_button.dart';
 
 class SettingItem {
@@ -16,12 +17,12 @@ class SettingController extends GetxController {
   final isSwitch = false.obs;
   //列表
   List<List<SettingItem>> get items => [
-        [SettingItem(title: '账号与安全', onTap: test)],
+        [SettingItem(title: '更改密码', onTap: onAccount)],
         [
           SettingItem(title: '测试1', onTap: test),
           SettingItem(title: '测试2', onTap: test),
           SettingItem(
-              title: '测试3',
+              title: '视频自动播放',
               onTap: test,
               trailing: Obx(
                 () => FlutterSwitch(
@@ -45,6 +46,10 @@ class SettingController extends GetxController {
   void test({e}) {
     print(e);
     print("色湖之");
+  }
+
+  void onAccount() {
+    Get.toNamed(Routes.ACCOUNT);
   }
 
   void changeSwitch(e) {

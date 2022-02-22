@@ -67,10 +67,11 @@ class VideoCard extends StatelessWidget {
                               Row(
                                 children: [
                                   Icon(
-                                    IconFonts.iconBofangqiBofang,
+                                    IconFonts.iconLiulan,
                                     size: 12,
                                     color: MColors.white,
                                   ),
+                                  SizedBox(width: 2),
                                   MText(
                                     transformView(video?.views ?? 0),
                                     size: 10,

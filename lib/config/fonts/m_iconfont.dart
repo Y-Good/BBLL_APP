@@ -16,11 +16,11 @@ class IconFonts {
       IconData(0xe6a4, fontFamily: 'iconfont');
   static const IconData iconFanhui = IconData(0xe60f, fontFamily: 'iconfont');
   static const IconData iconQuanping = IconData(0xe680, fontFamily: 'iconfont');
-  static const IconData iconDianzan1 = IconData(0xe614, fontFamily: 'iconfont');
+  static const IconData iconDianzan1 = IconData(0xe628, fontFamily: 'iconfont');
   static const IconData iconPinglun = IconData(0xe61e, fontFamily: 'iconfont');
   static const IconData iconWodeshoucang =
       IconData(0xe61d, fontFamily: 'iconfont');
-  static const IconData iconDianzan2 = IconData(0xe61c, fontFamily: 'iconfont');
+  static const IconData iconDianzan2 = IconData(0xe627, fontFamily: 'iconfont');
   static const IconData iconBofangqiDanmukai =
       IconData(0xe697, fontFamily: 'iconfont');
   static const IconData iconBofangqiDanmuguan =

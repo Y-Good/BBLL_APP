@@ -53,8 +53,6 @@ class MTabPageViewState extends State<MTabPageView>
   bool _canDradding = true;
   int pageIndex = 0;
 
-  bool get _onePage => widget.tabs.length == 1;
-
   void onJumpTo(int index) async {
     _canDradding = false;
     _tabController?.animateTo(index);
@@ -84,11 +82,6 @@ class MTabPageViewState extends State<MTabPageView>
       }
       _canDradding = true;
     }
-  }
-
-  /// 如果只有一个单界面，显示当前界面
-  Widget _buildOnePage() {
-    return widget.children.first;
   }
 
   /// 有多界面，显示PageView
@@ -145,25 +138,23 @@ class MTabPageViewState extends State<MTabPageView>
   }
 
   void _initial() {
-    if (!_onePage) {
-      int currentIndex = _tabController?.index ?? 0;
-      currentIndex = currentIndex >= widget.tabs.length ? 0 : currentIndex;
-      _tabController?.dispose();
-      _pageController?.dispose();
-      //如果多个界面
-      _tabController = TabController(
-        length: widget.tabs.length,
-        vsync: this,
-        initialIndex: currentIndex,
-      );
-      _pageController =
-          PageController(initialPage: currentIndex, keepPage: false);
-      _tabController?.addListener(() {
-        if (_tabController?.indexIsChanging == true) {
-          _onPageChanged(_tabController!.index);
-        }
-      });
-    }
+    int currentIndex = _tabController?.index ?? 0;
+    currentIndex = currentIndex >= widget.tabs.length ? 0 : currentIndex;
+    _tabController?.dispose();
+    _pageController?.dispose();
+    //如果多个界面
+    _tabController = TabController(
+      length: widget.tabs.length,
+      vsync: this,
+      initialIndex: currentIndex,
+    );
+    _pageController =
+        PageController(initialPage: currentIndex, keepPage: false);
+    _tabController?.addListener(() {
+      if (_tabController?.indexIsChanging == true) {
+        _onPageChanged(_tabController!.index);
+      }
+    });
   }
 
   @override
@@ -178,7 +169,7 @@ class MTabPageViewState extends State<MTabPageView>
   @override
   void initState() {
     super.initState();
-    if (widget.initialIndex != null && !_onePage) {
+    if (widget.initialIndex != null) {
       _tabController = TabController(
         length: widget.tabs.length,
         vsync: this,
@@ -186,7 +177,7 @@ class MTabPageViewState extends State<MTabPageView>
       );
       _pageController = PageController(
         initialPage: widget.initialIndex ?? 0,
-        keepPage: false,
+        keepPage: true,
       );
     }
     _initial();
@@ -195,7 +186,7 @@ class MTabPageViewState extends State<MTabPageView>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return _onePage ? _buildOnePage() : _buildPages();
+    return _buildPages();
   }
 
   @override

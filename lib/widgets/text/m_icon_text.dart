@@ -32,6 +32,9 @@ class MIconText extends StatelessWidget {
                 size: iconSize ?? 20,
                 color: color ?? Colors.grey,
               ),
+              SizedBox(
+                width: 2,
+              ),
               MText(
                 text ?? '',
                 color: color ?? Colors.grey,

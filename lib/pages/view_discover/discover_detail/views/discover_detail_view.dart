@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/widgets/common/m_player.dart';
+import 'package:mvideo/widgets/common/m_send_box.dart';
 import 'package:mvideo/widgets/public.dart';
 import 'package:mvideo/widgets/text/m_double_text.dart';
 import '../controllers/discover_detail_controller.dart';
@@ -161,40 +162,18 @@ class DiscoverDetailView extends GetView<DiscoverDetailController> {
           ),
           Positioned(
               bottom: 0,
-              child: Container(
-                // height: 56,
-                alignment: Alignment.center,
-                width: Get.size.width,
-                color: Color(0xFF252836),
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                          child: Padding(
-                        padding:
-                            const EdgeInsets.only(top: 8, right: 8, bottom: 8),
-                        child: MInput(
-                          // textEditingController: controller.contentController,
-                          bgColor: Colors.black,
-                          height: 32,
-                          inputColor: MColors.white,
-                          placeholderColor: MColors.blackTipColor,
-                          // onChange: (value) => controller.content = value,
-                        ),
-                      )),
-                      MIcon(
-                        IconFonts.iconSend,
-                        padding: EdgeInsets.symmetric(horizontal: 2),
-                        color: MColors.blackTipColor,
-                        size: 20,
-                      )
-                      // MText(
-                      //   '发送',
-                      //   color: MColors.blackTipColor,
-                      // )
-                    ]),
+              child: MSendBox(
+                bgColor: Color(0xFF252836),
+                placeholderColor: MColors.blackTipColor,
+                inputBgColor: MColors.black,
+                inputColor: MColors.white,
+                cursorColor: MColors.white,
+                submitWidget: MIcon(
+                  IconFonts.iconSend,
+                  padding: EdgeInsets.symmetric(horizontal: 2),
+                  color: MColors.blackTipColor,
+                  size: 20,
+                ),
               ))
         ],
       ),

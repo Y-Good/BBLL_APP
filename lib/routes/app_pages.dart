@@ -11,24 +11,25 @@ import '../pages/register/bindings/register_binding.dart';
 import '../pages/register/views/register_view.dart';
 import '../pages/search/bindings/search_binding.dart';
 import '../pages/search/views/search_view.dart';
-import '../pages/setting/bindings/setting_binding.dart';
-import '../pages/setting/views/setting_view.dart';
 import '../pages/upload/bindings/upload_binding.dart';
 import '../pages/upload/views/upload_view.dart';
 import '../pages/video_detail/bindings/video_detail_binding.dart';
 import '../pages/video_detail/views/video_detail_view.dart';
-import '../pages/view-discover/discover_detail/bindings/discover_detail_binding.dart';
-import '../pages/view-discover/discover_detail/views/discover_detail_view.dart';
-import '../pages/view-live/live_detail/bindings/live_detail_binding.dart';
-import '../pages/view-live/live_detail/views/live_detail_view.dart';
-import '../pages/view-user/user/bindings/user_binding.dart';
-import '../pages/view-user/user/views/user_view.dart';
-import '../pages/view-user/user_edit/bindings/user_edit_binding.dart';
-import '../pages/view-user/user_edit/views/user_edit_view.dart';
-import '../pages/view-user/user_history/bindings/user_history_binding.dart';
-import '../pages/view-user/user_history/views/user_history_view.dart';
-import '../pages/view-user/user_zone/bindings/user_zone_binding.dart';
-import '../pages/view-user/user_zone/views/user_zone_view.dart';
+import '../pages/view_discover/discover_detail/bindings/discover_detail_binding.dart';
+import '../pages/view_discover/discover_detail/views/discover_detail_view.dart';
+import '../pages/view_live/live_detail/bindings/live_detail_binding.dart';
+import '../pages/view_live/live_detail/views/live_detail_view.dart';
+import '../pages/view_setting/account/bindings/account_binding.dart';
+import '../pages/view_setting/account/views/account_view.dart';
+import '../pages/view_setting/setting/bindings/setting_binding.dart';
+import '../pages/view_setting/setting/views/setting_view.dart';
+import '../pages/view_user/user/bindings/user_binding.dart';
+import '../pages/view_user/user_edit/bindings/user_edit_binding.dart';
+import '../pages/view_user/user_edit/views/user_edit_view.dart';
+import '../pages/view_user/user_history/bindings/user_history_binding.dart';
+import '../pages/view_user/user_history/views/user_history_view.dart';
+import '../pages/view_user/user_zone/bindings/user_zone_binding.dart';
+import '../pages/view_user/user_zone/views/user_zone_view.dart';
 
 part 'app_routes.dart';
 
@@ -134,6 +135,11 @@ class AppPages {
       name: _Paths.DISCOVER_DETAIL,
       page: () => DiscoverDetailView(),
       binding: DiscoverDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.ACCOUNT,
+      page: () => AccountView(),
+      binding: AccountBinding(),
     ),
   ];
 }

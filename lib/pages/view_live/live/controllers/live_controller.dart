@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mvideo/pages/view-live/live/views/live_view_all.dart';
-import 'package:mvideo/pages/view-live/live/views/live_view_my.dart';
+
+import '../views/live_view_all.dart';
+import '../views/live_view_my.dart';
 
 class LiveController extends GetxController {
   // TabController tabController = TabController(length: 2, vsync: this,initialIndex: 1);

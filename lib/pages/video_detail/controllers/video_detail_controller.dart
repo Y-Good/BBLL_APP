@@ -1,7 +1,7 @@
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mvideo/utils/http.dart';
+import 'package:mvideo/config/http/http.dart';
 import 'package:mvideo/utils/utils.dart';
 
 class VideoDetailController extends GetxController {
@@ -28,6 +28,7 @@ class VideoDetailController extends GetxController {
 
     contents.value = res['data'];
     contentController.addListener(() {
+      print(contentController.text);
       isText.value = isNotNull(contentController.text);
     });
     super.onInit();
@@ -35,7 +36,6 @@ class VideoDetailController extends GetxController {
 
   void submit() {
     contents.insert(0, {'text': content});
-    print(content);
     focus.unfocus();
     // FocusScope.of(Get.context!).requestFocus(focus);
     contentController.clear();

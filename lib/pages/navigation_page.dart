@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
 import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/pages/public.dart';
-import 'package:mvideo/pages/view-user/user/views/user_view.dart';
 import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/widgets/public.dart';
 

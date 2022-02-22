@@ -17,6 +17,7 @@ class LoginView extends GetView<LoginController> {
       backgroundColor: MColors.white,
       resizeToAvoidBottomInset: false,
       appBar: MAppBar(
+        // hiddenLeading: controller.hiddenLeading,
         actions: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -24,7 +25,7 @@ class LoginView extends GetView<LoginController> {
               child: MText(
                 '注册',
                 size: 18,
-                onTap: () => Get.toNamed(Routes.REGISTER),
+                onTap: () => controller.onRegister(),
               ),
             ),
           )
@@ -58,6 +59,7 @@ class LoginView extends GetView<LoginController> {
                     MInput(
                       direction: Axis.vertical,
                       label: '密码',
+                      obscureText: true,
                       bgColor: MColors.background,
                       textEditingController: controller.passwordController,
                       onChange: (value) => controller.password = value,

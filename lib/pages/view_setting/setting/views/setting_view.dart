@@ -15,7 +15,7 @@ class SettingView extends GetView<SettingController> {
           child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 8),
+            padding: const EdgeInsets.only(bottom: 8, top: 1),
             child: ListView.separated(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,

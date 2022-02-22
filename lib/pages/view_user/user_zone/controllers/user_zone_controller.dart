@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/models/video_model.dart';
-import 'package:mvideo/utils/http.dart';
+import 'package:mvideo/config/http/http.dart';
 
 class UserZoneController extends GetxController {
   int initialIndex = Get.arguments ?? 1;

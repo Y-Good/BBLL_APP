@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
 import 'package:mvideo/widgets/common/m_player.dart';
+import 'package:mvideo/widgets/common/m_send_box.dart';
 import 'package:mvideo/widgets/public.dart';
 import '../controllers/video_detail_controller.dart';
 
@@ -95,37 +96,14 @@ class VideoDetailView extends GetView<VideoDetailController> {
           ),
           Positioned(
               bottom: 0,
-              child: Container(
-                // height: 56,
-                alignment: Alignment.center,
-                width: Get.size.width,
-                color: MColors.white,
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                          child: Padding(
-                        padding:
-                            const EdgeInsets.only(top: 8, right: 8, bottom: 8),
-                        child: MInput(
-                          textEditingController: controller.contentController,
-                          bgColor: MColors.background,
-                          height: 32,
-                          onChange: (value) => controller.content = value,
-                        ),
-                      )),
-                      Obx(() => MText(
-                            '发布',
-                            color: controller.isText.value
-                                ? MColors.primiaryColor
-                                : Colors.grey,
-                            onTap: () => controller.isText.value
-                                ? controller.submit()
-                                : () {},
-                          ))
-                    ]),
+              child: Obx(
+                (() => MSendBox(
+                      changeColor: controller.isText.value,
+                      onChange: (val) => controller.content = val,
+                      textEditingController: controller.contentController,
+                      onSubmit: () =>
+                          controller.isText.value ? controller.submit() : null,
+                    )),
               ))
         ],
       ),
@@ -199,6 +177,7 @@ class VideoDetailView extends GetView<VideoDetailController> {
                   Row(
                     children: [
                       Obx(() => MIconText(
+                            iconSize: 17,
                             icon: controller.isLike.value
                                 ? IconFonts.iconDianzan2
                                 : IconFonts.iconDianzan1,

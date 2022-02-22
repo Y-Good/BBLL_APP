@@ -23,28 +23,37 @@ class RegisterView extends GetView<RegisterController> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
+                      ///懒得封装，能跑就行
                       MInput(
                         direction: Axis.vertical,
                         label: '账号',
+                        maxInput: 16,
+                        placeholder: '最长支持16个字符',
                         bgColor: MColors.background,
-                        // textEditingController: controller.numberController,
-                        // onChange: (value) => controller.number = value,
+                        onChange: (value) => controller.number = value,
                       ),
                       SizedBox(height: 16),
                       MInput(
                         direction: Axis.vertical,
                         label: '密码',
                         bgColor: MColors.background,
+                        obscureText: true,
+                        onChange: (value) => controller.password = value,
                       ),
+                      SizedBox(height: 16),
                       MInput(
                         direction: Axis.vertical,
                         label: '再次输入密码',
                         bgColor: MColors.background,
+                        obscureText: true,
+                        onChange: (value) => controller.validPassword = value,
                       ),
+                      SizedBox(height: 16),
                       MInput(
                         direction: Axis.vertical,
                         label: '昵称',
                         bgColor: MColors.background,
+                        onChange: (value) => controller.nickname = value,
                       )
                     ],
                   ),
@@ -55,7 +64,7 @@ class RegisterView extends GetView<RegisterController> {
               child: MButton(
                 width: 240,
                 label: '注册',
-                // onTap: controller.submit,
+                onTap: controller.submit,
               ))
         ],
       ),
