@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mvideo/common/enums/video_mode_enum.dart';
 import 'package:mvideo/config/public.dart';
-import 'package:mvideo/models/video_model.dart';
+import 'package:mvideo/models/public.dart';
 import 'package:mvideo/utils/utils.dart';
 import 'package:mvideo/widgets/text/m_text.dart';
 
@@ -39,9 +39,17 @@ class VideoCard extends StatelessWidget {
                     child: Image(
                       // height: 100,
                       width: double.infinity,
-                      image: NetworkImage(
-                          'https://img1.baidu.com/it/u=2480363312,429752488&fm=253&fmt=auto&app=120&f=JPEG?w=1422&h=800'),
+                      image: NetworkImage('${Server.resources}${video?.cover}'),
                       fit: BoxFit.fitWidth,
+
+                      errorBuilder:
+                          (context, Object exception, StackTrace? stackTrace) {
+                        return Container(
+                          width: double.infinity,
+                          color: MColors.grey9.withOpacity(0.6),
+                          child: Center(child: MText('图片加载失败')),
+                        );
+                      },
                     ),
                   ),
                 )),
@@ -73,7 +81,7 @@ class VideoCard extends StatelessWidget {
                                   ),
                                   SizedBox(width: 2),
                                   MText(
-                                    transformView(video?.views ?? 0),
+                                    transformView(video?.view ?? 0),
                                     size: 10,
                                     color: MColors.white,
                                   )
@@ -122,7 +130,7 @@ class VideoCard extends StatelessWidget {
                       style: TextStyle(overflow: TextOverflow.ellipsis),
                     ),
                     MText(
-                      video?.author ?? '-',
+                      video?.user?.nickname ?? '-',
                       size: 10,
                       color: Colors.grey,
                     )

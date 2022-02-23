@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mvideo/models/video_model.dart';
+import 'package:mvideo/models/public.dart';
 import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/widgets/videos/video_card.dart';
 
@@ -27,7 +27,8 @@ class VideoGrid extends StatelessWidget {
         itemBuilder: (_, index) {
           return VideoCard(
             video: videoList?[index],
-            onTap: () => Get.toNamed(Routes.VIDEO_DETAIL),
+            onTap: () => Get.toNamed(Routes.VIDEO_DETAIL,
+                arguments: {"video": videoList?[index]}),
           );
         });
   }

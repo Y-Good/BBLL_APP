@@ -9,7 +9,7 @@ class UserRequest {
 
   static userLogin(String? number, String? password) async {
     var params = {'number': number, 'password': password};
-    var json = await HttpUtil().post('/user/login', data: params);
+    var json = await HttpUtil().post(UserApi.login, data: params);
     if (isNotNull(json?['token'])) {
       st.write('token', json?['token']);
       Get.back();

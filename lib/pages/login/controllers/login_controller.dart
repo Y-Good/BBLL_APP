@@ -12,8 +12,8 @@ class LoginController extends GetxController {
   bool hiddenLeading = false;
   @override
   void onInit() {
-    hiddenLeading = Get.arguments['hiddenLeading'];
-    print(Get.arguments['hiddenLeading']);
+    // hiddenLeading = Get.arguments['hiddenLeading'] ?? false;
+    // print(Get.arguments['hiddenLeading']);
     super.onInit();
   }
 

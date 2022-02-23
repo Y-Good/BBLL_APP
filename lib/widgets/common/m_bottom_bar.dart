@@ -38,7 +38,7 @@ class _MBottomBarState extends State<MBottomBar> {
       decoration: BoxDecoration(
           color: widget.bgColor ?? Colors.white,
           border: Border(
-              top: BorderSide(width: .5, color: Colors.grey.withOpacity(0.3)))),
+              top: BorderSide(width: .3, color: Colors.grey.withOpacity(0.2)))),
       width: MediaQuery.of(context).size.width,
       // padding: EdgeInsets.symmetric(horizontal: 32),
       height: 50,

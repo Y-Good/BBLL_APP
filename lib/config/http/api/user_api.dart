@@ -1,6 +1,6 @@
 class UserApi {
   ///登录
-  static String userLogin = "/user/login";
+  static String login = "/user/login";
 
   ///注册
   static String register = "/user/create";

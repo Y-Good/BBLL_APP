@@ -27,7 +27,7 @@ class _MBottomNavigationBarPageState extends State<MBottomNavigationBarPage> {
   ];
   final List<MBottomBarItem> bottomNavBarItems = [
     MBottomBarItem(icon: Icon(IconFonts.iconShouye), title: "首页"),
-    MBottomBarItem(icon: Icon(IconFonts.iconXitong), title: "发现"),
+    MBottomBarItem(icon: Icon(IconFonts.iconDiscovery), title: "发现"),
     MBottomBarItem(
       icon: Container(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),

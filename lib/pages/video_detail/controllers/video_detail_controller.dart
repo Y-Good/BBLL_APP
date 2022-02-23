@@ -1,7 +1,9 @@
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mvideo/config/http/http.dart';
+import 'package:mvideo/config/http/request/video/video_request.dart';
+import 'package:mvideo/config/public.dart';
+import 'package:mvideo/models/public.dart';
 import 'package:mvideo/utils/utils.dart';
 
 class VideoDetailController extends GetxController {
@@ -14,19 +16,17 @@ class VideoDetailController extends GetxController {
   final contentController = TextEditingController();
   FijkPlayer player = FijkPlayer();
   FocusNode focus = FocusNode();
+  Video? video;
   String? content;
-  String videoUrl =
-      'http://192.168.0.174:3000/static/videos/2022-02-12/EZHZDr17RMRij-W0.mp4';
   @override
   void onInit() async {
-    var res = await HttpUtil().get(
-      '/api/comment',
-    );
+    video = Get.arguments['video'];
     FijkVolume.setUIMode(2);
-    player.setDataSource(videoUrl, autoPlay: true);
-    // await DefaultCacheManager().getSingleFile(videoUrl, key: 'test');
+    if (isNotNull(video)) {
+      player.setDataSource('${Server.resources}${video?.url}', autoPlay: true);
+    }
 
-    contents.value = res['data'];
+    // contents.value = res['data'];
     contentController.addListener(() {
       print(contentController.text);
       isText.value = isNotNull(contentController.text);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mvideo/models/video_model.dart';
 import 'package:mvideo/config/http/http.dart';
+import 'package:mvideo/models/public.dart';
 
 class UserZoneController extends GetxController {
   int initialIndex = Get.arguments ?? 1;
@@ -19,7 +19,7 @@ class UserZoneController extends GetxController {
     var response = await HttpUtil().get(
       '/aip/video',
     );
-    videoList.value = Video.fromJson(response['data']);
+    // videoList.value = Video.fromJson(response['data']);
     super.onInit();
   }
 

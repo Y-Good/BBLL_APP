@@ -41,7 +41,7 @@ class HttpUtil {
         queryParameters: queryParameters,
         options: options,
       );
-      return BaseResponse.fromJson(response.data);
+      return BaseResponse.fromJson(response.data).data;
     } on DioError catch (error) {
       CommonUtils.toast(error.response?.data['message']);
     }

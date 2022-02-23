@@ -2,8 +2,7 @@ import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:mvideo/config/color/m_colors.dart';
-import 'package:mvideo/config/fonts/m_iconfont.dart';
+import 'package:mvideo/config/public.dart';
 import 'package:mvideo/widgets/common/m_player.dart';
 import 'package:mvideo/widgets/common/m_send_box.dart';
 import 'package:mvideo/widgets/public.dart';
@@ -31,11 +30,10 @@ class VideoDetailView extends GetView<VideoDetailController> {
                 flexibleSpace: MPlayer(
                   height: Get.size.width * 9 / 16,
                   fit: FijkFit.fill,
-                  cover:
-                      'https://img0.baidu.com/it/u=2811705907,124584203&fm=253&fmt=auto&app=138&f=PNG?w=600&h=307',
+                  cover: '${Server.resources}${controller.video?.cover}',
                   player: controller.player,
-                  curPlayUrl: controller.videoUrl,
-                  title: '我无敌我五点',
+                  curPlayUrl: controller.video?.url,
+                  title: controller.video?.title,
                 ),
                 collapsedHeight: Get.size.width * 9 / 16,
               ),
@@ -44,9 +42,8 @@ class VideoDetailView extends GetView<VideoDetailController> {
                 delegate: StickyTabBarDelegate(
                   child: MListTile(
                     backgroundColor: MColors.white,
-                    url:
-                        'https://img0.baidu.com/it/u=4183146585,2121935578&fm=26&fmt=auto',
-                    title: '阿西吧',
+                    url: '${Server.resources}${controller.video?.user?.avatar}',
+                    title: controller.video?.user?.nickname,
                     subtitle: '3小时前',
                     trailing: Obx(() => MButton(
                           label: controller.isFollow.value ? '已关注' : '关注',
@@ -66,18 +63,17 @@ class VideoDetailView extends GetView<VideoDetailController> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       MText(
-                        '变形价格',
+                        controller.video?.title ?? '',
                         size: 18,
                       ),
                       SizedBox(height: 8),
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 8),
                         child: Row(
-                          children: [
-                            MLabel('精彩'),
-                            MLabel('搞笑'),
-                            MLabel('哈哈'),
-                          ],
+                          children: List.generate(
+                              controller.video?.tags?.length ?? 0,
+                              (index) => MLabel(
+                                  controller.video?.tags?[index].name ?? '')),
                         ),
                       )
                     ],

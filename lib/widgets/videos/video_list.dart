@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mvideo/config/public.dart';
-import 'package:mvideo/models/video_model.dart';
+import 'package:mvideo/models/public.dart';
 import 'package:mvideo/widgets/public.dart';
 
 class VideoList extends StatelessWidget {

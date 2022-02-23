@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mvideo/config/public.dart';
+import 'package:mvideo/widgets/public.dart';
 
 const double _MSize = 40;
 
@@ -7,7 +9,6 @@ class MAvatar extends StatelessWidget {
   final double? width;
   final double? height;
   final double? radius;
-
   final VoidCallback? onTap;
   const MAvatar(this.url,
       {Key? key, this.width, this.height, this.radius, this.onTap})
@@ -20,10 +21,22 @@ class MAvatar extends StatelessWidget {
       child: Container(
         width: width ?? _MSize,
         height: height ?? _MSize,
-        decoration: BoxDecoration(
-            borderRadius:
-                BorderRadius.circular(radius ?? ((width ?? _MSize) / 2)),
-            image: DecorationImage(image: NetworkImage(url))),
+        child: ClipRRect(
+          borderRadius:
+              BorderRadius.circular(radius ?? ((width ?? _MSize) / 2)),
+          child: Image(
+            // height: 100,
+            width: double.infinity,
+            image: NetworkImage(url),
+            fit: BoxFit.fitWidth,
+            errorBuilder: (context, Object exception, StackTrace? stackTrace) {
+              return Container(
+                width: double.infinity,
+                color: MColors.grey9.withOpacity(0.6),
+              );
+            },
+          ),
+        ),
       ),
     );
   }
