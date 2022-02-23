@@ -10,13 +10,13 @@ class VideoCard extends StatelessWidget {
   final VoidCallback? onTap;
   final bool isLive;
   final VideoMode? videoMode;
-  const VideoCard(
-      {Key? key,
-      this.onTap,
-      this.video,
-      this.isLive = false,
-      this.videoMode = VideoMode.video})
-      : super(key: key);
+  const VideoCard({
+    Key? key,
+    this.onTap,
+    this.video,
+    this.isLive = false,
+    this.videoMode = VideoMode.video,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
