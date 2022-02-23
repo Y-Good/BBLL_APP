@@ -47,6 +47,7 @@ dependencies:
   json_annotation: ^4.4.0
   json_serializable: ^6.1.4
   build_runner: ^2.1.7
+  flutter_easyrefresh: ^2.2.1
 
 dev_dependencies:
   flutter_test:
