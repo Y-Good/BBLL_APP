@@ -37,7 +37,12 @@ class VideoCard extends StatelessWidget {
                   child: AspectRatio(
                     aspectRatio: 16 / 9,
                     child: video?.cover == null
-                        ? Container()
+                        ? Container(
+                            width: double.infinity,
+                            color: MColors.grey9.withOpacity(0.6),
+                            child: Center(
+                              child: MText('图片加载失败'),
+                            ))
                         : Image(
                             // height: 100,
                             width: double.infinity,
@@ -50,7 +55,9 @@ class VideoCard extends StatelessWidget {
                               return Container(
                                 width: double.infinity,
                                 color: MColors.grey9.withOpacity(0.6),
-                                child: Center(child: MText('图片加载失败')),
+                                child: Center(
+                                  child: MText('图片加载失败'),
+                                ),
                               );
                             },
                           ),
