@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
+import 'package:mvideo/models/public.dart';
 import 'package:mvideo/routes/app_pages.dart';
+import 'package:mvideo/utils/utils.dart';
 import 'package:mvideo/widgets/public.dart';
 import 'package:mvideo/widgets/text/m_double_text.dart';
 
@@ -62,37 +64,47 @@ class UserZoneView extends GetView<UserZoneController> {
 
   Widget userVideo() {
     return Obx(() => Container(
+          color: MColors.background,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-          child: VideoGrid(
-            // ignore: invalid_use_of_protected_member
-            videoList: controller.videoList.value,
-          ),
+          child: controller.videoList.length == 0
+              ? Center(child: MText('没得视频'))
+              : VideoGrid(
+                  // ignore: invalid_use_of_protected_member
+                  videoList: controller.videoList.value,
+                ),
         ));
   }
 
   Widget userFollow() {
     return Container(
         padding: EdgeInsets.only(top: 8),
-        child: ListView.separated(
-            itemBuilder: (_, index) => MListTile(
-                  url:
-                      'https://img2.baidu.com/it/u=1052567076,3275246168&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=800',
-                  title: '我的姓还是快点回家咯撒',
-                  subtitle: '了了了了了了',
-                  trailing: Obx(() => MButton(
-                        label: controller.isFollow.value ? '已关注' : '关注',
-                        width: 64,
-                        height: 32,
-                        bgColor:
-                            controller.isFollow.value ? MColors.grey9 : null,
-                        onTap: controller.userFollow,
-                      )),
+        child: Obx(
+          () => ListView.separated(
+            itemBuilder: (_, index) {
+              User? followUser = controller.followList[index];
+              return MListTile(
+                url:
+                    'https://img2.baidu.com/it/u=1052567076,3275246168&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=800',
+                title: followUser.nickname ?? '-',
+                subtitle: isNotNull(followUser.signature)
+                    ? followUser.signature
+                    : '这个小可爱好懒',
+                trailing: MButton(
+                  label: '已关注',
+                  width: 64,
+                  height: 32,
+                  bgColor: MColors.grey9,
+                  onTap: () => controller.cancelFollow(followUser.id),
                 ),
-            itemCount: 5,
+              );
+            },
+            itemCount: controller.followList.length,
             separatorBuilder: (_, index) => Divider(
-                  height: .5,
-                  color: Colors.grey[300],
-                )));
+              height: .5,
+              color: Colors.grey[300],
+            ),
+          ),
+        ));
   }
 
   Widget userComment() {

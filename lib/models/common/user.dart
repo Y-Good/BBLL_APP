@@ -20,6 +20,10 @@ class User {
 
   int? type;
 
+  String? signature;
+
+  List<User>? follows;
+
   User({
     this.id,
     this.number,
@@ -29,6 +33,8 @@ class User {
     this.gender,
     this.birthday,
     this.type,
+    this.signature,
+    this.follows,
   });
 
   factory User.fromJson(Map<String, dynamic> srcJson) =>

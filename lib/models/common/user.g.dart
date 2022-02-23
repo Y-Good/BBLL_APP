@@ -15,6 +15,10 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       gender: json['gender'] as int?,
       birthday: json['birthday'] as String?,
       type: json['type'] as int?,
+      signature: json['signature'] as String?,
+      follows: (json['follows'] as List<dynamic>?)
+          ?.map((e) => User.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
@@ -26,4 +30,6 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'gender': instance.gender,
       'birthday': instance.birthday,
       'type': instance.type,
+      'signature': instance.signature,
+      'follows': instance.follows,
     };

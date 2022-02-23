@@ -36,21 +36,24 @@ class VideoCard extends StatelessWidget {
                       topRight: Radius.circular(4)),
                   child: AspectRatio(
                     aspectRatio: 16 / 9,
-                    child: Image(
-                      // height: 100,
-                      width: double.infinity,
-                      image: NetworkImage('${Server.resources}${video?.cover}'),
-                      fit: BoxFit.fitWidth,
+                    child: video?.cover == null
+                        ? Container()
+                        : Image(
+                            // height: 100,
+                            width: double.infinity,
+                            image: NetworkImage(
+                                '${Server.resources}${video?.cover}'),
+                            fit: BoxFit.fitWidth,
 
-                      errorBuilder:
-                          (context, Object exception, StackTrace? stackTrace) {
-                        return Container(
-                          width: double.infinity,
-                          color: MColors.grey9.withOpacity(0.6),
-                          child: Center(child: MText('图片加载失败')),
-                        );
-                      },
-                    ),
+                            errorBuilder: (context, Object exception,
+                                StackTrace? stackTrace) {
+                              return Container(
+                                width: double.infinity,
+                                color: MColors.grey9.withOpacity(0.6),
+                                child: Center(child: MText('图片加载失败')),
+                              );
+                            },
+                          ),
                   ),
                 )),
                 videoMode == VideoMode.live

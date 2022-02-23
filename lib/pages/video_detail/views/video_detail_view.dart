@@ -11,6 +11,7 @@ import '../controllers/video_detail_controller.dart';
 class VideoDetailView extends GetView<VideoDetailController> {
   @override
   Widget build(BuildContext context) {
+    var video = controller.video;
     return Scaffold(
       backgroundColor: MColors.white,
       appBar: AppBar(
@@ -30,7 +31,7 @@ class VideoDetailView extends GetView<VideoDetailController> {
                 flexibleSpace: MPlayer(
                   height: Get.size.width * 9 / 16,
                   fit: FijkFit.fill,
-                  cover: '${Server.resources}${controller.video?.cover}',
+                  cover: '${Server.resources}${video?.cover}',
                   player: controller.player,
                   curPlayUrl: controller.video?.url,
                   title: controller.video?.title,
@@ -42,8 +43,8 @@ class VideoDetailView extends GetView<VideoDetailController> {
                 delegate: StickyTabBarDelegate(
                   child: MListTile(
                     backgroundColor: MColors.white,
-                    url: '${Server.resources}${controller.video?.user?.avatar}',
-                    title: controller.video?.user?.nickname,
+                    url: '${Server.resources}${video?.user?.avatar}',
+                    title: video?.user?.nickname,
                     subtitle: '3小时前',
                     trailing: Obx(() => MButton(
                           label: controller.isFollow.value ? '已关注' : '关注',
@@ -63,17 +64,18 @@ class VideoDetailView extends GetView<VideoDetailController> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       MText(
-                        controller.video?.title ?? '',
+                        video?.title ?? '',
                         size: 18,
                       ),
                       SizedBox(height: 8),
                       Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8),
+                        padding: EdgeInsets.symmetric(
+                            vertical: video?.tags?.length == 0 ? 0 : 8),
                         child: Row(
                           children: List.generate(
-                              controller.video?.tags?.length ?? 0,
-                              (index) => MLabel(
-                                  controller.video?.tags?[index].name ?? '')),
+                              video?.tags?.length ?? 0,
+                              (index) =>
+                                  MLabel(video?.tags?[index].name ?? '')),
                         ),
                       )
                     ],

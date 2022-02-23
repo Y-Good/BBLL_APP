@@ -7,4 +7,7 @@ class UserApi {
 
   ///修改密码
   static String updatePwd = "/user/update.pwd";
+
+  ///关注---Get和Post用同一个字段
+  static String follow = "/user/follow";
 }

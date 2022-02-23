@@ -25,6 +25,14 @@ class UploadView extends GetView<UploadController> {
         color: MColors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          children: [MText('封面'), SizedBox(height: 4), uplaodCover()],
+        ),
+      ),
+      Container(
+        padding: EdgeInsets.all(16),
+        color: MColors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [MText('内容'), SizedBox(height: 4), uplaodPlay()],
         ),
       ),
@@ -40,6 +48,50 @@ class UploadView extends GetView<UploadController> {
                   padding: EdgeInsets.only(top: .5),
                   child: uploadList[index],
                 )));
+  }
+
+  ///视频封面
+  Widget uplaodCover() {
+    return Obx(() => controller.videoPath.value.isNotEmpty
+        ? MPlayer(
+            player: controller.player,
+            height: Get.size.width * 9 / 16,
+            customSkin: Stack(
+              children: [
+                Positioned(
+                    top: 8,
+                    right: 8,
+                    child: MIcon(
+                      Icons.close,
+                      color: MColors.white,
+                      onTap: controller.delVideo,
+                    )),
+                Center(
+                  child: MIcon(
+                    IconFonts.iconBofangqiBofang,
+                    color: MColors.white,
+                    size: 48,
+                    onTap: () => Get.bottomSheet(
+                        Container(
+                            height: Get.height,
+                            width: Get.width,
+                            child: MPlayer(
+                              player: controller.playerView,
+                              showConfig: controller.vSkinCfg,
+                              curPlayUrl: controller.videoPath.value,
+                            )),
+                        isScrollControlled: true),
+                  ),
+                ),
+              ],
+            ),
+          )
+        : Center(
+            child: MIcon(IconFonts.iconShangchuan,
+                color: Colors.black54,
+                size: 64,
+                onTap: () => Get.bottomSheet(videoPickWidget())),
+          ));
   }
 
   ///上传  视频的显示

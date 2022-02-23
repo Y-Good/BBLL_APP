@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mvideo/utils/utils.dart';
 import 'package:mvideo/widgets/public.dart';
 
 class MDoubleText extends StatelessWidget {
