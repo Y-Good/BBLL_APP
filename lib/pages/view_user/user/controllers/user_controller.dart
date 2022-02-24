@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
+import 'package:mvideo/config/http/request/user/user_request.dart';
 import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/utils/utils.dart';
 
@@ -38,6 +39,7 @@ class UserController extends GetxController {
       ];
   @override
   void onInit() async {
+    UserRequest.getUserInfo();
     isLogin.value = isNull(st?.read('token'));
     super.onInit();
   }

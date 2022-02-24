@@ -34,4 +34,11 @@ class CommonUtils {
       entry?.remove();
     });
   }
+
+  ///性别 0未知,1男,2女
+  static List<String> get gender => ["未知", "男", "女"];
+  static String? getGender(int? data) {
+    if (![0, 1, 2].contains(data)) return null;
+    return gender[data!];
+  }
 }

@@ -10,4 +10,7 @@ class UserApi {
 
   ///关注---Get和Post用同一个字段
   static String follow = "/user/follow";
+
+  ///获取用户信息   传`query`
+  static String profile = "/user/profile";
 }

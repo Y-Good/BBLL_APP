@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:mvideo/config/public.dart';
+import 'package:mvideo/utils/common/common_utils.dart';
 import 'package:mvideo/widgets/public.dart';
 import '../controllers/user_edit_controller.dart';
 
@@ -16,6 +17,7 @@ class UserEditView extends GetView<UserEditController> {
         actionWidget: MIcon(
           Icons.check,
           color: Colors.black,
+          onTap: controller.onSubmit,
         ),
       ),
       body: SingleChildScrollView(
@@ -62,18 +64,31 @@ class UserEditView extends GetView<UserEditController> {
                 ),
               ),
             ),
-            newListCell('昵称', "呜呜呜"),
-            newListCell('签名', "呜呜呜呜呜呜呜呜呜呜呜呜呜呜呜"),
-            newListCell('性别', "男"),
-            newListCell('生日', "呜呜呜"),
-            newListCell('电话', "13333333333"),
+
+            ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return newListCell(
+                    controller.test[index].label ?? '',
+                    controller.test[index].text ?? '',
+                    controller.test[index].value);
+              },
+              itemCount: controller.test.length,
+            )
+            // newListCell('昵称', controller.user?.nickname ?? ''),
+            // newListCell('签名', controller.user?.signature ?? ''),
+            // newListCell(
+            //     '性别', CommonUtils.getGender(controller.user?.gender) ?? '外星人'),
+            // newListCell('生日', "呜呜呜"),
+            // newListCell('电话', "13333333333"),
           ],
         ),
       ),
     );
   }
 
-  Widget newListCell(String label, String value) {
+  Widget newListCell<T>(String label, String text, dynamic value) {
     return Container(
       height: 50,
       constraints: BoxConstraints(minHeight: 50),
@@ -92,11 +107,21 @@ class UserEditView extends GetView<UserEditController> {
               width: 200,
               alignment: Alignment.center,
               child: MInput(
-                placeholder: value,
+                placeholder: text,
                 textAlign: TextAlign.right,
+                onChange: (val) => controller.gg = val,
               ))
         ],
       ),
     );
   }
 }
+
+class MFormItem {
+  String? label;
+  String? text;
+  dynamic value;
+  MFormItem({this.label, this.value, this.text});
+}
+
+class MForm {}

@@ -26,7 +26,11 @@ class LoginController extends GetxController {
   }
 
   void submit() async {
-    UserRequest.userLogin(number, password);
+    bool res = await UserRequest.userLogin(number, password);
+    if (res == true) {
+      UserRequest.getUserInfo();
+      Get.back();
+    }
   }
 
   @override
