@@ -13,4 +13,7 @@ class UserApi {
 
   ///获取用户信息   传`query`
   static String profile = "/user/profile";
+
+  ///更新信息
+  static String update = "/user/update";
 }

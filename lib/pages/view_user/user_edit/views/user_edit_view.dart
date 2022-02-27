@@ -63,15 +63,37 @@ class UserEditView extends GetView<UserEditController> {
                 ),
               ),
             ),
-
             ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                return newListCell(
-                    controller.test[index].label ?? '',
-                    controller.test[index].text ?? '',
-                    controller.test[index].value);
+                return Container(
+                  height: 50,
+                  constraints: BoxConstraints(minHeight: 50),
+                  color: MColors.white,
+                  width: double.infinity,
+                  margin: EdgeInsets.only(bottom: 1),
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: MText(
+                          controller.test[index].label ?? '',
+                          size: 14,
+                        ),
+                      ),
+                      Expanded(
+                        child: MInput(
+                            placeholder: controller.test[index].text,
+                            textAlign: TextAlign.right,
+                            onChange: (val) {
+                              controller.nickname = val;
+                            }),
+                      )
+                    ],
+                  ),
+                );
               },
               itemCount: controller.test.length,
             )
@@ -83,34 +105,6 @@ class UserEditView extends GetView<UserEditController> {
             // newListCell('电话', "13333333333"),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget newListCell<T>(String label, String text, dynamic value) {
-    return Container(
-      height: 50,
-      constraints: BoxConstraints(minHeight: 50),
-      color: MColors.white,
-      width: double.infinity,
-      margin: EdgeInsets.only(bottom: 1),
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          MText(
-            label,
-            size: 14,
-          ),
-          Container(
-              width: 200,
-              alignment: Alignment.center,
-              child: MInput(
-                placeholder: text,
-                textAlign: TextAlign.right,
-                onChange: (val) => controller.gg = val,
-              ))
-        ],
       ),
     );
   }

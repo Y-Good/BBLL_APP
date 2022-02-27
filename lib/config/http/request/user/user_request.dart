@@ -66,4 +66,15 @@ class UserRequest {
     }
     return null;
   }
+
+  /* 更新信息 */
+  static updateUser(String? nickname) async {
+    var params = {'nickname': nickname};
+    var json = await HttpUtil().post(
+      UserApi.update,
+      data: params,
+      options: CommonUtils.getNewOption(),
+    );
+    UserUtils.saveUserInfo(User.fromJson(json));
+  }
 }

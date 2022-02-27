@@ -43,7 +43,7 @@ class UserZoneController extends GetxController {
 
   ///删除评论
   void removeComment(int? commentId, int index) async {
-    bool isConfirm = await CommonUtils.dialog('确认删除该条评论吗？');
+    bool isConfirm = await CommonUtils.dialog('确认删除该条评论吗？') ?? false;
     if (isConfirm) {
       bool isRemove = await CommentRequest.removeComment(commentId);
       if (isRemove) commentList.removeAt(index);

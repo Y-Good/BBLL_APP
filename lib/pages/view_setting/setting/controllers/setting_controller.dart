@@ -3,7 +3,6 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mvideo/config/color/m_colors.dart';
-import 'package:mvideo/config/http/http.dart';
 import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/utils/common/common_utils.dart';
 
@@ -60,7 +59,7 @@ class SettingController extends GetxController {
   void loginOut() async {
     GetStorage storage = GetStorage();
 
-    bool res = await CommonUtils.dialog('您确定退出此账号吗？');
+    bool res = await CommonUtils.dialog('您确定退出此账号吗？') ?? false;
 
     if (Get.isDialogOpen == false && res == true) {
       storage.remove('token');

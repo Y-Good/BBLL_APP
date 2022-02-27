@@ -48,7 +48,7 @@ class CommonUtils {
   }
 
   ////dialog
-  static Future<bool> dialog(
+  static Future<bool?> dialog(
     String? text, {
     String? textCancel,
     String? textConfirm,
