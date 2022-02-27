@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:mvideo/config/public.dart';
+import 'package:mvideo/models/common/comment.dart';
+import 'package:mvideo/utils/common/common_utils.dart';
 import 'package:mvideo/widgets/common/m_player.dart';
 import 'package:mvideo/widgets/common/m_send_box.dart';
 import 'package:mvideo/widgets/public.dart';
@@ -46,14 +48,17 @@ class VideoDetailView extends GetView<VideoDetailController> {
                     url: '${Server.resources}${video?.user?.avatar}',
                     title: video?.user?.nickname,
                     subtitle: '3小时前',
-                    trailing: Obx(() => MButton(
-                          label: controller.isFollow.value ? '已关注' : '关注',
-                          width: 64,
-                          height: 32,
-                          bgColor:
-                              controller.isFollow.value ? MColors.grey9 : null,
-                          onTap: controller.userFollow,
-                        )),
+                    trailing: controller.isUser
+                        ? null
+                        : Obx(() => MButton(
+                              label: controller.isFollow.value ? '已关注' : '关注',
+                              width: 64,
+                              height: 32,
+                              bgColor: controller.isFollow.value
+                                  ? MColors.grey9.withOpacity(0.8)
+                                  : null,
+                              onTap: controller.onFollow,
+                            )),
                   ),
                 ),
               ),
@@ -99,8 +104,9 @@ class VideoDetailView extends GetView<VideoDetailController> {
                       changeColor: controller.isText.value,
                       onChange: (val) => controller.content = val,
                       textEditingController: controller.contentController,
-                      onSubmit: () =>
-                          controller.isText.value ? controller.submit() : null,
+                      onSubmit: () => controller.isText.value
+                          ? controller.onSubmit()
+                          : null,
                     )),
               ))
         ],
@@ -121,8 +127,8 @@ class VideoDetailView extends GetView<VideoDetailController> {
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemBuilder: (_, index) =>
-                  commentWidget(controller.contents[index]['text']),
-              itemCount: controller.contents.length,
+                  commentWidget(controller.contentList[index], index),
+              itemCount: controller.contentList.length,
             )),
         SizedBox(height: 48)
       ],
@@ -130,14 +136,14 @@ class VideoDetailView extends GetView<VideoDetailController> {
   }
 
   ///评论组件
-  Widget commentWidget(String content) {
+  Widget commentWidget(Comment? item, int index) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           MAvatar(
-            'https://img0.baidu.com/it/u=4183146585,2121935578&fm=26&fmt=auto',
+            CommonUtils.handleSrcUrl(item?.user?.avatar ?? ''),
           ),
           SizedBox(
             width: 8,
@@ -150,17 +156,27 @@ class VideoDetailView extends GetView<VideoDetailController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   MText(
-                    '阿西吧',
+                    item?.user?.nickname ?? '-',
                     size: 12,
                     color: Colors.grey,
                   ),
-                  // MText('删除', size: 12, color: Colors.red),
+                  Offstage(
+                    offstage: controller.isUser
+                        ? !controller.isUser
+                        : !(item?.user?.id == controller.user?.id),
+                    child: MText(
+                      '删除',
+                      size: 12,
+                      color: MColors.grey9,
+                      onTap: () => controller.removeComment(item?.id, index),
+                    ),
+                  )
                 ],
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
                 child: MText(
-                  content,
+                  item?.content ?? '',
                   maxLines: 8,
                   onTap: () {
                     controller.contentController.text = '回复：啊西部';
@@ -191,28 +207,28 @@ class VideoDetailView extends GetView<VideoDetailController> {
                         text: '99',
                         iconSize: 19,
                         onTap: () {
-                          Get.bottomSheet(
-                              Container(
-                                  color: MColors.white,
-                                  height: Get.height / 1.56,
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      children: [
-                                        commentWidget(content),
-                                        ListView.builder(
-                                          physics:
-                                              NeverScrollableScrollPhysics(),
-                                          shrinkWrap: true,
-                                          itemBuilder: (context, index) {
-                                            return commentWidget('哈哈');
-                                          },
-                                          itemCount: 20,
-                                        ),
-                                      ],
-                                    ),
-                                  )),
-                              barrierColor: Colors.transparent,
-                              isScrollControlled: true);
+                          // Get.bottomSheet(
+                          //     Container(
+                          //         color: MColors.white,
+                          //         height: Get.height / 1.56,
+                          //         child: SingleChildScrollView(
+                          //           child: Column(
+                          //             children: [
+                          //               commentWidget(content),
+                          //               ListView.builder(
+                          //                 physics:
+                          //                     NeverScrollableScrollPhysics(),
+                          //                 shrinkWrap: true,
+                          //                 itemBuilder: (context, index) {
+                          //                   return commentWidget('哈哈');
+                          //                 },
+                          //                 itemCount: 20,
+                          //               ),
+                          //             ],
+                          //           ),
+                          //         )),
+                          //     barrierColor: Colors.transparent,
+                          //     isScrollControlled: true);
                         },
                       )
                     ],

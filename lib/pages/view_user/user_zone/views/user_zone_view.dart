@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -5,6 +6,7 @@ import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
 import 'package:mvideo/models/public.dart';
 import 'package:mvideo/routes/app_pages.dart';
+import 'package:mvideo/utils/common/common_utils.dart';
 import 'package:mvideo/utils/utils.dart';
 import 'package:mvideo/widgets/public.dart';
 import 'package:mvideo/widgets/text/m_double_text.dart';
@@ -25,16 +27,12 @@ class UserZoneView extends GetView<UserZoneController> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8),
-                  child: SizedBox(
-                    height: 82,
-                    width: 82,
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          'https://img2.baidu.com/it/u=3782522808,1589825680&fm=26&fmt=auto'),
-                    ),
-                  ),
-                ),
+                    padding: EdgeInsets.symmetric(vertical: 8),
+                    child: MAvatar(
+                      CommonUtils.handleSrcUrl(controller.user?.avatar ?? ''),
+                      height: 82,
+                      width: 82,
+                    )),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Row(
@@ -69,8 +67,7 @@ class UserZoneView extends GetView<UserZoneController> {
           child: controller.videoList.length == 0
               ? Center(child: MText('没得视频'))
               : VideoGrid(
-                  // ignore: invalid_use_of_protected_member
-                  videoList: controller.videoList.value,
+                  videoList: controller.videoList,
                 ),
         ));
   }
@@ -83,8 +80,7 @@ class UserZoneView extends GetView<UserZoneController> {
             itemBuilder: (_, index) {
               User? followUser = controller.followList[index];
               return MListTile(
-                url:
-                    'https://img2.baidu.com/it/u=1052567076,3275246168&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=800',
+                url: CommonUtils.handleSrcUrl(followUser.avatar ?? ''),
                 title: followUser.nickname ?? '-',
                 subtitle: isNotNull(followUser.signature)
                     ? followUser.signature
@@ -93,7 +89,7 @@ class UserZoneView extends GetView<UserZoneController> {
                   label: '已关注',
                   width: 64,
                   height: 32,
-                  bgColor: MColors.grey9,
+                  bgColor: MColors.grey9.withOpacity(0.8),
                   onTap: () => controller.cancelFollow(followUser.id),
                 ),
               );
@@ -108,20 +104,25 @@ class UserZoneView extends GetView<UserZoneController> {
   }
 
   Widget userComment() {
-    return ListView.separated(
+    List<Comment> items = controller.commentList;
+    return Obx(() => ListView.separated(
         itemBuilder: (_, index) {
           return Column(
             children: [
               MListTile(
-                url:
-                    'https://img2.baidu.com/it/u=1052567076,3275246168&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=800',
-                title: '绝情小王子',
+                url: CommonUtils.handleSrcUrl(items[index].user?.avatar ?? ''),
+                title: items[index].user?.nickname,
                 subtitle: '2020-01-23\t\t13:44',
+                trailing: MIcon(
+                  CupertinoIcons.delete,
+                  size: 18,
+                  onTap: () => controller.removeComment(items[index].id, index),
+                ),
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                 alignment: Alignment.centerLeft,
-                child: MText('宁可输给强大的敌人，不要输给失控的自己。'),
+                child: MText(items[index].content ?? '-'),
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
@@ -129,21 +130,23 @@ class UserZoneView extends GetView<UserZoneController> {
                     color: MColors.background,
                     borderRadius: BorderRadius.all(Radius.circular(8))),
                 child: InkWell(
-                  onTap: () => Get.toNamed(Routes.VIDEO_DETAIL),
+                  onTap: () => Get.toNamed(Routes.VIDEO_DETAIL,
+                      arguments: {'video': items[index].video}),
                   child: Row(
                     children: [
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: MText(
-                            '每个人都有属于自己的舞台，这个舞台，是那么光灿，美丽，生命从此辉煌无悔!只要坚韧不拔的走下去!',
+                            items[index].video?.title ?? '-',
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
                           ),
                         ),
                       ),
                       MAvatar(
-                        'https://img0.baidu.com/it/u=4117713405,2961605581&fm=253&fmt=auto&app=138&f=JPEG?w=400&h=400',
+                        CommonUtils.handleSrcUrl(
+                            items[index].video?.cover ?? ''),
                         radius: 0,
                         height: 52,
                         width: 52,
@@ -160,6 +163,6 @@ class UserZoneView extends GetView<UserZoneController> {
               height: 8,
               color: MColors.background,
             ),
-        itemCount: 13);
+        itemCount: items.length));
   }
 }

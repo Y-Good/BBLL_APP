@@ -31,7 +31,7 @@ class MAvatar extends StatelessWidget {
             errorBuilder: (context, Object exception, StackTrace? stackTrace) {
               return Container(
                 width: double.infinity,
-                color: MColors.grey9.withOpacity(0.6),
+                color: MColors.grey9.withOpacity(0.3),
               );
             },
           ),

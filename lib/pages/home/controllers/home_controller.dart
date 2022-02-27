@@ -6,7 +6,7 @@ class HomeController extends GetxController {
   final videoList = <Video>[].obs;
   @override
   Future<void> onInit() async {
-    videoList.value = await VideoRequest.getList() ?? [];
+    videoList.value = await VideoRequest.getAllVideo() ?? [];
     super.onInit();
   }
 

@@ -6,9 +6,7 @@ part 'video.g.dart';
 
 @JsonSerializable()
 class Video extends Object {
-  int? id;
-
-  int? upId;
+  int id;
 
   String? title;
 
@@ -31,8 +29,7 @@ class Video extends Object {
   List<Tag>? tags;
 
   Video({
-    this.id,
-    this.upId,
+    required this.id,
     this.title,
     this.category,
     this.view,

@@ -1,9 +1,12 @@
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mvideo/config/http/api/user_api.dart';
 import 'package:mvideo/config/http/http.dart';
 import 'package:mvideo/models/common/user.dart';
 import 'package:mvideo/pages/public.dart';
+import 'package:mvideo/utils/common/common_utils.dart';
+import 'package:mvideo/utils/user_utils.dart';
 import 'package:mvideo/utils/utils.dart';
 
 class UserRequest {
@@ -14,7 +17,7 @@ class UserRequest {
     var params = {'number': number, 'password': password};
     var json = await HttpUtil().post(UserApi.login, data: params);
     if (isNotNull(json?['token'])) {
-      _st.write('token', json?['token']);
+      UserUtils.saveToken(json?['token']);
       _userController.isLogin.value = isNull(_st.read('token'));
       return true;
     }
@@ -33,14 +36,18 @@ class UserRequest {
   }
 
   ///关注
-  static Future<List<User>?> getFollowList() async {
-    var json = await HttpUtil().get(UserApi.follow);
-    return User.fromJson(json).follows;
+  static Future<List<User>?> getFollow() async {
+    var json = await HttpUtil().get(
+      UserApi.follow,
+      options: CommonUtils.getNewOption(),
+    );
+    return getUserList(json);
   }
 
   ///创建、取消
   static Future<bool>? updateFollow(int? followId) async {
-    return await HttpUtil().post(UserApi.follow, data: {'followId': followId});
+    return await HttpUtil().post(UserApi.follow,
+        data: {'followId': followId}, options: CommonUtils.getNewOption());
     // return User.fromJson(json).follows;
   }
 
@@ -48,11 +55,12 @@ class UserRequest {
   static Future<User?> getUserInfo({int? userId}) async {
     var params = {"userId": userId};
     var json = await HttpUtil().get(UserApi.profile,
-        queryParameters: isNotNull(userId) ? params : null);
+        queryParameters: isNotNull(userId) ? params : null,
+        options: CommonUtils.getNewOption());
     if (isNotNull(json)) {
       if (isNull(userId)) {
         ///存一下
-        _st.write('user', User.fromJson(json));
+        UserUtils.saveUserInfo(User.fromJson(json));
       }
       return User.fromJson(json);
     }

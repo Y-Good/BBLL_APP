@@ -7,8 +7,7 @@ part of 'video.dart';
 // **************************************************************************
 
 Video _$VideoFromJson(Map<String, dynamic> json) => Video(
-      id: json['id'] as int?,
-      upId: json['upId'] as int?,
+      id: json['id'] as int,
       title: json['title'] as String?,
       category: json['category'] as int?,
       view: json['view'] as int?,
@@ -27,7 +26,6 @@ Video _$VideoFromJson(Map<String, dynamic> json) => Video(
 
 Map<String, dynamic> _$VideoToJson(Video instance) => <String, dynamic>{
       'id': instance.id,
-      'upId': instance.upId,
       'title': instance.title,
       'category': instance.category,
       'view': instance.view,

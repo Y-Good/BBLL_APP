@@ -29,6 +29,7 @@ class LoginController extends GetxController {
     bool res = await UserRequest.userLogin(number, password);
     if (res == true) {
       UserRequest.getUserInfo();
+
       Get.back();
     }
   }

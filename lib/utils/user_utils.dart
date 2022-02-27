@@ -6,7 +6,24 @@ class UserUtils {
 
   static GetStorage _st = GetStorage();
 
-  static User? userInfo() {
+  static User? getUser() {
     return _st.read<User>('user');
+  }
+
+  static String? getToken() {
+    if (_st.hasData('token')) return _st.read('token');
+    return null;
+  }
+
+  static saveToken(String token) {
+    _st.write('token', token);
+  }
+
+  static saveUserInfo(User user) {
+    _st.write('user', user);
+  }
+
+  static bool hasToken() {
+    return _st.hasData('token');
   }
 }

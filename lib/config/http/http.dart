@@ -1,14 +1,13 @@
 import 'package:dio/dio.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/models/base/base_response.dart';
 import 'package:mvideo/utils/common/common_utils.dart';
+import 'package:mvideo/utils/user_utils.dart';
 import 'package:mvideo/utils/utils.dart';
 
 class HttpUtil {
   static HttpUtil _instance = HttpUtil._internal();
   factory HttpUtil() => _instance;
-  final GetStorage? st = GetStorage();
   late Dio dio;
 
   HttpUtil._internal() {
@@ -19,10 +18,9 @@ class HttpUtil {
       receiveTimeout: 5000,
 
       // Http请求头.
-      headers: {
-        'Authorization':
-            isNotNull(st?.read('token')) ? 'Bearer ${st?.read('token')}' : null
-      },
+      headers: isNotNull(UserUtils.getToken())
+          ? {'Authorization': 'Bearer ${UserUtils.getToken()}'}
+          : null,
       contentType: 'application/json; charset=utf-8',
       responseType: ResponseType.json,
     );
@@ -30,11 +28,7 @@ class HttpUtil {
   }
 
   /// restful get 操作
-  Future get(
-    String path, {
-    dynamic queryParameters,
-    Options? options,
-  }) async {
+  Future get(String path, {dynamic queryParameters, Options? options}) async {
     try {
       var response = await dio.get(
         path,
@@ -43,16 +37,12 @@ class HttpUtil {
       );
       return BaseResponse.fromJson(response.data).data;
     } on DioError catch (error) {
-      CommonUtils.toast(error.response?.data['message']);
+      CommonUtils.toast(error.response?.data['message'] ?? '请求失败');
     }
   }
 
-  Future post(
-    String path, {
-    dynamic data,
-    dynamic queryParameters,
-    Options? options,
-  }) async {
+  Future post(String path,
+      {dynamic data, dynamic queryParameters, Options? options}) async {
     try {
       var response = await dio.post(
         path,

@@ -4,7 +4,7 @@ part 'user.g.dart';
 
 @JsonSerializable()
 class User {
-  int? id;
+  int id;
 
   String? number;
 
@@ -25,7 +25,7 @@ class User {
   List<User>? follows;
 
   User({
-    this.id,
+    required this.id,
     this.number,
     this.nickname,
     this.avatar,
@@ -41,4 +41,12 @@ class User {
       _$UserFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$UserToJson(this);
+}
+
+List<User> getUserList(List<dynamic> list) {
+  List<User> result = [];
+  list.forEach((item) {
+    result.add(User.fromJson(item));
+  });
+  return result;
 }

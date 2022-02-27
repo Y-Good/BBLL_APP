@@ -3,8 +3,9 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mvideo/config/color/m_colors.dart';
+import 'package:mvideo/config/http/http.dart';
 import 'package:mvideo/routes/app_pages.dart';
-import 'package:mvideo/widgets/common/m_button.dart';
+import 'package:mvideo/utils/common/common_utils.dart';
 
 class SettingItem {
   String? title;
@@ -59,31 +60,11 @@ class SettingController extends GetxController {
   void loginOut() async {
     GetStorage storage = GetStorage();
 
-    var res = await Get.defaultDialog(
-      title: '提示',
-      middleText: '您确定退出此账号吗？',
-      cancel: Padding(
-        padding: const EdgeInsets.only(right: 8),
-        child: MButton(
-          width: 80,
-          height: 36,
-          label: '取消',
-          onTap: () => Get.back(result: false),
-        ),
-      ),
-      confirm: Padding(
-        padding: const EdgeInsets.only(left: 8),
-        child: MButton(
-            width: 80,
-            height: 36,
-            label: '确认',
-            onTap: () => Get.back(result: true)),
-      ),
-      radius: 10,
-    );
+    bool res = await CommonUtils.dialog('您确定退出此账号吗？');
 
     if (Get.isDialogOpen == false && res == true) {
       storage.remove('token');
+      storage.remove('user');
       Get.back();
     }
   }
