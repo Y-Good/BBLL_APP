@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/http/request/user/user_request.dart';
 import 'package:mvideo/models/public.dart';
