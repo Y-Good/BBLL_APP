@@ -13,7 +13,7 @@ class UserZoneController extends GetxController {
   final commentList = <Comment>[].obs;
   final videotList = <Video>[].obs;
 
-  User? get user => UserUtils.getUser();
+  User? get user => UserUtils.getUser;
 
   List<Widget> tabs = [
     Tab(text: "关注", height: 36),

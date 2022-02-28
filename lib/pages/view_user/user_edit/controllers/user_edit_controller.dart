@@ -15,7 +15,7 @@ class UserEditController extends GetxController {
 
   @override
   void onInit() {
-    user = UserUtils.getUser();
+    user = UserUtils.getUser;
     super.onInit();
   }
 

@@ -33,7 +33,7 @@ class VideoDetailController extends GetxController {
       player.setDataSource('${Server.resources}${video?.url}',
           autoPlay: true, showCover: true);
     }
-    user = UserUtils.getUser();
+    user = UserUtils.getUser;
 
     ///获取评论
     contentList.value = await CommentRequest.getAllComment(video?.id) ?? [];

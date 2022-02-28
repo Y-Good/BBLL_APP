@@ -40,13 +40,13 @@ class UserController extends GetxController {
   @override
   void onInit() async {
     UserRequest.getUserInfo();
-    isLogin.value = !UserUtils.hasToken();
+    isLogin.value = !UserUtils.hasToken;
     super.onInit();
   }
 
   void onPages(String url) async {
     await Get.toNamed(url);
-    isLogin.value = !UserUtils.hasToken();
+    isLogin.value = !UserUtils.hasToken;
   }
 
   Future<void> onHistory(int index) async {

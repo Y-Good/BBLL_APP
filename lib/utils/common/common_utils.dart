@@ -1,11 +1,8 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/config/public.dart';
-import 'package:mvideo/utils/user_utils.dart';
 import 'package:mvideo/utils/utils.dart';
 import 'package:mvideo/widgets/public.dart';
 
@@ -76,18 +73,6 @@ class CommonUtils {
       ),
       radius: 10,
     );
-  }
-
-  ///请求头
-  static Options getNewOption() {
-    Options options = new Options(
-      headers: isNotNull(UserUtils.getToken())
-          ? {'Authorization': 'Bearer ${UserUtils.getToken()}'}
-          : null,
-      contentType: 'application/json; charset=utf-8',
-      responseType: ResponseType.json,
-    );
-    return options;
   }
 
   ///处理资源地址
