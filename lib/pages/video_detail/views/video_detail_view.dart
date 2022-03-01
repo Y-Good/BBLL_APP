@@ -145,33 +145,15 @@ class VideoDetailView extends GetView<VideoDetailController> {
           MAvatar(
             CommonUtils.handleSrcUrl(item?.user?.avatar ?? ''),
           ),
-          SizedBox(
-            width: 8,
-          ),
+          SizedBox(width: 8),
           Expanded(
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  MText(
-                    item?.user?.nickname ?? '-',
-                    size: 12,
-                    color: Colors.grey,
-                  ),
-                  Offstage(
-                    offstage: controller.isUser
-                        ? !controller.isUser
-                        : !(item?.user?.id == controller.user?.id),
-                    child: MText(
-                      '删除',
-                      size: 12,
-                      color: MColors.grey9,
-                      onTap: () => controller.removeComment(item?.id, index),
-                    ),
-                  )
-                ],
+              MText(
+                item?.user?.nickname ?? '-',
+                size: 13,
+                color: Colors.grey,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
@@ -189,6 +171,7 @@ class VideoDetailView extends GetView<VideoDetailController> {
                 children: [
                   MText('3小时前', size: 12, color: Colors.grey),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Obx(() => MIconText(
                             iconSize: 17,
@@ -230,6 +213,21 @@ class VideoDetailView extends GetView<VideoDetailController> {
                           //     barrierColor: Colors.transparent,
                           //     isScrollControlled: true);
                         },
+                      ),
+                      Offstage(
+                        offstage: controller.isUser
+                            ? !controller.isUser
+                            : !(item?.user?.id == controller.user?.id),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: MText(
+                            '删除',
+                            size: 12,
+                            color: MColors.grey9,
+                            onTap: () =>
+                                controller.removeComment(item?.id, index),
+                          ),
+                        ),
                       )
                     ],
                   )

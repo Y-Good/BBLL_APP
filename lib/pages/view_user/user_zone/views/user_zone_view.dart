@@ -122,7 +122,10 @@ class UserZoneView extends GetView<UserZoneController> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                 alignment: Alignment.centerLeft,
-                child: MText(items[index].content ?? '-'),
+                child: MText(
+                  items[index].content ?? '-',
+                  maxLines: 5,
+                ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
@@ -147,7 +150,7 @@ class UserZoneView extends GetView<UserZoneController> {
                       MAvatar(
                         CommonUtils.handleSrcUrl(
                             items[index].video?.cover ?? ''),
-                        radius: 0,
+                        radius: 8,
                         height: 52,
                         width: 52,
                       )

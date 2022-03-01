@@ -7,9 +7,7 @@ class UserUtils {
   static GetStorage _st = GetStorage();
 
   static User? get getUser {
-    var user = _st.read('user');
-
-    return User.fromJson(user);
+    return _st.read('user');
   }
 
   static String? get getToken {
