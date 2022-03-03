@@ -32,16 +32,11 @@ class UserViewHead extends GetView<UserController> {
               children: [
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 32),
-                  child: SizedBox(
+                  child: MAvatar(
+                    controller.user?.avatar ?? '',
                     height: 82,
                     width: 82,
-                    child: InkWell(
-                      onTap: () => Get.toNamed(Routes.USER_ZONE),
-                      child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            'https://img2.baidu.com/it/u=3782522808,1589825680&fm=26&fmt=auto'),
-                      ),
-                    ),
+                    onTap: () => Get.toNamed(Routes.USER_ZONE),
                   ),
                 ),
                 SizedBox(

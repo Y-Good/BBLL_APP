@@ -1,4 +1,5 @@
-import 'package:get/get.dart';
+import 'package:dio/dio.dart';
+import 'package:get/get.dart' hide FormData;
 import 'package:get_storage/get_storage.dart';
 import 'package:mvideo/config/http/api/user_api.dart';
 import 'package:mvideo/config/http/http.dart';
@@ -71,6 +72,15 @@ class UserRequest {
       UserApi.update,
       data: params,
       // options: CommonUtils.getNewOption(),
+    );
+    UserUtils.saveUserInfo(User.fromJson(json));
+  }
+
+  ///上传
+  static uploadAvatar(FormData params) async {
+    var json = await HttpUtil.post(
+      UserApi.avatar,
+      data: params,
     );
     UserUtils.saveUserInfo(User.fromJson(json));
   }

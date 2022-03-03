@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mvideo/config/public.dart';
 
 const double _MSize = 40;
 
@@ -31,7 +30,7 @@ class MAvatar extends StatelessWidget {
             errorBuilder: (context, Object exception, StackTrace? stackTrace) {
               return Container(
                 width: double.infinity,
-                color: MColors.grey9.withOpacity(0.3),
+                color: Color(0xFFe5e5e5),
               );
             },
           ),

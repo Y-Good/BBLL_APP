@@ -8,6 +8,37 @@ import 'package:mvideo/widgets/public.dart';
 import '../controllers/user_edit_controller.dart';
 
 class UserEditView extends GetView<UserEditController> {
+  Widget videoPickWidget() {
+    return Container(
+      decoration: BoxDecoration(
+          color: MColors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+          )),
+      height: 100,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: List.generate(
+          2,
+          (index) => Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              MIcon(
+                controller.pickList[index].icon ?? Icons.add,
+                size: 64,
+                color: Colors.orangeAccent,
+                onTap: () =>
+                    controller.imagePick(controller.pickList[index].pickType),
+              ),
+              MText(controller.pickList[index].label ?? '')
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,8 +53,8 @@ class UserEditView extends GetView<UserEditController> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            InkWell(
-              onTap: () => print("object"),
+            GestureDetector(
+              onTap: () => Get.bottomSheet(videoPickWidget()),
               child: Container(
                 alignment: Alignment.center,
                 color: Colors.transparent,
@@ -31,11 +62,11 @@ class UserEditView extends GetView<UserEditController> {
                 child: IgnorePointer(
                   child: Stack(
                     children: [
-                      MAvatar(
-                        'https://img1.baidu.com/it/u=2929809463,2042799416&fm=253&fmt=auto&app=120&f=JPEG?w=690&h=690',
-                        width: 80,
-                        height: 80,
-                      ),
+                      Obx(() => MAvatar(
+                            controller.user.value?.avatar ?? '',
+                            width: 80,
+                            height: 80,
+                          )),
                       Positioned(
                         bottom: 0,
                         right: 0,

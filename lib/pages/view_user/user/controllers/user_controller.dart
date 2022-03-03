@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
 import 'package:mvideo/config/http/request/user/user_request.dart';
+import 'package:mvideo/models/common/user.dart';
 import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/utils/user_utils.dart';
 
@@ -23,6 +24,7 @@ class UserHeadItem {
 class UserController extends GetxController {
   final isLogin = true.obs;
   GetStorage? st = GetStorage();
+  User? user;
   List<UserHeadItem> userHeadList = [
     UserHeadItem(icon: IconFonts.iconBianji, path: Routes.USER_EDIT),
     UserHeadItem(icon: IconFonts.iconTongzhi, path: Routes.NOTICES),
@@ -39,7 +41,7 @@ class UserController extends GetxController {
       ];
   @override
   void onInit() async {
-    UserRequest.getUserInfo();
+    user = await UserRequest.getUserInfo();
     isLogin.value = !UserUtils.hasToken;
     super.onInit();
   }

@@ -29,7 +29,7 @@ class UserZoneView extends GetView<UserZoneController> {
                 Padding(
                     padding: EdgeInsets.symmetric(vertical: 8),
                     child: MAvatar(
-                      CommonUtils.handleSrcUrl(controller.user?.avatar ?? ''),
+                      controller.user?.avatar ?? '',
                       height: 82,
                       width: 82,
                     )),

@@ -143,7 +143,7 @@ class VideoDetailView extends GetView<VideoDetailController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           MAvatar(
-            CommonUtils.handleSrcUrl(item?.user?.avatar ?? ''),
+            item?.user?.avatar ?? '',
           ),
           SizedBox(width: 8),
           Expanded(
