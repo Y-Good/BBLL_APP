@@ -110,8 +110,8 @@ class UserZoneView extends GetView<UserZoneController> {
           return Column(
             children: [
               MListTile(
-                url: CommonUtils.handleSrcUrl(items[index].user?.avatar ?? ''),
-                title: items[index].user?.nickname,
+                url: controller.user?.avatar ?? '',
+                title: controller.user?.nickname,
                 subtitle: '2020-01-23\t\t13:44',
                 trailing: MIcon(
                   CupertinoIcons.delete,
@@ -148,8 +148,7 @@ class UserZoneView extends GetView<UserZoneController> {
                         ),
                       ),
                       MAvatar(
-                        CommonUtils.handleSrcUrl(
-                            items[index].video?.cover ?? ''),
+                        items[index].video?.cover ?? '',
                         radius: 8,
                         height: 52,
                         width: 52,

@@ -29,9 +29,8 @@ class VideoDetailController extends GetxController {
   void onInit() async {
     FijkVolume.setUIMode(2);
     video = Get.arguments['video'];
-    if (isNotNull(video)) {
-      player.setDataSource('${Server.resources}${video?.url}',
-          autoPlay: true, showCover: true);
+    if (isNotNull(video?.url)) {
+      player.setDataSource(video!.url!, autoPlay: true, showCover: true);
     }
     user = UserUtils.getUser;
 

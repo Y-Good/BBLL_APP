@@ -9,7 +9,9 @@ part of 'video.dart';
 Video _$VideoFromJson(Map<String, dynamic> json) => Video(
       id: json['id'] as int,
       title: json['title'] as String?,
-      category: json['category'] as int?,
+      category: json['category'] == null
+          ? null
+          : Category.fromJson(json['category'] as Map<String, dynamic>),
       view: json['view'] as int?,
       thumbUp: json['thumbUp'] as int?,
       collections: json['collections'] as int?,

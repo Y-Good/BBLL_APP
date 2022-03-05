@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+import 'package:mvideo/config/http/api/file_api.dart';
 import 'package:mvideo/config/http/api/video_api.dart';
 import 'package:mvideo/config/http/http.dart';
 import 'package:mvideo/models/public.dart';
@@ -26,5 +28,11 @@ class VideoRequest {
       VideoApi.myVideo,
     );
     return getVideoList(json);
+  }
+
+  ///上传视频
+  static Future<bool>? uploadVideo(FormData params) async {
+    var json = await HttpUtil.post(FileApi.upload, data: params);
+    return json != null;
   }
 }

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/models/common/comment.dart';
-import 'package:mvideo/utils/common/common_utils.dart';
 import 'package:mvideo/widgets/common/m_player.dart';
 import 'package:mvideo/widgets/common/m_send_box.dart';
 import 'package:mvideo/widgets/public.dart';
@@ -32,8 +31,8 @@ class VideoDetailView extends GetView<VideoDetailController> {
                 backgroundColor: Colors.black,
                 flexibleSpace: MPlayer(
                   height: Get.size.width * 9 / 16,
-                  fit: FijkFit.fill,
-                  cover: '${Server.resources}${video?.cover}',
+                  fit: FijkFit.contain,
+                  cover: video?.cover,
                   player: controller.player,
                   curPlayUrl: controller.video?.url,
                   title: controller.video?.title,
@@ -45,7 +44,7 @@ class VideoDetailView extends GetView<VideoDetailController> {
                 delegate: StickyTabBarDelegate(
                   child: MListTile(
                     backgroundColor: MColors.white,
-                    url: '${Server.resources}${video?.user?.avatar}',
+                    url: video?.user?.avatar,
                     title: video?.user?.nickname,
                     subtitle: '3小时前',
                     trailing: controller.isUser
@@ -121,7 +120,8 @@ class VideoDetailView extends GetView<VideoDetailController> {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: MText('评论', size: 16),
+          child: Obx(
+              () => MText('评论(${controller.contentList.length}条)', size: 16)),
         ),
         Obx(() => ListView.builder(
               physics: NeverScrollableScrollPhysics(),

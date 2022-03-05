@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mvideo/models/common/category.dart';
 import 'package:mvideo/models/common/tag.dart';
 import 'package:mvideo/models/public.dart';
 
@@ -9,8 +10,6 @@ class Video extends Object {
   int id;
 
   String? title;
-
-  int? category;
 
   int? view;
 
@@ -27,6 +26,8 @@ class Video extends Object {
   User? user;
 
   List<Tag>? tags;
+
+  Category? category;
 
   Video({
     required this.id,

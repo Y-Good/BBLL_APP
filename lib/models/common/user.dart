@@ -4,7 +4,7 @@ part 'user.g.dart';
 
 @JsonSerializable()
 class User {
-  int id;
+  int? id;
 
   String? number;
 
@@ -25,7 +25,7 @@ class User {
   List<User>? follows;
 
   User({
-    required this.id,
+    this.id,
     this.number,
     this.nickname,
     this.avatar,

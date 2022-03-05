@@ -1,44 +1,15 @@
+import 'dart:io' show File;
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:mvideo/config/public.dart';
+import 'package:mvideo/utils/utils.dart';
+import 'package:mvideo/widgets/common/m_pick_sheet.dart';
 import 'package:mvideo/widgets/public.dart';
 import '../controllers/user_edit_controller.dart';
 
 class UserEditView extends GetView<UserEditController> {
-  Widget videoPickWidget() {
-    return Container(
-      decoration: BoxDecoration(
-          color: MColors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
-          )),
-      height: 100,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: List.generate(
-          2,
-          (index) => Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              MIcon(
-                controller.pickList[index].icon ?? Icons.add,
-                size: 64,
-                color: Colors.orangeAccent,
-                onTap: () =>
-                    controller.imagePick(controller.pickList[index].pickType),
-              ),
-              MText(controller.pickList[index].label ?? '')
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +25,9 @@ class UserEditView extends GetView<UserEditController> {
         child: Column(
           children: [
             GestureDetector(
-              onTap: () => Get.bottomSheet(videoPickWidget()),
+              onTap: () => Get.bottomSheet(MPickSheet(
+                onTap: (e) => controller.imagePick(e),
+              )),
               child: Container(
                 alignment: Alignment.center,
                 color: Colors.transparent,
@@ -64,6 +37,9 @@ class UserEditView extends GetView<UserEditController> {
                     children: [
                       Obx(() => MAvatar(
                             controller.user.value?.avatar ?? '',
+                            image: isNotNull(controller.imgPath.value)
+                                ? FileImage(File(controller.imgPath.value))
+                                : null,
                             width: 80,
                             height: 80,
                           )),
@@ -144,8 +120,7 @@ class UserEditView extends GetView<UserEditController> {
 class MFormItem {
   String? label;
   String? text;
-  dynamic value;
-  MFormItem({this.label, this.value, this.text});
+  MFormItem({this.label, this.text});
 }
 
 class MForm {}

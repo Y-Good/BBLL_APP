@@ -8,8 +8,9 @@ class MAvatar extends StatelessWidget {
   final double? height;
   final double? radius;
   final VoidCallback? onTap;
+  final ImageProvider<Object>? image;
   const MAvatar(this.url,
-      {Key? key, this.width, this.height, this.radius, this.onTap})
+      {Key? key, this.width, this.height, this.radius, this.onTap, this.image})
       : super(key: key);
 
   @override
@@ -25,13 +26,10 @@ class MAvatar extends StatelessWidget {
           child: Image(
             // height: 100,
             width: double.infinity,
-            image: NetworkImage(url),
+            image: image ?? NetworkImage(url),
             fit: BoxFit.cover,
             errorBuilder: (context, Object exception, StackTrace? stackTrace) {
-              return Container(
-                width: double.infinity,
-                color: Color(0xFFe5e5e5),
-              );
+              return Image.asset('assets/avatar/default.jpg');
             },
           ),
         ),

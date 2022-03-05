@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide FormData;
 import 'package:get_storage/get_storage.dart';
+import 'package:mvideo/config/http/api/file_api.dart';
 import 'package:mvideo/config/http/api/user_api.dart';
 import 'package:mvideo/config/http/http.dart';
 import 'package:mvideo/models/common/user.dart';
@@ -66,7 +67,7 @@ class UserRequest {
   }
 
   /* 更新信息 */
-  static updateUser(String? nickname) async {
+  static void updateUser(String? nickname) async {
     var params = {'nickname': nickname};
     var json = await HttpUtil.post(
       UserApi.update,
@@ -77,9 +78,9 @@ class UserRequest {
   }
 
   ///上传
-  static uploadAvatar(FormData params) async {
+  static void uploadAvatar(FormData params) async {
     var json = await HttpUtil.post(
-      UserApi.avatar,
+      FileApi.upload,
       data: params,
     );
     UserUtils.saveUserInfo(User.fromJson(json));

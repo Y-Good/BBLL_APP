@@ -46,8 +46,7 @@ class VideoCard extends StatelessWidget {
                         : Image(
                             // height: 100,
                             width: double.infinity,
-                            image: NetworkImage(
-                                '${Server.resources}${video?.cover}'),
+                            image: NetworkImage(video?.cover ?? ''),
                             fit: BoxFit.fitWidth,
 
                             errorBuilder: (context, Object exception,

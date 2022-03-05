@@ -1,8 +1,12 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
+import 'package:mvideo/widgets/common/m_pick_sheet.dart';
 import 'package:mvideo/widgets/common/m_player.dart';
 import 'package:mvideo/widgets/public.dart';
 
@@ -16,7 +20,10 @@ class UploadView extends GetView<UploadController> {
         label: '标题',
         title: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: MInput(placeholder: '请输入标题'),
+          child: MInput(
+            placeholder: '请输入标题',
+            onChange: (e) => controller.title = e,
+          ),
         ),
         trailing: SizedBox(width: 0),
       ),
@@ -52,45 +59,37 @@ class UploadView extends GetView<UploadController> {
 
   ///视频封面
   Widget uplaodCover() {
-    return Obx(() => controller.videoPath.value.isNotEmpty
-        ? MPlayer(
-            player: controller.player,
-            height: Get.size.width * 9 / 16,
-            customSkin: Stack(
-              children: [
-                Positioned(
-                    top: 8,
-                    right: 8,
-                    child: MIcon(
-                      Icons.close,
-                      color: MColors.white,
-                      onTap: controller.delVideo,
-                    )),
-                Center(
-                  child: MIcon(
-                    IconFonts.iconBofangqiBofang,
-                    color: MColors.white,
-                    size: 48,
-                    onTap: () => Get.bottomSheet(
-                        Container(
-                            height: Get.height,
-                            width: Get.width,
-                            child: MPlayer(
-                              player: controller.playerView,
-                              showConfig: controller.vSkinCfg,
-                              curPlayUrl: controller.videoPath.value,
-                            )),
-                        isScrollControlled: true),
-                  ),
-                ),
-              ],
-            ),
+    return Obx(() => controller.coverPath.value.isNotEmpty
+        ? Container(
+            height: 150,
+            child: Container(
+                alignment: Alignment.centerLeft,
+                height: Get.height,
+                width: Get.width,
+                child: Stack(
+                  children: [
+                    Image.file(
+                      File(controller.coverPath.value),
+                    ),
+                    Positioned(
+                      top: 8,
+                      right: 8,
+                      child: MIcon(
+                        Icons.close,
+                        color: MColors.white,
+                        onTap: controller.removeCover,
+                      ),
+                    ),
+                  ],
+                )),
           )
         : Center(
-            child: MIcon(IconFonts.iconShangchuan,
+            child: MIcon(CupertinoIcons.photo,
                 color: Colors.black54,
                 size: 64,
-                onTap: () => Get.bottomSheet(videoPickWidget())),
+                onTap: () => Get.bottomSheet(MPickSheet(
+                      onTap: (e) => controller.coverPick(e),
+                    ))),
           ));
   }
 
@@ -108,24 +107,26 @@ class UploadView extends GetView<UploadController> {
                     child: MIcon(
                       Icons.close,
                       color: MColors.white,
-                      onTap: controller.delVideo,
+                      onTap: controller.removeVideo,
                     )),
                 Center(
-                  child: MIcon(
-                    IconFonts.iconBofangqiBofang,
-                    color: MColors.white,
-                    size: 48,
-                    onTap: () => Get.bottomSheet(
-                        Container(
-                            height: Get.height,
-                            width: Get.width,
-                            child: MPlayer(
-                              player: controller.playerView,
-                              showConfig: controller.vSkinCfg,
-                              curPlayUrl: controller.videoPath.value,
-                            )),
-                        isScrollControlled: true),
-                  ),
+                  child: MIcon(IconFonts.iconBofangqiBofang,
+                      color: MColors.white, size: 48, onTap: () {
+                    controller.playerView.setDataSource(
+                        controller.videoPath.value,
+                        autoPlay: true);
+                    Get.bottomSheet(
+                      Container(
+                          height: Get.height,
+                          width: Get.width,
+                          child: MPlayer(
+                            player: controller.playerView,
+                            showConfig: controller.vSkinCfg,
+                            curPlayUrl: controller.videoPath.value,
+                          )),
+                      isScrollControlled: true,
+                    );
+                  }),
                 ),
               ],
             ),
@@ -133,41 +134,11 @@ class UploadView extends GetView<UploadController> {
         : Center(
             child: MIcon(IconFonts.iconShangchuan,
                 color: Colors.black54,
-                size: 104,
-                onTap: () => Get.bottomSheet(videoPickWidget())),
-          ));
-  }
-
-  ///弹出区域
-  Widget videoPickWidget() {
-    return Container(
-      decoration: BoxDecoration(
-          color: MColors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
-          )),
-      height: 100,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: List.generate(
-          2,
-          (index) => Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              MIcon(
-                controller.pickList[index].icon ?? Icons.add,
                 size: 64,
-                color: Colors.orangeAccent,
-                onTap: () =>
-                    controller.videoPick(controller.pickList[index].pickType),
-              ),
-              MText(controller.pickList[index].label ?? '')
-            ],
-          ),
-        ),
-      ),
-    );
+                onTap: () => Get.bottomSheet(MPickSheet(
+                      onTap: (e) => controller.videoPick(e),
+                    ))),
+          ));
   }
 
   ///皮翻
@@ -178,7 +149,7 @@ class UploadView extends GetView<UploadController> {
         '发布',
         size: 16,
         color: MColors.primiaryColor,
-        onTap: () => controller.sumbit(),
+        onTap: controller.onSumbit,
       ),
     );
   }

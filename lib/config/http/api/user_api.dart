@@ -16,7 +16,4 @@ class UserApi {
 
   ///更新信息
   static String update = "/user/update";
-
-  ///上传头像
-  static String avatar = "/file/upload";
 }
