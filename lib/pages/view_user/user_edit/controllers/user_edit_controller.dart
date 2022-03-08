@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide FormData, MultipartFile;
 import 'package:image_picker/image_picker.dart';
-import 'package:mvideo/config/http/request/user/user_request.dart';
+import 'package:mvideo/config/http/request/user_request.dart';
 import 'package:mvideo/models/public.dart';
 import 'package:mvideo/pages/view_user/user_edit/views/user_edit_view.dart';
-import 'package:mvideo/utils/common/common_utils.dart';
+import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/utils/user_utils.dart';
 
 class UserEditController extends GetxController {

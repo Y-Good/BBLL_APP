@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/models/base/base_response.dart';
-import 'package:mvideo/utils/common/common_utils.dart';
+import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/utils/user_utils.dart';
 
 class HttpUtil {

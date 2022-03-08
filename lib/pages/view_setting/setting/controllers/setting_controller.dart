@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/routes/app_pages.dart';
-import 'package:mvideo/utils/common/common_utils.dart';
+import 'package:mvideo/utils/common_utils.dart';
 
 class SettingItem {
   String? title;

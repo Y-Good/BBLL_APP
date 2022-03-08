@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/utils/utils.dart';
 import 'package:mvideo/widgets/public.dart';
+import 'package:intl/intl.dart';
 
 class CommonUtils {
   CommonUtils._();
@@ -78,6 +79,36 @@ class CommonUtils {
   ///处理资源地址
   static String handleSrcUrl(String src) {
     if (isNull(src)) return '';
-    return '${Server.resources}/$src';
+    return '${Server.resources}$src';
+  }
+
+  /// 时间格式化，返回字符串，默认格式：2019-01-01
+  static String? format(DateTime? date, [String format = 'yyyy-MM-dd']) {
+    try {
+      if (date == null) return null;
+      return DateFormat(format).format(date);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  ///处理时间
+  static String? remindTime(String? date) {
+    try {
+      DateTime now = new DateTime.now();
+      DateTime? end = DateTime.tryParse(date ?? '');
+      if (end == null || end.isAfter(now)) return "时间错误";
+      end = end.add(Duration(seconds: 0));
+      if (end.isAfter(now)) return "刚刚";
+      if (now.year > end.year) return format(end);
+      var diff = now.difference(end);
+      if (diff.inDays > 7) return '${format(end, "MM-dd")}';
+      if (diff.inDays > 0) return '${diff.inDays}天前';
+      if (diff.inHours > 0) return '${diff.inHours}小时前';
+      if (diff.inMinutes > 0) return '${diff.inMinutes}分钟前';
+      return "刚刚";
+    } catch (e) {
+      return null;
+    }
   }
 }

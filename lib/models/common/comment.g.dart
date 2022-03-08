@@ -17,6 +17,7 @@ Comment _$CommentFromJson(Map<String, dynamic> json) => Comment(
       video: json['video'] == null
           ? null
           : Video.fromJson(json['video'] as Map<String, dynamic>),
+      time: json['createDate'] as String?,
     );
 
 Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{
@@ -26,4 +27,5 @@ Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{
       'level': instance.level,
       'user': instance.user,
       'video': instance.video,
+      'createDate': instance.time,
     };

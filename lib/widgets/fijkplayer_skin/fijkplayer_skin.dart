@@ -331,10 +331,7 @@ class _CustomFijkPanelState extends State<CustomFijkPanel>
                   top: 0,
                   right: 0,
                   child: Container(
-                    // height:
-                    //     showConfig.stateAuto && !widget.player.value.fullScreen
-                    //         ? barFillingHeight
-                    //         : barHeight,
+                    color: Colors.black,
                     alignment: Alignment.bottomLeft,
                     child: SizedBox(
                       height: barHeight,

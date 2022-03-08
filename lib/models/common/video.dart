@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:mvideo/models/common/category.dart';
 import 'package:mvideo/models/common/tag.dart';
 import 'package:mvideo/models/public.dart';
+import 'package:mvideo/utils/common_utils.dart';
 
 part 'video.g.dart';
 
@@ -25,9 +26,14 @@ class Video extends Object {
 
   User? user;
 
+  int? duration;
+
   List<Tag>? tags;
 
   Category? category;
+
+  @JsonKey(name: 'createDate')
+  String? time;
 
   Video({
     required this.id,
@@ -41,6 +47,8 @@ class Video extends Object {
     this.cover,
     this.user,
     this.tags,
+    this.duration,
+    this.time,
   });
 
   factory Video.fromJson(Map<String, dynamic> srcJson) =>

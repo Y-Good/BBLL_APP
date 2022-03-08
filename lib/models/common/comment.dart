@@ -25,13 +25,18 @@ class Comment extends Object {
 
   Video? video;
 
-  Comment(
-      {this.id,
-      this.content,
-      this.parentId,
-      this.level,
-      this.user,
-      this.video});
+  @JsonKey(name: 'createDate')
+  String? time;
+
+  Comment({
+    this.id,
+    this.content,
+    this.parentId,
+    this.level,
+    this.user,
+    this.video,
+    this.time,
+  });
 
   factory Comment.fromJson(Map<String, dynamic> srcJson) =>
       _$CommentFromJson(srcJson);

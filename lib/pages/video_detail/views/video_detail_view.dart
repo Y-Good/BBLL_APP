@@ -1,9 +1,11 @@
 import 'package:fijkplayer/fijkplayer.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/models/common/comment.dart';
+import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/widgets/common/m_player.dart';
 import 'package:mvideo/widgets/common/m_send_box.dart';
 import 'package:mvideo/widgets/public.dart';
@@ -46,7 +48,7 @@ class VideoDetailView extends GetView<VideoDetailController> {
                     backgroundColor: MColors.white,
                     url: video?.user?.avatar,
                     title: video?.user?.nickname,
-                    subtitle: '3小时前',
+                    subtitle: CommonUtils.remindTime(video?.time),
                     trailing: controller.isUser
                         ? null
                         : Obx(() => MButton(
@@ -71,10 +73,10 @@ class VideoDetailView extends GetView<VideoDetailController> {
                         video?.title ?? '',
                         size: 18,
                       ),
-                      SizedBox(height: 8),
+                      SizedBox(height: video?.tags?.length == 0 ? 16 : 8),
                       Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: video?.tags?.length == 0 ? 0 : 8),
+                        padding: EdgeInsets.only(
+                            bottom: video?.tags?.length == 0 ? 0 : 8),
                         child: Row(
                           children: List.generate(
                               video?.tags?.length ?? 0,
@@ -98,15 +100,40 @@ class VideoDetailView extends GetView<VideoDetailController> {
           ),
           Positioned(
               bottom: 0,
-              child: Obx(
-                (() => MSendBox(
-                      changeColor: controller.isText.value,
-                      onChange: (val) => controller.content = val,
-                      textEditingController: controller.contentController,
-                      onSubmit: () => controller.isText.value
-                          ? controller.onSubmit()
-                          : null,
-                    )),
+              left: 0,
+              right: 0,
+              child: Column(
+                children: [
+                  Obx(
+                    (() => MSendBox(
+                          changeColor: controller.isText.value,
+                          onChange: (val) => controller.content = val,
+                          textEditingController: controller.contentController,
+                          onSubmit: () => controller.isText.value
+                              ? controller.onSubmit()
+                              : null,
+                        )),
+                  ),
+                  Container(
+                    color: MColors.white,
+                    padding:
+                        const EdgeInsets.only(bottom: 8, left: 16, right: 32),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        MIcon(IconFonts.iconDianzan1),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 32),
+                          child: MIcon(
+                            IconFonts.iconWodeshoucang,
+                            size: 28,
+                          ),
+                        ),
+                        MIcon(CupertinoIcons.share_up),
+                      ],
+                    ),
+                  )
+                ],
               ))
         ],
       ),
@@ -130,7 +157,7 @@ class VideoDetailView extends GetView<VideoDetailController> {
                   commentWidget(controller.contentList[index], index),
               itemCount: controller.contentList.length,
             )),
-        SizedBox(height: 48)
+        SizedBox(height: 88)
       ],
     );
   }
@@ -169,7 +196,8 @@ class VideoDetailView extends GetView<VideoDetailController> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  MText('3小时前', size: 12, color: Colors.grey),
+                  MText(CommonUtils.remindTime(item?.time) ?? '时间错误',
+                      size: 12, color: Colors.grey),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [

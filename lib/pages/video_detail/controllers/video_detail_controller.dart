@@ -1,12 +1,14 @@
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mvideo/config/http/request/comment/comment_request.dart';
-import 'package:mvideo/config/http/request/user/user_request.dart';
+import 'package:mvideo/config/http/request/comment_request.dart';
+import 'package:mvideo/config/http/request/histroy_request.dart';
+import 'package:mvideo/config/http/request/user_request.dart';
 import 'package:mvideo/models/public.dart';
-import 'package:mvideo/utils/common/common_utils.dart';
+import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/utils/user_utils.dart';
 import 'package:mvideo/utils/utils.dart';
+import 'package:mvideo/utils/video_utils.dart';
 
 class VideoDetailController extends GetxController {
   final like = 33.obs;
@@ -23,6 +25,7 @@ class VideoDetailController extends GetxController {
   List<User>? followList;
   bool get isUser => user?.id == video?.user?.id;
   String? content;
+  double? height;
 
   @override
   void onInit() async {
@@ -33,6 +36,8 @@ class VideoDetailController extends GetxController {
     }
     user = UserUtils.getUser;
 
+    height = VideoUtils.getVideoHeight(video?.url ?? '');
+
     ///获取评论
     contentList.value = await CommentRequest.getAllComment(video?.id) ?? [];
 
@@ -42,6 +47,9 @@ class VideoDetailController extends GetxController {
     followList?.forEach((e) {
       if (e.id == video?.user?.id) isFollow.value = true;
     });
+
+    ///添加历史记录
+    HistroyRequset.createHistroy(video?.id);
 
     contentController.addListener(() {
       isText.value = isNotNull(contentController.text);
@@ -79,5 +87,12 @@ class VideoDetailController extends GetxController {
   void increment() {
     isLike.value ? like.value-- : like.value++;
     isLike.value = !(isLike.value);
+  }
+
+  @override
+  void onClose() {
+    player.dispose();
+    contentController.dispose();
+    super.onClose();
   }
 }

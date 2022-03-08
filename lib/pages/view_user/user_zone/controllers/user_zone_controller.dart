@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mvideo/config/http/request/comment/comment_request.dart';
-import 'package:mvideo/config/http/request/user/user_request.dart';
-import 'package:mvideo/config/http/request/video/video_request.dart';
+import 'package:mvideo/config/http/request/comment_request.dart';
+import 'package:mvideo/config/http/request/user_request.dart';
+import 'package:mvideo/config/http/request/video_request.dart';
 import 'package:mvideo/models/public.dart';
-import 'package:mvideo/utils/common/common_utils.dart';
+import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/utils/user_utils.dart';
 
 class UserZoneController extends GetxController {

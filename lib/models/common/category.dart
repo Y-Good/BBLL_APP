@@ -19,7 +19,7 @@ class Category extends Object {
   Category({this.id, this.name});
 
   factory Category.fromJson(Map<String, dynamic> srcJson) =>
-      _$TagFromJson(srcJson);
+      _$CategoryFromJson(srcJson);
 
-  Map<String, dynamic> toJson() => _$TagToJson(this);
+  Map<String, dynamic> toJson() => _$CategoryToJson(this);
 }

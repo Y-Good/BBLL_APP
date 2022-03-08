@@ -6,7 +6,7 @@ import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
 import 'package:mvideo/models/public.dart';
 import 'package:mvideo/routes/app_pages.dart';
-import 'package:mvideo/utils/common/common_utils.dart';
+import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/utils/utils.dart';
 import 'package:mvideo/widgets/public.dart';
 import 'package:mvideo/widgets/text/m_double_text.dart';
@@ -112,7 +112,7 @@ class UserZoneView extends GetView<UserZoneController> {
               MListTile(
                 url: controller.user?.avatar ?? '',
                 title: controller.user?.nickname,
-                subtitle: '2020-01-23\t\t13:44',
+                subtitle: CommonUtils.remindTime(items[index].time),
                 trailing: MIcon(
                   CupertinoIcons.delete,
                   size: 18,

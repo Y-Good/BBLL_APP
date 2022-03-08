@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:mvideo/config/http/request/video/video_request.dart';
+import 'package:mvideo/config/http/request/video_request.dart';
 import 'package:mvideo/models/public.dart';
 
 class HomeController extends GetxController {
