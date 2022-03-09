@@ -4,8 +4,8 @@ import '../common/middlewares/router_auth.dart';
 import '../pages/login/bindings/login_binding.dart';
 import '../pages/login/views/login_view.dart';
 import '../pages/navigation_page.dart';
-import '../pages/notices/bindings/notices_binding.dart';
-import '../pages/notices/views/notices_view.dart';
+import '../pages/notify/bindings/notify_binding.dart';
+import '../pages/notify/views/notify_view.dart';
 import '../pages/public.dart';
 import '../pages/register/bindings/register_binding.dart';
 import '../pages/register/views/register_view.dart';
@@ -106,11 +106,6 @@ class AppPages {
       binding: SettingBinding(),
     ),
     GetPage(
-      name: _Paths.NOTICES,
-      page: () => NoticesView(),
-      binding: NoticesBinding(),
-    ),
-    GetPage(
       name: _Paths.LIVE_DETAIL,
       page: () => LiveDetailView(),
       binding: LiveDetailBinding(),
@@ -140,6 +135,11 @@ class AppPages {
       name: _Paths.ACCOUNT,
       page: () => AccountView(),
       binding: AccountBinding(),
+    ),
+    GetPage(
+      name: _Paths.NOTIFY,
+      page: () => NotifyView(),
+      binding: NotifyBinding(),
     ),
   ];
 }

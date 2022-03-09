@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 
-class NoticesController extends GetxController {
-  final count = 0.obs;
+class NotifyController extends GetxController {
   @override
   void onInit() {
     super.onInit();
@@ -14,5 +13,4 @@ class NoticesController extends GetxController {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
 }

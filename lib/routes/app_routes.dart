@@ -21,6 +21,7 @@ abstract class Routes {
   static const USER_HISTORY = _Paths.USER_HISTORY;
   static const DISCOVER_DETAIL = _Paths.DISCOVER_DETAIL;
   static const ACCOUNT = _Paths.ACCOUNT;
+  static const NOTIFY = _Paths.NOTIFY;
 }
 
 abstract class _Paths {
@@ -43,4 +44,5 @@ abstract class _Paths {
   static const USER_HISTORY = '/user-history';
   static const DISCOVER_DETAIL = '/discover-detail';
   static const ACCOUNT = '/account';
+  static const NOTIFY = '/notify';
 }
