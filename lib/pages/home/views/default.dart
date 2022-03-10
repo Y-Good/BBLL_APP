@@ -5,11 +5,23 @@ import 'package:mvideo/pages/home/controllers/home_controller.dart';
 import 'package:mvideo/widgets/common/m_swiper.dart';
 import 'package:mvideo/widgets/public.dart';
 
-class DefaultPage extends GetView<HomeController> {
-  const DefaultPage({Key? key}) : super(key: key);
+class DefaultPage extends StatefulWidget {
+  DefaultPage({Key? key}) : super(key: key);
+
+  @override
+  State<DefaultPage> createState() => _DefaultPageState();
+}
+
+class _DefaultPageState extends State<DefaultPage>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  HomeController controller = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return EasyRefresh(
       onRefresh: () => controller.onInit(),
       header: ClassicalHeader(),
