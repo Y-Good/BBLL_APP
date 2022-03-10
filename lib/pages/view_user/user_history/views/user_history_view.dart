@@ -36,26 +36,34 @@ class UserHistoryView extends GetView<UserHistoryController> {
                         Expanded(
                           flex: 4,
                           child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(4)),
-                            ),
-                            child: ClipRRect(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(4)),
-                              child: Image.network(
-                                items[index].video?.cover ?? '',
-                                height: 80,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, Object exception,
-                                    StackTrace? stackTrace) {
-                                  return Image.asset(
-                                      'assets/avatar/default.jpg');
-                                },
+                              decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(4)),
                               ),
-                            ),
-                          ),
+                              child: MAvatar(
+                                CommonUtils.handleSrcUrl(
+                                    items[index].video?.cover ?? ''),
+                                radius: 4,
+                                height: 80,
+                              )
+
+                              // ClipRRect(
+                              //   borderRadius:
+                              //       BorderRadius.all(Radius.circular(4)),
+                              //   child: Image.network(
+                              //     CommonUtils.handleSrcUrl(
+                              //         items[index].video?.cover ?? ''),
+                              //     height: 80,
+                              //     fit: BoxFit.cover,
+                              //     errorBuilder: (context, Object exception,
+                              //         StackTrace? stackTrace) {
+                              //       return Image.asset(
+                              //           'assets/avatar/default.jpg');
+                              //     },
+                              //   ),
+                              // ),
+                              ),
                         ),
                         Expanded(
                           flex: 6,

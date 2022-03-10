@@ -78,7 +78,7 @@ class CommonUtils {
 
   ///处理资源地址
   static String handleSrcUrl(String src) {
-    if (isNull(src)) return '';
+    if (isNull(src)) return Server.resources;
     return '${Server.resources}$src';
   }
 
@@ -97,8 +97,8 @@ class CommonUtils {
     try {
       DateTime now = new DateTime.now();
       DateTime? end = DateTime.tryParse(date ?? '');
-      if (end == null || end.isAfter(now)) return "时间错误";
-      end = end.add(Duration(seconds: 0));
+      if (end == null) return "时间错误";
+      // end = end.add(Duration(seconds: 0));
       if (end.isAfter(now)) return "刚刚";
       if (now.year > end.year) return format(end);
       var diff = now.difference(end);

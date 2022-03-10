@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/routes/app_pages.dart';
+import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/utils/utils.dart';
 import 'package:mvideo/widgets/public.dart';
 import '../controllers/user_controller.dart';
@@ -34,9 +35,10 @@ class UserViewHead extends GetView<UserController> {
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 32),
                   child: Obx(() => MAvatar(
-                        isNotNull(controller.updateAvatar.value)
-                            ? controller.updateAvatar.value
-                            : controller.user?.avatar ?? '',
+                        CommonUtils.handleSrcUrl(
+                            isNotNull(controller.updateAvatar.value)
+                                ? controller.updateAvatar.value
+                                : controller.user?.avatar ?? ''),
                         height: 82,
                         width: 82,
                         onTap: () => Get.toNamed(Routes.USER_ZONE),

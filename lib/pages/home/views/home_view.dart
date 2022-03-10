@@ -41,7 +41,7 @@ class HomeView extends GetView<HomeController> {
               offset: Offset(-2, 8),
               child: MIcon(
                 IconFonts.iconTongzhi,
-                onTap: () => Get.toNamed(Routes.NOTICES),
+                onTap: () => Get.toNamed(Routes.NOTIFY),
                 color: Colors.black,
               ),
             ),

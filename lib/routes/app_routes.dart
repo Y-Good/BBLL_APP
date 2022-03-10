@@ -14,7 +14,6 @@ abstract class Routes {
   static const VIDEO_DETAIL = _Paths.VIDEO_DETAIL;
   static const UPLOAD = _Paths.UPLOAD;
   static const SETTING = _Paths.SETTING;
-  static const NOTICES = _Paths.NOTICES;
   static const LIVE_DETAIL = _Paths.LIVE_DETAIL;
   static const USER_ZONE = _Paths.USER_ZONE;
   static const USER_EDIT = _Paths.USER_EDIT;
@@ -37,7 +36,6 @@ abstract class _Paths {
   static const VIDEO_DETAIL = '/video-detail';
   static const UPLOAD = '/upload';
   static const SETTING = '/setting';
-  static const NOTICES = '/notices';
   static const LIVE_DETAIL = '/live-detail';
   static const USER_ZONE = '/user-zone';
   static const USER_EDIT = '/user-edit';

@@ -28,7 +28,7 @@ class UserController extends GetxController {
   User? user;
   List<UserHeadItem> userHeadList = [
     UserHeadItem(icon: IconFonts.iconBianji, path: Routes.USER_EDIT),
-    UserHeadItem(icon: IconFonts.iconTongzhi, path: Routes.NOTICES),
+    UserHeadItem(icon: IconFonts.iconTongzhi, path: Routes.NOTIFY),
     UserHeadItem(icon: IconFonts.iconWodeshoucang),
     UserHeadItem(icon: IconFonts.iconShezhi, path: Routes.SETTING),
   ];

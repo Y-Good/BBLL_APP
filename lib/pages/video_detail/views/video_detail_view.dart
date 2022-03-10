@@ -46,7 +46,7 @@ class VideoDetailView extends GetView<VideoDetailController> {
                 delegate: StickyTabBarDelegate(
                   child: MListTile(
                     backgroundColor: MColors.white,
-                    url: video?.user?.avatar,
+                    url: CommonUtils.handleSrcUrl(video?.user?.avatar ?? ''),
                     title: video?.user?.nickname,
                     subtitle: CommonUtils.remindTime(video?.time),
                     trailing: controller.isUser
@@ -170,7 +170,9 @@ class VideoDetailView extends GetView<VideoDetailController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           MAvatar(
-            item?.user?.avatar ?? '',
+            CommonUtils.handleSrcUrl(
+              item?.user?.avatar ?? '',
+            ),
           ),
           SizedBox(width: 8),
           Expanded(
@@ -196,8 +198,11 @@ class VideoDetailView extends GetView<VideoDetailController> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  MText(CommonUtils.remindTime(item?.time) ?? '时间错误',
-                      size: 12, color: Colors.grey),
+                  MText(
+                    CommonUtils.remindTime(item?.time) ?? '时间错误',
+                    size: 12,
+                    color: Colors.grey,
+                  ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [

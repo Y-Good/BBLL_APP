@@ -16,8 +16,8 @@ Video _$VideoFromJson(Map<String, dynamic> json) => Video(
       thumbUp: json['thumbUp'] as int?,
       collections: json['collections'] as int?,
       share: json['share'] as int?,
-      url: CommonUtils.handleSrcUrl(json['url'] as String),
-      cover: CommonUtils.handleSrcUrl(json['cover'] as String),
+      url: json['url'] as String?,
+      cover: json['cover'] as String?,
       user: json['user'] == null
           ? null
           : User.fromJson(json['user'] as Map<String, dynamic>),

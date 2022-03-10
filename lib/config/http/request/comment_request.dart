@@ -13,10 +13,10 @@ class CommentRequest {
   }
 
   ///发布评论
-  static Future<bool> createComment(int? videoId, String? content) async {
+  static Future<Comment>? createComment(int? videoId, String? content) async {
     var json = await HttpUtil.post(CommentApi.comment,
         data: {'videoId': videoId, 'content': content});
-    return json == true;
+    return Comment.fromJson(json);
   }
 
   ///删除评论

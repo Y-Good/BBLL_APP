@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mvideo/common/enums/video_mode_enum.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/models/public.dart';
+import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/utils/utils.dart';
 import 'package:mvideo/utils/video_utils.dart';
 import 'package:mvideo/widgets/text/m_text.dart';
@@ -40,7 +41,8 @@ class VideoCard extends StatelessWidget {
                     child: Image(
                       // height: 100,
                       width: double.infinity,
-                      image: NetworkImage(video?.cover ?? ''),
+                      image: NetworkImage(
+                          CommonUtils.handleSrcUrl(video?.cover ?? '')),
                       fit: BoxFit.fitWidth,
 
                       errorBuilder:

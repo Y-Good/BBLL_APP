@@ -29,7 +29,9 @@ class UserZoneView extends GetView<UserZoneController> {
                 Padding(
                     padding: EdgeInsets.symmetric(vertical: 8),
                     child: MAvatar(
-                      controller.user?.avatar ?? '',
+                      CommonUtils.handleSrcUrl(
+                        controller.user?.avatar ?? '',
+                      ),
                       height: 82,
                       width: 82,
                     )),
@@ -110,7 +112,7 @@ class UserZoneView extends GetView<UserZoneController> {
           return Column(
             children: [
               MListTile(
-                url: controller.user?.avatar ?? '',
+                url: CommonUtils.handleSrcUrl(controller.user?.avatar ?? ''),
                 title: controller.user?.nickname,
                 subtitle: CommonUtils.remindTime(items[index].time),
                 trailing: MIcon(
@@ -148,7 +150,9 @@ class UserZoneView extends GetView<UserZoneController> {
                         ),
                       ),
                       MAvatar(
-                        items[index].video?.cover ?? '',
+                        CommonUtils.handleSrcUrl(
+                          items[index].video?.cover ?? '',
+                        ),
                         radius: 8,
                         height: 52,
                         width: 52,

@@ -32,7 +32,8 @@ class VideoDetailController extends GetxController {
     FijkVolume.setUIMode(2);
     video = Get.arguments['video'];
     if (isNotNull(video?.url)) {
-      player.setDataSource(video!.url!, autoPlay: true, showCover: true);
+      player.setDataSource(CommonUtils.handleSrcUrl(video?.url ?? ''),
+          autoPlay: true, showCover: true);
     }
     user = UserUtils.getUser;
 
@@ -58,10 +59,12 @@ class VideoDetailController extends GetxController {
   }
 
   Future<void> onSubmit() async {
-    bool isSubmit = await CommentRequest.createComment(video?.id, content);
-    List<Comment> res = await CommentRequest.getAllComment(video?.id) ?? [];
-    contentList.insert(0, res.last);
-    CommonUtils.toast(isSubmit ? '评论成功' : '评论失败');
+    Comment? res = await CommentRequest.createComment(video?.id, content);
+    if (isNotNull(res)) {
+      print(res?.time);
+      contentList.insert(0, res!);
+    }
+    CommonUtils.toast(isNotNull(res) ? '评论成功' : '评论失败');
     // FocusScope.of(Get.context!).requestFocus(focus);
     focus.unfocus();
     contentController.clear();
