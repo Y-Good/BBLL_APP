@@ -7,4 +7,9 @@ class CommentApi {
 
   ///我的评论
   static String myComment = "/comment/my";
+
+  static String isThumbUp = "/comment/isThumbUp";
+
+  ///dianz
+  static String thumbUp = "/comment/thumbUp";
 }

@@ -44,7 +44,6 @@ class VideoCard extends StatelessWidget {
                       image: NetworkImage(
                           CommonUtils.handleSrcUrl(video?.cover ?? '')),
                       fit: BoxFit.fitWidth,
-
                       errorBuilder:
                           (context, Object exception, StackTrace? stackTrace) {
                         return Container(
@@ -55,6 +54,13 @@ class VideoCard extends StatelessWidget {
                           ),
                         );
                       },
+                      // loadingBuilder: (context, Widget child, loadingProgress) {
+                      //   return Container(
+                      //     width: double.infinity,
+                      //     color: MColors.grey9.withOpacity(0.3),
+                      //     child: child,
+                      //   );
+                      // },
                     ),
                   ),
                 )),

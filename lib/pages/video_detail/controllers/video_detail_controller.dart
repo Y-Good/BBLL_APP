@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:mvideo/config/http/request/comment_request.dart';
 import 'package:mvideo/config/http/request/histroy_request.dart';
 import 'package:mvideo/config/http/request/user_request.dart';
+import 'package:mvideo/config/http/request/video_request.dart';
 import 'package:mvideo/models/public.dart';
 import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/utils/user_utils.dart';
@@ -15,6 +16,7 @@ class VideoDetailController extends GetxController {
   final isLike = false.obs;
   final isText = false.obs;
   final isFollow = false.obs;
+  final isThumbUpVideo = false.obs;
   final contentList = <Comment>[].obs;
 
   final contentController = TextEditingController();
@@ -52,6 +54,9 @@ class VideoDetailController extends GetxController {
     ///添加历史记录
     HistroyRequset.createHistroy(video?.id);
 
+    ///是否点赞
+    isThumbUpVideo.value = await VideoRequest.isThumbUp(video?.id) ?? false;
+
     contentController.addListener(() {
       isText.value = isNotNull(contentController.text);
     });
@@ -87,9 +92,21 @@ class VideoDetailController extends GetxController {
     UserRequest.updateFollow(video?.user?.id);
   }
 
-  void increment() {
-    isLike.value ? like.value-- : like.value++;
-    isLike.value = !(isLike.value);
+  void onThumbUpComment(int? commentId) async {
+    bool res = await CommentRequest.thumbUp(commentId) ?? false;
+    if (res) {
+      isLike.value ? like.value-- : like.value++;
+      isLike.value = !(isLike.value);
+    }
+  }
+
+  void onThumbUpVideo() async {
+    bool res = await VideoRequest.thumbUp(video?.id) ?? false;
+    if (res == false) {
+      CommonUtils.toast('点赞失败');
+    } else {
+      isThumbUpVideo.value = !isThumbUpVideo.value;
+    }
   }
 
   @override

@@ -35,4 +35,25 @@ class VideoRequest {
     var json = await HttpUtil.post(FileApi.upload, data: params);
     return json != null;
   }
+
+  ///点赞
+  static Future<bool?> thumbUp(int? videoId) async {
+    var json = await HttpUtil.get(VideoApi.thumbUp,
+        queryParameters: {'videoId': videoId});
+    return json;
+  }
+
+  ///点赞列表
+  static Future<bool?> thumbUpList(int? videoId) async {
+    var json = await HttpUtil.get(VideoApi.thumbUpList,
+        queryParameters: {'videoId': videoId});
+    return json;
+  }
+
+  ///我是不是点赞
+  static Future<bool?> isThumbUp(int? videoId) async {
+    var json = await HttpUtil.get(VideoApi.isThumbUp,
+        queryParameters: {'videoId': videoId});
+    return json;
+  }
 }

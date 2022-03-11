@@ -33,4 +33,19 @@ class CommentRequest {
     );
     return getCommentList(json);
   }
+
+  ///我是不是点了
+  static Future<bool?> isThumbUp() async {
+    var json = await HttpUtil.get(
+      CommentApi.isThumbUp,
+    );
+    return json;
+  }
+
+  ///点赞
+  static Future<bool?> thumbUp(int? commentId) async {
+    var json = await HttpUtil.get(CommentApi.thumbUp,
+        queryParameters: {'commentId': commentId});
+    return json;
+  }
 }

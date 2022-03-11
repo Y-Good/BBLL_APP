@@ -121,7 +121,15 @@ class VideoDetailView extends GetView<VideoDetailController> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        MIcon(IconFonts.iconDianzan1),
+                        Obx(() => MIcon(
+                              controller.isThumbUpVideo.value
+                                  ? IconFonts.iconDianzan2
+                                  : IconFonts.iconDianzan1,
+                              color: controller.isThumbUpVideo.value == true
+                                  ? MColors.primiaryColor
+                                  : null,
+                              onTap: controller.onThumbUpVideo,
+                            )),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 32),
                           child: MIcon(
@@ -215,7 +223,7 @@ class VideoDetailView extends GetView<VideoDetailController> {
                                 ? MColors.primiaryColor
                                 : null,
                             text: controller.like.value.toString(),
-                            onTap: () => controller.increment(),
+                            onTap: () => controller.onThumbUpComment(item?.id),
                           )),
                       SizedBox(width: 16),
                       MIconText(
