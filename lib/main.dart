@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mvideo/config/color/m_colors.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: MColors.background,
           primarySwatch: MColors.materialWhite,
         ),
+        builder: EasyLoading.init(),
         initialRoute: AppPages.INITIAL,
         debugShowCheckedModeBanner: false,
         getPages: AppPages.routes,

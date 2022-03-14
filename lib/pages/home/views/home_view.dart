@@ -35,16 +35,16 @@ class HomeView extends GetView<HomeController> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16),
-            child: MBadge(
-              hidden: false,
-              dot: true,
-              offset: Offset(-2, 8),
-              child: MIcon(
-                IconFonts.iconTongzhi,
-                onTap: () => Get.toNamed(Routes.NOTIFY),
-                color: Colors.black,
-              ),
-            ),
+            child: Obx(() => MBadge(
+                  hidden: controller.notifyCount.value == 0,
+                  dot: true,
+                  offset: Offset(-2, 8),
+                  child: MIcon(
+                    IconFonts.iconTongzhi,
+                    onTap: () => Get.toNamed(Routes.NOTIFY),
+                    color: Colors.black,
+                  ),
+                )),
           )
         ],
       ),

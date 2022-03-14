@@ -4,20 +4,30 @@ import 'package:mvideo/widgets/text/m_text.dart';
 
 class MLabel extends StatelessWidget {
   final String label;
-  const MLabel(this.label, {Key? key}) : super(key: key);
+  final double? size;
+  final Color? color;
+  final EdgeInsetsGeometry? padding;
+  final VoidCallback? onTap;
+  const MLabel(this.label,
+      {Key? key, this.size, this.color, this.onTap, this.padding})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 16,
-      margin: EdgeInsets.symmetric(horizontal: 4),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8), color: MColors.primiaryColor),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        // height: 16,
+        constraints: BoxConstraints(minHeight: 16),
+        margin: EdgeInsets.symmetric(horizontal: 4),
+        padding: padding ?? EdgeInsets.symmetric(horizontal: 8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: color ?? MColors.primiaryColor,
+        ),
         child: MText(
           label,
-          size: 10,
+          size: size ?? 10,
           color: Colors.white,
         ),
       ),

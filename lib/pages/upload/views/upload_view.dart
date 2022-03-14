@@ -43,7 +43,22 @@ class UploadView extends GetView<UploadController> {
           children: [MText('内容'), SizedBox(height: 4), uplaodPlay()],
         ),
       ),
-      MCell(label: '标签'),
+      MCell(
+        label: '标签',
+        title: Obx(() => Container(
+              margin: EdgeInsets.symmetric(horizontal: 4),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (_, index) => MLabel(
+                  controller.checkTagName[index],
+                  color: MColors.primiaryColor,
+                  size: 16,
+                ),
+                itemCount: controller.checkTagName.length,
+              ),
+            )),
+        onTap: controller.pickTag,
+      ),
       MCell(label: '#话题'),
     ];
 

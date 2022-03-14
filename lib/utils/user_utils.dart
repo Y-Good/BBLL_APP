@@ -26,4 +26,12 @@ class UserUtils {
   static bool get hasToken {
     return _st.hasData('token');
   }
+
+  static saveNotifyCount(int count) {
+    _st.write('notify', count);
+  }
+
+  static int get getNotifyCount {
+    return _st.read('notify');
+  }
 }

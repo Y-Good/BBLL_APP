@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/models/base/base_response.dart';
 import 'package:mvideo/utils/common_utils.dart';
+import 'package:mvideo/utils/loading_util.dart';
 import 'package:mvideo/utils/user_utils.dart';
 
 class HttpUtil {
@@ -29,6 +30,7 @@ class HttpUtil {
       return BaseResponse.fromJson(response.data).data;
     } on DioError catch (error) {
       CommonUtils.toast(error.response?.data['message'] ?? '请求失败');
+      LoadingUtil.dismissLoading();
     }
   }
 
@@ -36,11 +38,14 @@ class HttpUtil {
       {dynamic data, dynamic queryParameters, Options? options}) async {
     try {
       initDio();
-      var response = await _dio.post(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-      );
+      var response = await _dio
+          .post(path, data: data, queryParameters: queryParameters,
+              onSendProgress: (int progress, int total) {
+        Future.delayed(Duration(milliseconds: 1000)).then((value) {
+          final currentProgress = (progress / total);
+          LoadingUtil.progressLoading(currentProgress);
+        });
+      });
       return BaseResponse.fromJson(response.data).data;
     } on DioError catch (error) {
       if (error.response != null) {

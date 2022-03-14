@@ -12,4 +12,7 @@ class CommentApi {
 
   ///dianz
   static String thumbUp = "/comment/thumbUp";
+
+  ///标签
+  static String tag = "/tag";
 }
