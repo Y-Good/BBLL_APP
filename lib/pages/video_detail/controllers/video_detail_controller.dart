@@ -87,6 +87,7 @@ class VideoDetailController extends GetxController {
 
   ///关注滴干活
   void onFollow() {
+    if (UserUtils.hasToken == false) return CommonUtils.toast('请先登录APP');
     CommonUtils.toast(isFollow.value ? '取消关注' : '关注成功');
     isFollow.value = !isFollow.value;
     UserRequest.updateFollow(video?.user?.id);

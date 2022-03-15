@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/public.dart';
+import 'package:mvideo/utils/utils.dart';
 import 'package:mvideo/widgets/common/m_player.dart';
 import 'package:mvideo/widgets/common/m_send_box.dart';
 import 'package:mvideo/widgets/public.dart';
@@ -93,6 +94,15 @@ class DiscoverDetailView extends GetView<DiscoverDetailController> {
                           valueSize: 12,
                           valueColor: MColors.blackTipColor,
                         ),
+                        SizedBox(width: 24),
+                        Obx(() => MDoubleText(
+                              icon: Icons.person,
+                              value: '${controller.people.value} 人',
+                              lableColor: MColors.blackTipColor,
+                              labelSize: 14,
+                              valueSize: 12,
+                              valueColor: MColors.blackTipColor,
+                            )),
                       ],
                     )
                   ],
@@ -100,61 +110,65 @@ class DiscoverDetailView extends GetView<DiscoverDetailController> {
               ),
               Divider(height: 1, color: MColors.blackTipColor),
               Expanded(
-                child: ListView.builder(
-                  // physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-                      child: Row(
-                        textDirection:
-                            index == 4 ? TextDirection.rtl : TextDirection.ltr,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          MAvatar(
-                            'https://img0.baidu.com/it/u=4183146585,2121935578&fm=26&fmt=auto',
-                          ),
-                          SizedBox(width: 8),
-                          Expanded(
-                              child: Column(
-                            textDirection: index == 4
-                                ? TextDirection.rtl
-                                : TextDirection.ltr,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              MText(
-                                '阿西吧',
-                                color: MColors.white,
-                              ),
-                              Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 4),
-                                  child: Container(
-                                    padding: EdgeInsets.all(8),
-                                    decoration: BoxDecoration(
-                                        color: MColors.blackBackground1,
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(
-                                                index == 4 ? 10 : 0),
-                                            topRight: Radius.circular(
-                                                index == 4 ? 0 : 10),
-                                            bottomLeft: Radius.circular(10),
-                                            bottomRight: Radius.circular(10))),
-                                    child: MText(
-                                      '哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈',
-                                      color: MColors.blackTipColor,
-                                      maxLines: 10,
-                                    ),
-                                  )),
-                              SizedBox(height: 8),
-                            ],
-                          )),
-                        ],
-                      ),
-                    );
-                  },
-                  itemCount: 20,
+                child: Obx(
+                  () => ListView.builder(
+                    // physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                        child: Row(
+                          textDirection: index == 4
+                              ? TextDirection.rtl
+                              : TextDirection.ltr,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            MAvatar(
+                              'https://img0.baidu.com/it/u=4183146585,2121935578&fm=26&fmt=auto',
+                            ),
+                            SizedBox(width: 8),
+                            Expanded(
+                                child: Column(
+                              textDirection: index == 4
+                                  ? TextDirection.rtl
+                                  : TextDirection.ltr,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                MText(
+                                  '阿西吧',
+                                  color: MColors.white,
+                                ),
+                                Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 4),
+                                    child: Container(
+                                      padding: EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                          color: MColors.blackBackground1,
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(
+                                                  index == 4 ? 10 : 0),
+                                              topRight: Radius.circular(
+                                                  index == 4 ? 0 : 10),
+                                              bottomLeft: Radius.circular(10),
+                                              bottomRight:
+                                                  Radius.circular(10))),
+                                      child: MText(
+                                        controller.msgList[index],
+                                        color: MColors.blackTipColor,
+                                        maxLines: 10,
+                                      ),
+                                    )),
+                                SizedBox(height: 8),
+                              ],
+                            )),
+                          ],
+                        ),
+                      );
+                    },
+                    itemCount: controller.msgList.length,
+                  ),
                 ),
               ),
               SizedBox(height: 50)
@@ -173,6 +187,7 @@ class DiscoverDetailView extends GetView<DiscoverDetailController> {
                   padding: EdgeInsets.symmetric(horizontal: 2),
                   color: MColors.blackTipColor,
                   size: 20,
+                  onTap: controller.onSumbit,
                 ),
               ))
         ],
