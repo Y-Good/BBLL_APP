@@ -111,4 +111,46 @@ class CommonUtils {
       return null;
     }
   }
+
+  static void mActionSheeet(List<Map<String, VoidCallback>> sheet) {
+    Get.bottomSheet(
+      Container(
+        height: 56 + sheet.length * 50,
+        child: Column(
+          children: [
+            ...List.generate(
+              sheet.length,
+              (index) => InkWell(
+                onTap: sheet[index].values.first,
+                child: Container(
+                  height: 50,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(color: MColors.background, width: .5),
+                    ),
+                  ),
+                  child: MText(sheet[index].keys.first),
+                ),
+              ),
+            ),
+            Container(
+              height: 6,
+              color: MColors.background,
+            ),
+            InkWell(
+              onTap: () => Get.close(0),
+              child: Container(
+                height: 50,
+                alignment: Alignment.center,
+                child: MText("取消"),
+              ),
+            )
+          ],
+        ),
+      ),
+      enableDrag: false,
+      backgroundColor: Colors.white,
+    );
+  }
 }

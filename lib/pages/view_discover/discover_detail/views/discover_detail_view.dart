@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_barrage/flutter_barrage.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/public.dart';
-import 'package:mvideo/utils/utils.dart';
 import 'package:mvideo/widgets/common/m_player.dart';
 import 'package:mvideo/widgets/common/m_send_box.dart';
 import 'package:mvideo/widgets/public.dart';
@@ -189,7 +189,19 @@ class DiscoverDetailView extends GetView<DiscoverDetailController> {
                   size: 20,
                   onTap: controller.onSumbit,
                 ),
-              ))
+              )),
+          Positioned(
+            top: 200,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.width *
+                    MediaQuery.of(context).size.aspectRatio +
+                200,
+            child: BarrageWall(
+              controller: controller.barrageWallController,
+              massiveMode: false,
+              child: SizedBox(),
+            ),
+          ),
         ],
       ),
     );

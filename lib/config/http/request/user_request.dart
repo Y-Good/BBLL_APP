@@ -57,7 +57,7 @@ class UserRequest {
       queryParameters: isNotNull(userId) ? params : null,
     );
     if (isNotNull(json)) {
-      if (isNull(userId)) {
+      if (isNull(userId) && UserUtils.getUser == null) {
         ///存一下
         UserUtils.saveUserInfo(User.fromJson(json));
       }

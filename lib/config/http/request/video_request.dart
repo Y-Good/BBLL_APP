@@ -56,4 +56,11 @@ class VideoRequest {
         queryParameters: {'videoId': videoId});
     return json;
   }
+
+  ///删除
+  static deleteVideo(int videoId) async {
+    var json = await HttpUtil.get(VideoApi.delete,
+        queryParameters: {'videoId': videoId});
+    print(json);
+  }
 }

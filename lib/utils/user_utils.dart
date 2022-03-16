@@ -31,7 +31,7 @@ class UserUtils {
     _st.write('notify', count);
   }
 
-  static int get getNotifyCount {
+  static int? get getNotifyCount {
     return _st.read('notify');
   }
 }

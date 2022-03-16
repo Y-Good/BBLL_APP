@@ -24,6 +24,13 @@ class VideoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
+      onLongPress: () => CommonUtils.mActionSheeet([
+        {
+          '测试': () {
+            print("object");
+          }
+        }
+      ]),
       child: Card(
         margin: EdgeInsets.all(0),
         child: Column(

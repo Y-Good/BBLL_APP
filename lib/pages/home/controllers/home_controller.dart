@@ -17,7 +17,7 @@ class HomeController extends GetxController {
     LoadingUtil.showLoading();
     videoList.value = await VideoRequest.getAllVideo() ?? [];
     bannerList.value = await CommonRequest.getBanner() ?? [];
-    notifyCount.value = UserUtils.getNotifyCount;
+    notifyCount.value = UserUtils.getNotifyCount ?? 0;
     LoadingUtil.dismissLoading();
     super.onInit();
   }
