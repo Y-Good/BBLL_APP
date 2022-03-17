@@ -35,20 +35,6 @@ class UserRequest {
     return await HttpUtil.post(UserApi.updatePwd, data: params);
   }
 
-  ///关注
-  static Future<List<User>?> getFollow() async {
-    var json = await HttpUtil.get(
-      UserApi.follow,
-    );
-    return getUserList(json);
-  }
-
-  ///创建、取消
-  static Future<bool>? updateFollow(int? followId) async {
-    return await HttpUtil.post(UserApi.follow, data: {'followId': followId});
-    // return User.fromJson(json).follows;
-  }
-
   /* 获取用户信息 */
   static Future<User?> getUserInfo({int? userId}) async {
     var params = {"userId": userId};
@@ -57,7 +43,7 @@ class UserRequest {
       queryParameters: isNotNull(userId) ? params : null,
     );
     if (isNotNull(json)) {
-      if (isNull(userId) && UserUtils.getUser == null) {
+      if (isNull(userId)) {
         ///存一下
         UserUtils.saveUserInfo(User.fromJson(json));
       }

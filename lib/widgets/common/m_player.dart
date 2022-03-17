@@ -34,7 +34,8 @@ class MPlayer extends StatelessWidget {
       width: width,
       fit: fit ?? FijkFit.contain,
       player: player,
-      cover: cover != null ? NetworkImage(cover!) : null,
+      // cover:
+      //     cover != null ? NetworkImage(CommonUtils.handleSrcUrl(cover!)) : null,
       panelBuilder: (
         FijkPlayer player,
         FijkData data,

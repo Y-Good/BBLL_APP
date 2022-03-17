@@ -112,28 +112,32 @@ class CommonUtils {
     }
   }
 
-  static void mActionSheeet(List<Map<String, VoidCallback>> sheet) {
+  static void mActionSheeet(Map<String, VoidCallback> sheet) {
+    List<Widget> sheetList = [];
+    sheet.forEach((key, value) {
+      sheetList.add(
+        InkWell(
+          onTap: value,
+          child: Container(
+            height: 50,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(color: MColors.background, width: .5),
+              ),
+            ),
+            child: MText(key),
+          ),
+        ),
+      );
+    });
+
     Get.bottomSheet(
       Container(
         height: 56 + sheet.length * 50,
         child: Column(
           children: [
-            ...List.generate(
-              sheet.length,
-              (index) => InkWell(
-                onTap: sheet[index].values.first,
-                child: Container(
-                  height: 50,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(color: MColors.background, width: .5),
-                    ),
-                  ),
-                  child: MText(sheet[index].keys.first),
-                ),
-              ),
-            ),
+            ...sheetList,
             Container(
               height: 6,
               color: MColors.background,

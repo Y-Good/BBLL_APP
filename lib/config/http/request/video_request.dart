@@ -58,9 +58,9 @@ class VideoRequest {
   }
 
   ///删除
-  static deleteVideo(int videoId) async {
-    var json = await HttpUtil.get(VideoApi.delete,
+  static Future<bool?> removeVideo(int? videoId) async {
+    var json = await HttpUtil.get(VideoApi.remove,
         queryParameters: {'videoId': videoId});
-    print(json);
+    return json;
   }
 }

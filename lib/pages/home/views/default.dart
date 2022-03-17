@@ -30,19 +30,17 @@ class _DefaultPageState extends State<DefaultPage>
               child: Column(
                 children: [
                   Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: Obx(
-                        () => MSwiper(
-                          // ignore: invalid_use_of_protected_member
-                          bannerList: controller.bannerList.value,
-                        ),
-                      )),
-                  Obx(() => VideoGrid(
-                        // ignore: invalid_use_of_protected_member
-                        videoList: controller.videoList.value,
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                      )),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: MSwiper(
+                      // ignore: invalid_use_of_protected_member
+                      bannerList: controller.bannerList.value,
+                    ),
+                  ),
+                  VideoGrid(
+                    videoList: controller.videoList,
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                  ),
                 ],
               )),
         ));

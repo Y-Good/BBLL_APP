@@ -5,16 +5,21 @@ import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/widgets/videos/video_card.dart';
 
 class VideoGrid extends StatelessWidget {
-  final List<Video>? videoList;
+  final RxList<Video>? videoList;
   final ScrollPhysics? physics;
+  final ValueChanged<int>? onLongPress;
   final bool shrinkWrap;
   const VideoGrid(
-      {Key? key, this.videoList, this.physics, this.shrinkWrap = false})
+      {Key? key,
+      this.videoList,
+      this.physics,
+      this.onLongPress,
+      this.shrinkWrap = false})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
+    return Obx(() => GridView.builder(
         physics: physics,
         shrinkWrap: shrinkWrap,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -27,9 +32,11 @@ class VideoGrid extends StatelessWidget {
         itemBuilder: (_, index) {
           return VideoCard(
             video: videoList?[index],
+            onLongPress: () =>
+                onLongPress != null ? onLongPress!(videoList![index].id) : null,
             onTap: () => Get.toNamed(Routes.VIDEO_DETAIL,
                 arguments: {"video": videoList?[index]}),
           );
-        });
+        }));
   }
 }

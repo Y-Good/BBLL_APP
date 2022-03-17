@@ -10,11 +10,13 @@ import 'package:mvideo/widgets/text/m_text.dart';
 class VideoCard extends StatelessWidget {
   final Video? video;
   final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
   final bool isLive;
   final VideoMode? videoMode;
   const VideoCard({
     Key? key,
     this.onTap,
+    this.onLongPress,
     this.video,
     this.isLive = false,
     this.videoMode = VideoMode.video,
@@ -24,13 +26,7 @@ class VideoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      onLongPress: () => CommonUtils.mActionSheeet([
-        {
-          '测试': () {
-            print("object");
-          }
-        }
-      ]),
+      onLongPress: onLongPress,
       child: Card(
         margin: EdgeInsets.all(0),
         child: Column(

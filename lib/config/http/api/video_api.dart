@@ -15,5 +15,5 @@ class VideoApi {
   static String isThumbUp = "/video/isThumbUp";
 
   ///删除
-  static String delete = "/video/delete";
+  static String remove = "/video/remove";
 }

@@ -1,11 +1,13 @@
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mvideo/config/http/request/colloect_request.dart';
 import 'package:mvideo/config/http/request/comment_request.dart';
 import 'package:mvideo/config/http/request/histroy_request.dart';
-import 'package:mvideo/config/http/request/user_request.dart';
 import 'package:mvideo/config/http/request/video_request.dart';
+import 'package:mvideo/models/common/collect.dart';
 import 'package:mvideo/models/public.dart';
+import 'package:mvideo/models/type/collect_type.dart';
 import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/utils/user_utils.dart';
 import 'package:mvideo/utils/utils.dart';
@@ -24,7 +26,7 @@ class VideoDetailController extends GetxController {
   FocusNode focus = FocusNode();
   Video? video;
   User? user;
-  List<User>? followList;
+  List<Collect>? followList;
   bool get isUser => user?.id == video?.user?.id;
   String? content;
   double? height;
@@ -45,7 +47,7 @@ class VideoDetailController extends GetxController {
     contentList.value = await CommentRequest.getAllComment(video?.id) ?? [];
 
     ///关注
-    followList = await UserRequest.getFollow();
+    followList = await CollectRequest.getCollect(ColloectType.user);
     isFollow.value = followList?.contains(video?.user) ?? false;
     followList?.forEach((e) {
       if (e.id == video?.user?.id) isFollow.value = true;
@@ -90,7 +92,7 @@ class VideoDetailController extends GetxController {
     if (UserUtils.hasToken == false) return CommonUtils.toast('请先登录APP');
     CommonUtils.toast(isFollow.value ? '取消关注' : '关注成功');
     isFollow.value = !isFollow.value;
-    UserRequest.updateFollow(video?.user?.id);
+    CollectRequest.createColloect(followId: video?.user?.id);
   }
 
   void onThumbUpComment(int? commentId) async {

@@ -69,6 +69,7 @@ class UserZoneView extends GetView<UserZoneController> {
           child: controller.videoList.length == 0
               ? Center(child: MText('没得视频'))
               : VideoGrid(
+                  onLongPress: (videoId) => controller.onMenu(videoId),
                   videoList: controller.videoList,
                 ),
         ));
@@ -80,19 +81,19 @@ class UserZoneView extends GetView<UserZoneController> {
         child: Obx(
           () => ListView.separated(
             itemBuilder: (_, index) {
-              User? followUser = controller.followList[index];
+              User? followUser = controller.followList[index].follow;
               return MListTile(
-                url: CommonUtils.handleSrcUrl(followUser.avatar ?? ''),
-                title: followUser.nickname ?? '-',
-                subtitle: isNotNull(followUser.signature)
-                    ? followUser.signature
+                url: CommonUtils.handleSrcUrl(followUser?.avatar ?? ''),
+                title: followUser?.nickname ?? '-',
+                subtitle: isNotNull(followUser?.signature)
+                    ? followUser?.signature
                     : '这个小可爱好懒',
                 trailing: MButton(
                   label: '已关注',
                   width: 64,
                   height: 32,
                   bgColor: MColors.grey9.withOpacity(0.8),
-                  onTap: () => controller.cancelFollow(followUser.id),
+                  onTap: () => controller.cancelFollow(followUser?.id),
                 ),
               );
             },

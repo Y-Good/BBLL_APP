@@ -8,8 +8,8 @@ import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/widgets/common/m_avatar.dart';
 
 class MSwiper extends StatelessWidget {
-  const MSwiper({Key? key, this.bannerList}) : super(key: key);
   final List<Video>? bannerList;
+  const MSwiper({Key? key, this.bannerList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

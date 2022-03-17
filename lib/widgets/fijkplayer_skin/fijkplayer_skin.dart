@@ -280,10 +280,11 @@ class _CustomFijkPanelState extends State<CustomFijkPanel>
           // 失败图标
           const Icon(
             Icons.error,
-            size: 50,
+            size: 48,
             color: Colors.white,
           ),
           // 错误信息
+          SizedBox(height: 8),
           const Text(
             "播放失败，您可以点击重试！",
             style: TextStyle(
@@ -404,19 +405,12 @@ class _CustomFijkPanelState extends State<CustomFijkPanel>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    Rect rect = player.value.fullScreen
-        ? Rect.fromLTWH(
-            0,
-            0,
-            widget.viewSize.width,
-            widget.viewSize.height,
-          )
-        : Rect.fromLTRB(
-            max(0.0, widget.texturePos.left),
-            max(0.0, widget.texturePos.top),
-            min(widget.viewSize.width, widget.texturePos.right),
-            min(widget.viewSize.height, widget.texturePos.bottom),
-          );
+    Rect rect = Rect.fromLTWH(
+      0,
+      0,
+      widget.viewSize.width,
+      widget.viewSize.height,
+    );
 
     List<Widget> ws = [];
 
@@ -802,22 +796,22 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
 //长按加速
 
   // 底部控制栏 - 播放按钮
-  Widget _buildPlayStateBtn() {
-    IconData iconData =
-        _playing ? IconFonts.iconBofangqiZanting : IconFonts.iconBofangqiBofang;
+  // Widget _buildPlayStateBtn() {
+  //   IconData iconData =
+  //       _playing ? IconFonts.iconBofangqiZanting : IconFonts.iconBofangqiBofang;
 
-    return IconButton(
-      icon: Icon(iconData),
-      color: Colors.white,
-      padding: const EdgeInsets.only(
-        left: 16.0,
-        right: 16.0,
-      ),
-      splashColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-      onPressed: _playOrPause,
-    );
-  }
+  //   return IconButton(
+  //     icon: Icon(iconData),
+  //     color: Colors.white,
+  //     padding: const EdgeInsets.only(
+  //       left: 16.0,
+  //       right: 16.0,
+  //     ),
+  //     splashColor: Colors.transparent,
+  //     highlightColor: Colors.transparent,
+  //     onPressed: _playOrPause,
+  //   );
+  // }
 
   // 控制器ui 底部
   Widget _buildBottomBar(BuildContext context) {
@@ -863,10 +857,10 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
                 child: Row(
                   children: <Widget>[
                     // 按钮 - 播放/暂停
-                    _buildPlayStateBtn(),
+                    // _buildPlayStateBtn(),
                     // 已播放时间
                     Padding(
-                      padding: const EdgeInsets.only(right: 5.0, left: 5),
+                      padding: const EdgeInsets.only(right: 5.0, left: 16),
                       child: SizedBox(
                         width: 50,
                         child: Text(
