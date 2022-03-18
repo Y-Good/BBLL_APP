@@ -24,6 +24,8 @@ import '../pages/view_setting/account/views/account_view.dart';
 import '../pages/view_setting/setting/bindings/setting_binding.dart';
 import '../pages/view_setting/setting/views/setting_view.dart';
 import '../pages/view_user/user/bindings/user_binding.dart';
+import '../pages/view_user/user_collect/bindings/user_collect_binding.dart';
+import '../pages/view_user/user_collect/views/user_collect_view.dart';
 import '../pages/view_user/user_edit/bindings/user_edit_binding.dart';
 import '../pages/view_user/user_edit/views/user_edit_view.dart';
 import '../pages/view_user/user_history/bindings/user_history_binding.dart';
@@ -140,6 +142,11 @@ class AppPages {
       name: _Paths.NOTIFY,
       page: () => NotifyView(),
       binding: NotifyBinding(),
+    ),
+    GetPage(
+      name: _Paths.USER_COLLECT,
+      page: () => UserCollectView(),
+      binding: UserCollectBinding(),
     ),
   ];
 }

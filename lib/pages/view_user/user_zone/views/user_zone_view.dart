@@ -136,17 +136,24 @@ class UserZoneView extends GetView<UserZoneController> {
                     color: MColors.background,
                     borderRadius: BorderRadius.all(Radius.circular(8))),
                 child: InkWell(
-                  onTap: () => Get.toNamed(Routes.VIDEO_DETAIL,
-                      arguments: {'video': items[index].video}),
+                  onTap: () => items[index].level == 2
+                      ? null
+                      : Get.toNamed(Routes.VIDEO_DETAIL,
+                          arguments: {'video': items[index].video}),
                   child: Row(
                     children: [
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: MText(
-                            items[index].video?.title ?? '-',
+                            items[index].level == 2
+                                ? '回复：${items[index].replyUser?.nickname}'
+                                : items[index].video?.title ?? '-',
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
+                            color: items[index].level == 2
+                                ? MColors.grey9
+                                : MColors.black,
                           ),
                         ),
                       ),

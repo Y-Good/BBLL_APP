@@ -48,4 +48,20 @@ class CommentRequest {
         queryParameters: {'commentId': commentId});
     return json;
   }
+
+  ///创建erji
+  static Future<Comment>? createSecond(
+      int? videoId, int? parentId, String? content) async {
+    var json = await HttpUtil.post(CommentApi.second,
+        data: {'videoId': videoId, 'parentId': parentId, 'content': content});
+    return Comment.fromJson(json);
+  }
+
+  ///huoqu二级
+  static Future<List<Comment>?> getSecondComment(int? parentId) async {
+    var json = await HttpUtil.get(CommentApi.second,
+        queryParameters: {'parentId': parentId});
+    if (isNotNull(json)) return getCommentList(json);
+    return null;
+  }
 }

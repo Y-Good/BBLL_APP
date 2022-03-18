@@ -4,7 +4,7 @@ import 'package:mvideo/models/common/collect.dart';
 
 class CollectRequest {
   ///创建
-  static Future<bool>? createColloect({int? videoId, int? followId}) async {
+  static Future<bool?> createColloect({int? videoId, int? followId}) async {
     var json = await HttpUtil.get(CollectApi.collect,
         queryParameters: {'videoId': videoId, 'followId': followId});
     return json;

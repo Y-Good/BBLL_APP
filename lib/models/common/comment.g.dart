@@ -14,10 +14,15 @@ Comment _$CommentFromJson(Map<String, dynamic> json) => Comment(
       user: json['user'] == null
           ? null
           : User.fromJson(json['user'] as Map<String, dynamic>),
+      replyUser: json['replyUser'] == null
+          ? null
+          : User.fromJson(json['replyUser'] as Map<String, dynamic>),
       video: json['video'] == null
           ? null
           : Video.fromJson(json['video'] as Map<String, dynamic>),
       time: json['createDate'] as String?,
+      replyCount: json['replyCount'] as int?,
+      thumbUpCount: json['thumbUpCount'] as int?,
     );
 
 Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{
@@ -26,6 +31,9 @@ Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{
       'parentId': instance.parentId,
       'level': instance.level,
       'user': instance.user,
+      'replyUser': instance.replyUser,
       'video': instance.video,
+      'replyCount': instance.replyCount,
+      'thumbUpCount': instance.thumbUpCount,
       'createDate': instance.time,
     };

@@ -1,4 +1,3 @@
-import 'package:mvideo/config/http/api/comment_api.dart';
 import 'package:mvideo/config/http/api/common_api.dart';
 import 'package:mvideo/config/http/http.dart';
 import 'package:mvideo/models/common/tag.dart';
@@ -12,7 +11,7 @@ class CommonRequest {
   }
 
   static Future<List<Tag>?> getTag() async {
-    var json = await HttpUtil.get(CommentApi.tag);
+    var json = await HttpUtil.get(CommonApi.tag);
     return getTagList(json);
   }
 }

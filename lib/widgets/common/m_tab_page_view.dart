@@ -102,7 +102,7 @@ class MTabPageViewState extends State<MTabPageView>
                 constraints: BoxConstraints(minHeight: widget.minHeight ?? 40),
                 child: TabBar(
                   padding: widget.padding ??
-                      EdgeInsets.symmetric(horizontal: Get.size.width / 4),
+                      EdgeInsets.symmetric(horizontal: Get.size.width / 5),
                   labelStyle:
                       TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                   unselectedLabelStyle: TextStyle(fontSize: 16),

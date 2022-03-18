@@ -29,7 +29,7 @@ class UserZoneController extends GetxController {
   @override
   void onInit() async {
     LoadingUtil.showLoading();
-    followList.value = await CollectRequest.getCollect(ColloectType.user) ?? [];
+    followList.value = await CollectRequest.getCollect(CollectType.user) ?? [];
     commentList.value = await CommentRequest.getMyComment() ?? [];
     videoList.value = await VideoRequest.getMyVideo() ?? [];
     LoadingUtil.dismissLoading();

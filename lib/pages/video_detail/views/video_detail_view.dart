@@ -131,12 +131,17 @@ class VideoDetailView extends GetView<VideoDetailController> {
                               onTap: controller.onThumbUpVideo,
                             )),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 32),
-                          child: MIcon(
-                            IconFonts.iconWodeshoucang,
-                            size: 28,
-                          ),
-                        ),
+                            padding: const EdgeInsets.symmetric(horizontal: 32),
+                            child: Obx(
+                              () => MIcon(
+                                IconFonts.iconWodeshoucang,
+                                color: controller.isCollect.value
+                                    ? MColors.primiaryColor
+                                    : null,
+                                size: 28,
+                                onTap: controller.onCollect,
+                              ),
+                            )),
                         MIcon(CupertinoIcons.share_up),
                       ],
                     ),
@@ -162,7 +167,10 @@ class VideoDetailView extends GetView<VideoDetailController> {
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemBuilder: (_, index) =>
-                  commentWidget(controller.contentList[index], index),
+                  controller.contentList[index].level == 2
+                      ? SizedBox()
+                      : commentWidget(
+                          item: controller.contentList[index], index: index),
               itemCount: controller.contentList.length,
             )),
         SizedBox(height: 88)
@@ -171,7 +179,7 @@ class VideoDetailView extends GetView<VideoDetailController> {
   }
 
   ///评论组件
-  Widget commentWidget(Comment? item, int index) {
+  Widget commentWidget({Comment? item, int? index}) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Row(
@@ -222,51 +230,78 @@ class VideoDetailView extends GetView<VideoDetailController> {
                             color: controller.isLike.value == true
                                 ? MColors.primiaryColor
                                 : null,
-                            text: controller.like.value.toString(),
+                            text: item?.thumbUpCount.toString(),
                             onTap: () => controller.onThumbUpComment(item?.id),
                           )),
-                      SizedBox(width: 16),
-                      MIconText(
-                        icon: IconFonts.iconPinglun,
-                        text: '99',
-                        iconSize: 19,
-                        onTap: () {
-                          // Get.bottomSheet(
-                          //     Container(
-                          //         color: MColors.white,
-                          //         height: Get.height / 1.56,
-                          //         child: SingleChildScrollView(
-                          //           child: Column(
-                          //             children: [
-                          //               commentWidget(content),
-                          //               ListView.builder(
-                          //                 physics:
-                          //                     NeverScrollableScrollPhysics(),
-                          //                 shrinkWrap: true,
-                          //                 itemBuilder: (context, index) {
-                          //                   return commentWidget('哈哈');
-                          //                 },
-                          //                 itemCount: 20,
-                          //               ),
-                          //             ],
-                          //           ),
-                          //         )),
-                          //     barrierColor: Colors.transparent,
-                          //     isScrollControlled: true);
-                        },
+                      Offstage(
+                        offstage: item?.level == 2,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 12),
+                          child: MIconText(
+                            icon: IconFonts.iconPinglun,
+                            text: item?.replyCount.toString(),
+                            iconSize: 19,
+                            onTap: () {
+                              if (item?.replyCount == 0) return;
+                              controller.getSecondComment(item?.id);
+                              Get.bottomSheet(
+                                  Container(
+                                      height: Get.height / 1.56,
+                                      padding: EdgeInsets.only(top: 8),
+                                      decoration: BoxDecoration(
+                                        color: MColors.white,
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          topRight: Radius.circular(20),
+                                        ),
+                                      ),
+                                      child: Stack(
+                                        children: [
+                                          Obx(() => ListView.builder(
+                                                padding:
+                                                    EdgeInsets.only(top: 28),
+                                                itemBuilder: (context, index) {
+                                                  return commentWidget(
+                                                      item: controller
+                                                              .secondCommentList[
+                                                          index]);
+                                                },
+                                                itemCount: controller
+                                                    .secondCommentList.length,
+                                              )),
+                                          Positioned(
+                                            left: 16,
+                                            right: 16,
+                                            child: Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 4),
+                                              alignment: Alignment.center,
+                                              color: Colors.white,
+                                              child: MText(
+                                                '评论回复',
+                                                size: 18,
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      )),
+                                  isScrollControlled: true);
+                            },
+                          ),
+                        ),
                       ),
                       Offstage(
                         offstage: controller.isUser
                             ? !controller.isUser
                             : !(item?.user?.id == controller.user?.id),
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 8),
+                          padding: const EdgeInsets.only(left: 12),
                           child: MText(
                             '删除',
                             size: 12,
                             color: MColors.grey9,
                             onTap: () =>
-                                controller.removeComment(item?.id, index),
+                                controller.removeComment(item?.id, index ?? 0),
                           ),
                         ),
                       )

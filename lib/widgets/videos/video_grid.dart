@@ -5,7 +5,7 @@ import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/widgets/videos/video_card.dart';
 
 class VideoGrid extends StatelessWidget {
-  final RxList<Video>? videoList;
+  final List<Video>? videoList;
   final ScrollPhysics? physics;
   final ValueChanged<int>? onLongPress;
   final bool shrinkWrap;
@@ -19,7 +19,7 @@ class VideoGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => GridView.builder(
+    return GridView.builder(
         physics: physics,
         shrinkWrap: shrinkWrap,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -37,6 +37,6 @@ class VideoGrid extends StatelessWidget {
             onTap: () => Get.toNamed(Routes.VIDEO_DETAIL,
                 arguments: {"video": videoList?[index]}),
           );
-        }));
+        });
   }
 }

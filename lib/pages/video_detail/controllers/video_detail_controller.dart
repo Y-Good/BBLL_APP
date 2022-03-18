@@ -19,7 +19,9 @@ class VideoDetailController extends GetxController {
   final isText = false.obs;
   final isFollow = false.obs;
   final isThumbUpVideo = false.obs;
+  final isCollect = false.obs;
   final contentList = <Comment>[].obs;
+  final secondCommentList = <Comment>[].obs;
 
   final contentController = TextEditingController();
   FijkPlayer player = FijkPlayer();
@@ -47,7 +49,7 @@ class VideoDetailController extends GetxController {
     contentList.value = await CommentRequest.getAllComment(video?.id) ?? [];
 
     ///关注
-    followList = await CollectRequest.getCollect(ColloectType.user);
+    followList = await CollectRequest.getCollect(CollectType.user);
     isFollow.value = followList?.contains(video?.user) ?? false;
     followList?.forEach((e) {
       if (e.id == video?.user?.id) isFollow.value = true;
@@ -110,6 +112,19 @@ class VideoDetailController extends GetxController {
     } else {
       isThumbUpVideo.value = !isThumbUpVideo.value;
     }
+  }
+
+  void onCreateSecond() {}
+
+  void getSecondComment(int? parentId) async {
+    secondCommentList.value =
+        await CommentRequest.getSecondComment(parentId) ?? [];
+  }
+
+  ///收藏视频
+  void onCollect() async {
+    bool res = await CollectRequest.createColloect(videoId: video?.id) ?? false;
+    if (res) isCollect.value = !isCollect.value;
   }
 
   @override

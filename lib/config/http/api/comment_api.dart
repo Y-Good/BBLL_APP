@@ -13,6 +13,6 @@ class CommentApi {
   ///dianz
   static String thumbUp = "/comment/thumbUp";
 
-  ///标签
-  static String tag = "/tag";
+  ///二级
+  static String second = "/comment/second";
 }

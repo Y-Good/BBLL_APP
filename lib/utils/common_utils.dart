@@ -85,7 +85,7 @@ class CommonUtils {
   /// 时间格式化，返回字符串，默认格式：2019-01-01
   static String? format(DateTime? date, [String format = 'yyyy-MM-dd']) {
     try {
-      if (date == null) return null;
+      if (date == null) return "时间错误";
       return DateFormat(format).format(date);
     } catch (e) {
       return null;

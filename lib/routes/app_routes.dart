@@ -21,6 +21,7 @@ abstract class Routes {
   static const DISCOVER_DETAIL = _Paths.DISCOVER_DETAIL;
   static const ACCOUNT = _Paths.ACCOUNT;
   static const NOTIFY = _Paths.NOTIFY;
+  static const USER_COLLECT = _Paths.USER_COLLECT;
 }
 
 abstract class _Paths {
@@ -43,4 +44,5 @@ abstract class _Paths {
   static const DISCOVER_DETAIL = '/discover-detail';
   static const ACCOUNT = '/account';
   static const NOTIFY = '/notify';
+  static const USER_COLLECT = '/user-collect';
 }

@@ -29,7 +29,7 @@ class UserController extends GetxController {
   List<UserHeadItem> userHeadList = [
     UserHeadItem(icon: IconFonts.iconBianji, path: Routes.USER_EDIT),
     UserHeadItem(icon: IconFonts.iconTongzhi, path: Routes.NOTIFY),
-    UserHeadItem(icon: IconFonts.iconWodeshoucang),
+    UserHeadItem(icon: IconFonts.iconWodeshoucang, path: Routes.USER_COLLECT),
     UserHeadItem(icon: IconFonts.iconShezhi, path: Routes.SETTING),
   ];
   List<MenuItem> get menuList => [
