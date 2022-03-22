@@ -17,8 +17,6 @@ import '../pages/video_detail/bindings/video_detail_binding.dart';
 import '../pages/video_detail/views/video_detail_view.dart';
 import '../pages/view_discover/discover_detail/bindings/discover_detail_binding.dart';
 import '../pages/view_discover/discover_detail/views/discover_detail_view.dart';
-import '../pages/view_live/live_detail/bindings/live_detail_binding.dart';
-import '../pages/view_live/live_detail/views/live_detail_view.dart';
 import '../pages/view_setting/account/bindings/account_binding.dart';
 import '../pages/view_setting/account/views/account_view.dart';
 import '../pages/view_setting/setting/bindings/setting_binding.dart';
@@ -46,7 +44,7 @@ class AppPages {
         page: () => MBottomNavigationBarPage(),
         bindings: [
           HomeBinding(),
-          LiveBinding(),
+          TrendBinding(),
           DiscoverBinding(),
           UserBinding(),
           // UploadBinding()
@@ -60,11 +58,6 @@ class AppPages {
       name: _Paths.USER,
       page: () => UserView(),
       binding: UserBinding(),
-    ),
-    GetPage(
-      name: _Paths.LIVE,
-      page: () => LiveView(),
-      binding: LiveBinding(),
     ),
     GetPage(
       name: _Paths.DISCOVER,
@@ -106,11 +99,6 @@ class AppPages {
       name: _Paths.SETTING,
       page: () => SettingView(),
       binding: SettingBinding(),
-    ),
-    GetPage(
-      name: _Paths.LIVE_DETAIL,
-      page: () => LiveDetailView(),
-      binding: LiveDetailBinding(),
     ),
     GetPage(
       name: _Paths.USER_ZONE,

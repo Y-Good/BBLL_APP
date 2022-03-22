@@ -59,7 +59,7 @@ class UploadView extends GetView<UploadController> {
             )),
         onTap: controller.pickTag,
       ),
-      MCell(label: '#话题'),
+      // MCell(label: '#话题'),
     ];
 
     return Scaffold(

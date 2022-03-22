@@ -7,7 +7,7 @@ part 'histroy.g.dart';
 class Histroy extends Object {
   int? id;
 
-  @JsonKey(name: 'createDate')
+  @JsonKey(name: 'updateDate')
   String? time;
 
   Video? video;

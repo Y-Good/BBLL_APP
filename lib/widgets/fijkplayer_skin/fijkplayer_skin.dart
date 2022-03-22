@@ -1103,12 +1103,19 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
             ? AnimatedOpacity(
                 opacity: _hideStuff ? 0.0 : 0.7,
                 duration: const Duration(milliseconds: 400),
-                child: IconButton(
-                  iconSize: barHeight * 1.2,
-                  icon: Icon(_playing ? Icons.pause : Icons.play_arrow,
-                      color: Colors.white),
-                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                  onPressed: _playOrPause,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(barHeight * 1.2)),
+                    color: Colors.black45,
+                  ),
+                  child: IconButton(
+                    iconSize: barHeight * 0.8,
+                    icon: Icon(_playing ? Icons.pause : Icons.play_arrow,
+                        color: Colors.white),
+                    // padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                    onPressed: _playOrPause,
+                  ),
                 ),
               )
             : const SizedBox(

@@ -12,18 +12,22 @@ class MListTile extends StatelessWidget {
   final Color? backgroundColor;
   final Color? subtitleColor;
   final Color? titleColor;
+  final double? titleSize;
+  final VoidCallback? onTap;
 
-  const MListTile(
-      {Key? key,
-      this.title,
-      this.subtitle,
-      this.url,
-      this.trailing,
-      this.backgroundColor,
-      this.padding,
-      this.subtitleColor,
-      this.titleColor})
-      : super(key: key);
+  const MListTile({
+    Key? key,
+    this.title,
+    this.subtitle,
+    this.titleSize,
+    this.url,
+    this.trailing,
+    this.backgroundColor,
+    this.padding,
+    this.subtitleColor,
+    this.titleColor,
+    this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,29 +40,33 @@ class MListTile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              MAvatar(url ?? ''),
-              SizedBox(width: 8),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  MText(
-                    title ?? '-',
-                    color: titleColor,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  SizedBox(height: 4),
-                  MText(
-                    subtitle ?? '-',
-                    size: 12,
-                    color: subtitleColor ?? MColors.grey6,
-                  ),
-                ],
-              ),
-            ],
+          InkWell(
+            onTap: onTap,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                MAvatar(url ?? ''),
+                SizedBox(width: 8),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    MText(
+                      title ?? '-',
+                      color: titleColor,
+                      size: titleSize,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(height: 4),
+                    MText(
+                      subtitle ?? '-',
+                      size: 12,
+                      color: subtitleColor ?? MColors.grey6,
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
           trailing ?? SizedBox(width: 0)
         ],

@@ -8,7 +8,7 @@ part of 'histroy.dart';
 
 Histroy _$HistroyFromJson(Map<String, dynamic> json) => Histroy(
       id: json['id'] as int?,
-      time: json['createDate'] as String?,
+      time: json['updateDate'] as String?,
       video: json['video'] == null
           ? null
           : Video.fromJson(json['video'] as Map<String, dynamic>),
@@ -19,7 +19,7 @@ Histroy _$HistroyFromJson(Map<String, dynamic> json) => Histroy(
 
 Map<String, dynamic> _$HistroyToJson(Histroy instance) => <String, dynamic>{
       'id': instance.id,
-      'createDate': instance.time,
+      'updateDate': instance.time,
       'video': instance.video,
       'user': instance.user,
     };

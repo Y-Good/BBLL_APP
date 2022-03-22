@@ -6,8 +6,13 @@ class MSearch extends StatelessWidget {
   final bool enabled;
   final bool autofocus;
   final FocusNode? focusNode;
-  const MSearch(
-      {Key? key, this.enabled = true, this.focusNode, this.autofocus = false})
+  final ValueChanged<String>? onChanged;
+  MSearch(
+      {Key? key,
+      this.enabled = true,
+      this.focusNode,
+      this.autofocus = false,
+      this.onChanged})
       : super(key: key);
 
   @override
@@ -24,6 +29,7 @@ class MSearch extends StatelessWidget {
         focusNode: focusNode,
         autofocus: true,
         textInputAction: TextInputAction.search,
+        onChanged: (val) => onChanged!(val),
         cursorColor: Colors.grey,
         style: TextStyle(
             color: Colors.black,

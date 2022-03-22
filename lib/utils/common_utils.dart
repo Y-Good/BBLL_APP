@@ -112,12 +112,16 @@ class CommonUtils {
     }
   }
 
-  static void mActionSheeet(Map<String, VoidCallback> sheet) {
+  static void mActionSheeet(Map<String, VoidCallback> sheet,
+      {VoidCallback? onCancel}) {
     List<Widget> sheetList = [];
     sheet.forEach((key, value) {
       sheetList.add(
         InkWell(
-          onTap: value,
+          onTap: () {
+            value();
+            Get.back();
+          },
           child: Container(
             height: 50,
             alignment: Alignment.center,
@@ -143,7 +147,12 @@ class CommonUtils {
               color: MColors.background,
             ),
             InkWell(
-              onTap: () => Get.close(0),
+              onTap: () {
+                if (isNotNull(onCancel)) {
+                  onCancel!();
+                }
+                Get.back();
+              },
               child: Container(
                 height: 50,
                 alignment: Alignment.center,

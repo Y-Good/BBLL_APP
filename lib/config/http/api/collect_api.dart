@@ -4,4 +4,10 @@ class CollectApi {
 
   ///李彪
   static String list = "/collect/list";
+
+  ///动态列表
+  static String trend = "/collect/trend";
+
+  ///guanzhu
+  static String isFollow = "/collect/isFollow";
 }

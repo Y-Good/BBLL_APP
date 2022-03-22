@@ -18,7 +18,28 @@ class UserZoneView extends GetView<UserZoneController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: MAppBar(
-            actionWidget: MIcon(IconFonts.iconSousuo, color: Colors.black)),
+          actions: [
+            Offstage(
+              offstage: isNull(controller.argUser),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6),
+                child: Obx(() => MButton(
+                      label: controller.isFollow.value ? '已关注' : '关注',
+                      width: 64,
+                      height: 32,
+                      bgColor: controller.isFollow.value
+                          ? MColors.grey9.withOpacity(0.8)
+                          : null,
+                      onTap: controller.onFollow,
+                    )),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: MIcon(IconFonts.iconSousuo, color: Colors.black),
+            )
+          ],
+        ),
         body: Container(
             width: double.infinity,
             color: MColors.white,
@@ -95,6 +116,8 @@ class UserZoneView extends GetView<UserZoneController> {
                   bgColor: MColors.grey9.withOpacity(0.8),
                   onTap: () => controller.cancelFollow(followUser?.id),
                 ),
+                // onTap: () => Get.toNamed(Routes.USER_ZONE,
+                //     arguments: {'user': followUser}, id: 2),
               );
             },
             itemCount: controller.followList.length,

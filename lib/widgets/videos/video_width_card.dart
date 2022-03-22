@@ -10,7 +10,9 @@ import 'package:mvideo/widgets/public.dart';
 class VideoWidthCard extends StatelessWidget {
   final Video? item;
   final bool isCollect;
-  const VideoWidthCard({Key? key, this.item, this.isCollect = false})
+  final EdgeInsetsGeometry? padding;
+  const VideoWidthCard(
+      {Key? key, this.item, this.padding, this.isCollect = false})
       : super(key: key);
 
   @override
@@ -18,7 +20,8 @@ class VideoWidthCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => Get.toNamed(Routes.VIDEO_DETAIL, arguments: {'video': item}),
       child: Padding(
-        padding: EdgeInsets.only(left: 10, right: 10, top: 8, bottom: 8),
+        padding:
+            padding ?? EdgeInsets.only(left: 10, right: 10, top: 8, bottom: 8),
         child: Container(
           height: 90,
           decoration: BoxDecoration(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:mvideo/pages/search/views/search_synthesis.dart';
+import 'package:mvideo/pages/search/views/search_user.dart';
 import 'package:mvideo/pages/search/views/search_video.dart';
 import 'package:mvideo/widgets/public.dart';
 
@@ -9,7 +11,7 @@ import '../controllers/search_controller.dart';
 class SearchView extends GetView<SearchController> {
   @override
   Widget build(BuildContext context) {
-    List<String> tabText = ['全部', '视频', '用户', '直播'];
+    List<String> tabText = ['综合', '视频', '用户', '直播'];
     List<Widget> tabs = List.generate(
       tabText.length,
       (index) => Tab(
@@ -18,19 +20,29 @@ class SearchView extends GetView<SearchController> {
       ),
     );
     return Scaffold(
-        appBar: MAppBar(
-          titleWidget: MSearch(autofocus: true),
-          actionWidget: MText('搜索', size: 16),
+      appBar: MAppBar(
+        titleWidget: MSearch(
+          onChanged: (val) => controller.key = val,
         ),
-        body: MTabPageView(
-          tabs: tabs,
-          padding: EdgeInsets.zero,
-          children: [
-            VideoGrid(),
-            SearchVideoPage(),
-            VideoGrid(),
-            VideoGrid(),
-          ],
-        ));
+        actionWidget: MText('搜索', size: 16, onTap: controller.onSearch),
+      ),
+      body: MTabPageView(
+        key: controller.tabKey,
+        tabs: tabs,
+        padding: EdgeInsets.zero,
+        children: [
+          Obx(() => SearchSynthesisPage(
+                // ignore: invalid_use_of_protected_member
+                videoList: controller.videoList.value,
+                user: controller.user.value,
+              )),
+          SearchVideoPage(),
+          SearchUserPage(
+            userList: [],
+          ),
+          VideoGrid(),
+        ],
+      ),
+    );
   }
 }

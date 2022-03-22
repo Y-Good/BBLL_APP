@@ -60,6 +60,6 @@ class UserController extends GetxController {
   }
 
   void onMyZone(int index) {
-    Get.toNamed(Routes.USER_ZONE, arguments: index);
+    Get.toNamed(Routes.USER_ZONE, arguments: {'index': index});
   }
 }

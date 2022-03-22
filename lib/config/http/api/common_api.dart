@@ -4,4 +4,10 @@ class CommonApi {
 
   ///标签
   static String tag = "/tag";
+
+  ///搜索
+  static String search = "/search";
+
+  ///搜索
+  static String searchUser = "/search/user";
 }

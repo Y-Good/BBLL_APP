@@ -1,11 +1,11 @@
 library pages;
 
 export '../pages/view_discover/discover/views/discover_view.dart';
-export '../pages/view_discover/discover//bindings/discover_binding.dart';
+export '../pages/view_discover/discover/bindings/discover_binding.dart';
 export '../pages/home/views/home_view.dart';
 export '../pages/home/bindings/home_binding.dart';
-export '../pages/view_live/live/views/live_view.dart';
-export '../pages/view_live/live/bindings/live_binding.dart';
+export '../pages/trend/views/trend_view.dart';
+export '../pages/trend/bindings/trend_binding.dart';
 
 export '../pages/view_user/user/views/user_view.dart';
 export '../pages/view_user/user/controllers/user_controller.dart';

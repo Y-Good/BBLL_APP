@@ -1,17 +1,14 @@
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mvideo/config/http/request/colloect_request.dart';
+import 'package:mvideo/config/http/request/collect_request.dart';
 import 'package:mvideo/config/http/request/comment_request.dart';
 import 'package:mvideo/config/http/request/histroy_request.dart';
 import 'package:mvideo/config/http/request/video_request.dart';
-import 'package:mvideo/models/common/collect.dart';
 import 'package:mvideo/models/public.dart';
-import 'package:mvideo/models/type/collect_type.dart';
 import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/utils/user_utils.dart';
 import 'package:mvideo/utils/utils.dart';
-import 'package:mvideo/utils/video_utils.dart';
 
 class VideoDetailController extends GetxController {
   final like = 33.obs;
@@ -28,10 +25,8 @@ class VideoDetailController extends GetxController {
   FocusNode focus = FocusNode();
   Video? video;
   User? user;
-  List<Collect>? followList;
   bool get isUser => user?.id == video?.user?.id;
   String? content;
-  double? height;
 
   @override
   void onInit() async {
@@ -43,23 +38,17 @@ class VideoDetailController extends GetxController {
     }
     user = UserUtils.getUser;
 
-    height = VideoUtils.getVideoHeight(video?.url ?? '');
-
     ///获取评论
     contentList.value = await CommentRequest.getAllComment(video?.id) ?? [];
-
-    ///关注
-    followList = await CollectRequest.getCollect(CollectType.user);
-    isFollow.value = followList?.contains(video?.user) ?? false;
-    followList?.forEach((e) {
-      if (e.id == video?.user?.id) isFollow.value = true;
-    });
 
     ///添加历史记录
     HistroyRequset.createHistroy(video?.id);
 
     ///是否点赞
     isThumbUpVideo.value = await VideoRequest.isThumbUp(video?.id) ?? false;
+
+    ///是否关注
+    isFollow.value = await CollectRequest.isFollow(video?.user?.id) ?? false;
 
     contentController.addListener(() {
       isText.value = isNotNull(contentController.text);

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:mvideo/config/http/request/colloect_request.dart';
+import 'package:mvideo/config/http/request/collect_request.dart';
 import 'package:mvideo/models/common/collect.dart';
 import 'package:mvideo/models/type/collect_type.dart';
 

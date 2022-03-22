@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/models/common/comment.dart';
+import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/widgets/common/m_player.dart';
 import 'package:mvideo/widgets/common/m_send_box.dart';
@@ -49,6 +50,10 @@ class VideoDetailView extends GetView<VideoDetailController> {
                     url: CommonUtils.handleSrcUrl(video?.user?.avatar ?? ''),
                     title: video?.user?.nickname,
                     subtitle: CommonUtils.remindTime(video?.time),
+                    onTap: () => controller.isUser
+                        ? null
+                        : Get.toNamed(Routes.USER_ZONE,
+                            arguments: {'user': video?.user}),
                     trailing: controller.isUser
                         ? null
                         : Obx(() => MButton(

@@ -16,6 +16,8 @@ class UserHistoryView extends GetView<UserHistoryController> {
         body: Obx(
           () => ListView.builder(
             itemBuilder: (context, index) {
+              ///替换时间，懒得整
+              items[index].video?.time = items[index].time;
               return VideoWidthCard(item: items[index].video);
             },
             itemCount: items.length,

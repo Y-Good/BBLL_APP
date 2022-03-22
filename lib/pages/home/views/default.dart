@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/pages/home/controllers/home_controller.dart';
+import 'package:mvideo/widgets/common/m_refresh.dart';
 import 'package:mvideo/widgets/public.dart';
 
 class DefaultPage extends StatefulWidget {
@@ -21,10 +21,9 @@ class _DefaultPageState extends State<DefaultPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Obx(() => EasyRefresh(
+    return Obx(() => MRefresh(
           onRefresh: () => controller.onInit(),
-          header: ClassicalHeader(),
-          emptyWidget: controller.videoList.length == 0 ? MEmpty() : null,
+          isEmpty: controller.videoList.length == 0,
           child: SingleChildScrollView(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
               child: Column(

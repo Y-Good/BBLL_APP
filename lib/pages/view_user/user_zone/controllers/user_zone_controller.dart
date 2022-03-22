@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mvideo/config/http/request/colloect_request.dart';
+import 'package:mvideo/config/http/request/collect_request.dart';
 import 'package:mvideo/config/http/request/comment_request.dart';
 import 'package:mvideo/config/http/request/video_request.dart';
 import 'package:mvideo/models/common/collect.dart';
 import 'package:mvideo/models/public.dart';
 import 'package:mvideo/models/type/collect_type.dart';
+import 'package:mvideo/pages/video_detail/controllers/video_detail_controller.dart';
 import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/utils/loading_util.dart';
 import 'package:mvideo/utils/user_utils.dart';
+import 'package:mvideo/utils/utils.dart';
 
 class UserZoneController extends GetxController {
-  int initialIndex = Get.arguments ?? 1;
+  int initialIndex = Get.arguments?['index'] ?? 1;
+  User? argUser = Get.arguments?['user'];
   final followList = <Collect>[].obs;
   final commentList = <Comment>[].obs;
   final videotList = <Video>[].obs;
-
-  User? get user => UserUtils.getUser;
+  final isFollow = false.obs;
+  User? get user => argUser ?? UserUtils.getUser;
+  final VideoDetailController vdCtl = Get.put(VideoDetailController());
 
   List<Widget> tabs = [
     Tab(text: "关注", height: 36),
@@ -29,9 +33,16 @@ class UserZoneController extends GetxController {
   @override
   void onInit() async {
     LoadingUtil.showLoading();
-    followList.value = await CollectRequest.getCollect(CollectType.user) ?? [];
-    commentList.value = await CommentRequest.getMyComment() ?? [];
-    videoList.value = await VideoRequest.getMyVideo() ?? [];
+    if (isNotNull(argUser)) {
+      isFollow.value = await CollectRequest.isFollow(argUser?.id) ?? false;
+    }
+    followList.value = await CollectRequest.getCollect(
+          CollectType.user,
+          userId: argUser?.id,
+        ) ??
+        [];
+    commentList.value = await CommentRequest.getMyComment(argUser?.id) ?? [];
+    videoList.value = await VideoRequest.getMyVideo(argUser?.id) ?? [];
     LoadingUtil.dismissLoading();
     super.onInit();
   }
@@ -75,5 +86,14 @@ class UserZoneController extends GetxController {
   void onMenu(int? videoId) {
     Map<String, VoidCallback> sheet = {'删除': () => removeVideo(videoId)};
     CommonUtils.mActionSheeet(sheet);
+  }
+
+  ///关注滴干活
+  void onFollow() {
+    if (UserUtils.hasToken == false) return CommonUtils.toast('请先登录APP');
+    CommonUtils.toast(isFollow.value ? '取消关注' : '关注成功');
+    isFollow.value = !isFollow.value;
+    vdCtl.isFollow.value = isFollow.value;
+    CollectRequest.createColloect(followId: argUser?.id);
   }
 }

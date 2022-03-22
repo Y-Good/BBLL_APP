@@ -22,7 +22,7 @@ class _MBottomNavigationBarPageState extends State<MBottomNavigationBarPage> {
     HomeView(),
     DiscoverView(),
     Container(),
-    LiveView(),
+    TrendView(),
     UserView(),
   ];
   final List<MBottomBarItem> bottomNavBarItems = [
@@ -39,7 +39,7 @@ class _MBottomNavigationBarPageState extends State<MBottomNavigationBarPage> {
             color: MColors.white,
           )),
     ),
-    MBottomBarItem(icon: Icon(IconFonts.iconLive), title: "直播"),
+    MBottomBarItem(icon: Icon(IconFonts.iconLive), title: "动态"),
     MBottomBarItem(icon: Icon(IconFonts.iconWode), title: "我的"),
   ];
   @override

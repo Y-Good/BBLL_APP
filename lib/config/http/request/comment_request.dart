@@ -27,10 +27,11 @@ class CommentRequest {
   }
 
   ///我的评论
-  static Future<List<Comment>?> getMyComment() async {
-    var json = await HttpUtil.get(
-      CommentApi.myComment,
-    );
+  static Future<List<Comment>?> getMyComment(int? userId) async {
+    var params = {'userId': userId};
+    params.removeWhere((key, value) => value == null);
+    var json =
+        await HttpUtil.get(CommentApi.myComment, queryParameters: params);
     return getCommentList(json);
   }
 

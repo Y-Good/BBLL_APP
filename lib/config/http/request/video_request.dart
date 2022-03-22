@@ -23,10 +23,10 @@ class VideoRequest {
   }
 
   ///wode视频
-  static Future<List<Video>?> getMyVideo() async {
-    var json = await HttpUtil.get(
-      VideoApi.myVideo,
-    );
+  static Future<List<Video>?> getMyVideo(int? userId) async {
+    var params = {'userId': userId};
+    params.removeWhere((key, value) => value == null);
+    var json = await HttpUtil.get(VideoApi.myVideo, queryParameters: params);
     return getVideoList(json);
   }
 
