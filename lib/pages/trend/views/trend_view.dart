@@ -25,16 +25,21 @@ class TrendView extends GetView<TrendController> {
         ),
         bgcolor: MColors.white,
       ),
-      body: Obx(
-        () => MRefresh(
-          onRefresh: controller.onInit,
-          isEmpty: controller.trendList.length == 0,
-          child: ListView.builder(
-            itemBuilder: (_, index) => trendCard(controller.trendList[index]),
-            itemCount: controller.trendList.length,
-          ),
-        ),
-      ),
+      body: controller.isUser == true
+          ? Obx(
+              () => MRefresh(
+                onRefresh: controller.onInit,
+                isEmpty: controller.trendList.length == 0,
+                child: ListView.builder(
+                  itemBuilder: (_, index) =>
+                      trendCard(controller.trendList[index]),
+                  itemCount: controller.trendList.length,
+                ),
+              ),
+            )
+          : MEmpty(
+              text: '登录App才能使用',
+            ),
     );
   }
 

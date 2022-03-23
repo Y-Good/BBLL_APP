@@ -38,7 +38,8 @@ class SearchView extends GetView<SearchController> {
               )),
           SearchVideoPage(),
           SearchUserPage(
-            userList: [],
+            // ignore: invalid_use_of_protected_member
+            userList: controller.userList.value,
           ),
           VideoGrid(),
         ],

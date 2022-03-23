@@ -30,6 +30,7 @@ class UploadController extends GetxController {
   final checkTagList = <int>[].obs;
   final checkTagName = <String>[].obs;
   String? title;
+  String? tagName;
   XFile? cover;
   XFile? video;
 
@@ -122,6 +123,12 @@ class UploadController extends GetxController {
         CommonUtils.toast('还有东西没填');
       }
     });
+  }
+
+  //创建标签
+  createTag() async {
+    Tag tag = await CommonRequest.createTag(tagName ?? '');
+    tagList.add(tag);
   }
 
   @override

@@ -19,24 +19,24 @@ class VideoDetailController extends GetxController {
   final isCollect = false.obs;
   final contentList = <Comment>[].obs;
   final secondCommentList = <Comment>[].obs;
+  final userVideoList = <Video>[].obs;
 
   final contentController = TextEditingController();
   FijkPlayer player = FijkPlayer();
   FocusNode focus = FocusNode();
   Video? video;
-  User? user;
+  User? get user => UserUtils.getUser;
   bool get isUser => user?.id == video?.user?.id;
   String? content;
 
   @override
   void onInit() async {
     FijkVolume.setUIMode(2);
-    video = Get.arguments['video'];
+    video = Get.arguments['video'] ?? null;
     if (isNotNull(video?.url)) {
       player.setDataSource(CommonUtils.handleSrcUrl(video?.url ?? ''),
           autoPlay: true, showCover: true);
     }
-    user = UserUtils.getUser;
 
     ///获取评论
     contentList.value = await CommentRequest.getAllComment(video?.id) ?? [];
@@ -114,6 +114,11 @@ class VideoDetailController extends GetxController {
   void onCollect() async {
     bool res = await CollectRequest.createColloect(videoId: video?.id) ?? false;
     if (res) isCollect.value = !isCollect.value;
+  }
+
+  ///获取用户视频
+  Future<List<Video>> getUserVideos() async {
+    return await VideoRequest.getMyVideo(video?.user?.id) ?? [];
   }
 
   @override

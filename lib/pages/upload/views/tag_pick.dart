@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/public.dart';
+import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/widgets/public.dart';
 
 import '../controllers/upload_controller.dart';
@@ -67,10 +68,31 @@ class TagPickWidget extends GetView<UploadController> {
                                 color: controller.checkTagList
                                         .contains(controller.tagList[index].id!)
                                     ? MColors.primiaryColor
-                                    : MColors.grey9,
+                                    : MColors.grey9.withOpacity(0.5),
                               ),
                             )),
-                  ))
+                  )),
+              Spacer(),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 30),
+                child: Center(
+                  child: MButton(
+                    width: 200,
+                    label: '创建',
+                    onTap: () async {
+                      bool? isTrue = await CommonUtils.dialog('创建标签',
+                          content: MInput(
+                            bgColor: Colors.grey.withOpacity(0.2),
+                            height: 48,
+                            onChange: (val) => controller.tagName = val,
+                          ));
+                      if (isTrue == true) {
+                        controller.createTag();
+                      }
+                    },
+                  ),
+                ),
+              )
             ],
           ),
         ));

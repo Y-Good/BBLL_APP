@@ -50,10 +50,12 @@ class CommonUtils {
     String? text, {
     String? textCancel,
     String? textConfirm,
+    Widget? content,
   }) async {
     return await Get.defaultDialog(
       title: '提示',
       middleText: text ?? '',
+      content: content,
       cancel: Padding(
         padding: const EdgeInsets.only(right: 8),
         child: MButton(

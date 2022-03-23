@@ -18,6 +18,7 @@ class SearchUserPage extends StatelessWidget {
         itemBuilder: (_, index) => MListTile(
               url: CommonUtils.handleSrcUrl(userList?[index].avatar ?? ''),
               title: userList?[index].nickname ?? '-',
+              backgroundColor: MColors.white,
               subtitle: isNotNull(userList?[index].signature)
                   ? (userList?[index].signature)
                   : '这个小可爱好懒',

@@ -29,7 +29,9 @@ class HttpUtil {
       );
       return BaseResponse.fromJson(response.data).data;
     } on DioError catch (error) {
-      CommonUtils.toast(error.response?.data['message'] ?? '请求失败');
+      if (error.response?.statusCode != 403) {
+        CommonUtils.toast(error.response?.data['message'] ?? '请求失败');
+      }
       LoadingUtil.dismissLoading();
     }
   }

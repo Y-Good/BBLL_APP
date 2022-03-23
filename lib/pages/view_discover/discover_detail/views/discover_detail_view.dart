@@ -38,7 +38,7 @@ class DiscoverDetailView extends GetView<DiscoverDetailController> {
                             'https://img2.baidu.com/it/u=1052567076,3275246168&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=800',
                         title: '我的快点咯撒是快点咯撒',
                         subtitle: '123关注',
-                        padding: EdgeInsets.only(top: 8, bottom: 8, left: 8),
+                        padding: EdgeInsets.only(top: 6, bottom: 6, left: 8),
                         titleColor: MColors.white,
                         subtitleColor: MColors.blackTipColor,
                         trailing: MButton(

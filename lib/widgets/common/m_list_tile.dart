@@ -34,7 +34,7 @@ class MListTile extends StatelessWidget {
     return Container(
       color: backgroundColor,
       padding: padding ?? EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      height: 56,
+      height: 60,
       width: MediaQuery.of(context).size.width,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -57,7 +57,7 @@ class MListTile extends StatelessWidget {
                       size: titleSize,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    SizedBox(height: 4),
+                    SizedBox(height: 3),
                     MText(
                       subtitle ?? '-',
                       size: 12,

@@ -3,7 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mvideo/widgets/public.dart';
 
 class MEmpty extends StatelessWidget {
-  const MEmpty({Key? key}) : super(key: key);
+  final String? text;
+  const MEmpty({Key? key, this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class MEmpty extends StatelessWidget {
         ),
         SizedBox(height: 10),
         MText(
-          '暂无数据',
+          text ?? '暂无数据',
           color: Colors.grey,
         )
       ],

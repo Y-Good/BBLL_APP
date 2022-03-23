@@ -5,6 +5,9 @@ class CommonApi {
   ///标签
   static String tag = "/tag";
 
+  ///标签相关视频
+  static String tagVideo = "/tag/video";
+
   ///搜索
   static String search = "/search";
 

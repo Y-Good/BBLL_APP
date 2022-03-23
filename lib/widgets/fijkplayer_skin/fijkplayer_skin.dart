@@ -3,8 +3,12 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
+import 'package:mvideo/models/public.dart';
+import 'package:mvideo/pages/video_detail/controllers/video_detail_controller.dart';
+import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/widgets/fijkplayer_skin/slider.dart'
     show NewFijkSliderColors, NewFijkSlider;
 import 'package:mvideo/widgets/public.dart';
@@ -17,6 +21,7 @@ const double barHeight = 50.0;
 final double barFillingHeight =
     MediaQueryData.fromWindow(window).padding.top + barHeight;
 final double barGap = barFillingHeight - barHeight;
+final playTitle = ''.obs;
 
 abstract class ShowConfigAbs {
   late bool speedBtn;
@@ -99,6 +104,7 @@ class _CustomFijkPanelState extends State<CustomFijkPanel>
   @override
   void initState() {
     super.initState();
+    playTitle.value = widget.playerTitle;
     initEvent();
   }
 
@@ -342,7 +348,7 @@ class _CustomFijkPanelState extends State<CustomFijkPanel>
                           _buildTopBackBtn(),
                           Expanded(
                             child: Text(
-                              widget.playerTitle,
+                              playTitle.value,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               textAlign: TextAlign.left,
@@ -398,6 +404,7 @@ class _CustomFijkPanelState extends State<CustomFijkPanel>
             ),
           ),
         ),
+        _buildTopBackBtn(),
       ],
     );
   }
@@ -411,10 +418,9 @@ class _CustomFijkPanelState extends State<CustomFijkPanel>
       widget.viewSize.width,
       widget.viewSize.height,
     );
-
     List<Widget> ws = [];
 
-    if (_playerState == FijkState.error && !_isPlaying) {
+    if (_playerState == FijkState.error) {
       ws.add(
         _buildErrorWidget(),
       );
@@ -793,6 +799,81 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
     });
   }
 
+  void _showVideos() async {
+    VideoDetailController vdCtl = Get.put(VideoDetailController());
+    List<Video> videoList = await vdCtl.getUserVideos();
+    int? videoId = vdCtl.video?.id;
+    Get.bottomSheet(
+        Container(
+          height: 160,
+          alignment: Alignment.center,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (_, index) => Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(
+                onTap: () async {
+                  if (videoId == videoList[index].id) return;
+                  playTitle.value = videoList[index].title ?? '';
+                  await player.reset();
+                  await player.setDataSource(
+                      CommonUtils.handleSrcUrl(videoList[index].url ?? ''),
+                      autoPlay: true);
+                  Get.back();
+                },
+                child: Container(
+                  width: 160,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 160,
+                        height: 90,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(4)),
+                          color: Colors.black,
+                          boxShadow: videoId == videoList[index].id
+                              ? [
+                                  BoxShadow(
+                                    color: MColors.primiaryColor,
+                                    blurRadius: 2,
+                                    spreadRadius: 2,
+                                  ),
+                                  BoxShadow(
+                                    color: MColors.white,
+                                    blurRadius: 1,
+                                    spreadRadius: 1,
+                                  )
+                                ]
+                              : [],
+                        ),
+                        child: Image.network(
+                          CommonUtils.handleSrcUrl(
+                              videoList[index].cover ?? ''),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        videoList[index].title ?? '',
+                        style: TextStyle(
+                          color: Colors.white,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        maxLines: 2,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            itemCount: 5,
+          ),
+        ),
+        // barrierColor: Colors.transparent,
+        backgroundColor: Colors.white.withOpacity(0.5));
+  }
 //长按加速
 
   // 底部控制栏 - 播放按钮
@@ -1031,7 +1112,7 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
   // 返回按钮
   Widget _buildTopBackBtn() {
     return IconButton(
-      icon: const Icon(Icons.arrow_back),
+      icon: const Icon(IconFonts.iconFanhui),
       padding: const EdgeInsets.only(
         left: 10.0,
         right: 10.0,
@@ -1077,13 +1158,31 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
             _buildTopBackBtn(),
             Expanded(
               child: Text(
-                widget.playerTitle,
+                playTitle.value,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 textAlign: TextAlign.left,
                 style: const TextStyle(
                   color: Colors.white,
                 ),
+              ),
+            ),
+            Offstage(
+              offstage: !widget.player.value.fullScreen,
+              child: InkWell(
+                onTap: _showVideos,
+                child: Container(
+                    margin: EdgeInsets.only(right: 16),
+                    padding: EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.white),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8),
+                        )),
+                    child: Text(
+                      '更多',
+                      style: TextStyle(color: Colors.white),
+                    )),
               ),
             )
           ],
@@ -1246,6 +1345,7 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
   Widget _buildGestureDetector() {
     return GestureDetector(
       onTap: _cancelAndRestartTimer,
+      onDoubleTap: _playOrPause,
       behavior: HitTestBehavior.opaque,
       onHorizontalDragStart: _onHorizontalDragStart,
       onHorizontalDragUpdate: _onHorizontalDragUpdate,

@@ -16,42 +16,45 @@ class SearchSynthesisPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          ...isNotNull(user?.id)
-              ? [
-                  Container(
-                    padding: EdgeInsets.all(4),
-                    margin: EdgeInsets.only(left: 10, right: 10, top: 8),
-                    color: Colors.white,
-                    child: MListTile(
-                      url: CommonUtils.handleSrcUrl(user?.avatar ?? ''),
-                      title: user?.nickname ?? '-',
-                      subtitle: isNotNull(user?.signature)
-                          ? (user?.signature)
-                          : '这个小可爱好懒',
-                      trailing: MButton(
-                        label: '已关注',
-                        width: 64,
-                        height: 32,
-                        bgColor: MColors.grey9.withOpacity(0.8),
-                        onTap: () => userZoneCtl.cancelFollow(user?.id),
-                      ),
-                    ),
-                  ),
-                ]
-              : [],
-          ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemBuilder: (_, index) => VideoWidthCard(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                    item: videoList?[index],
-                  ),
-              itemCount: videoList?.length),
-        ],
-      ),
-    );
+    return isNotNull(user) && isNotNull(videoList)
+        ? SingleChildScrollView(
+            child: Column(
+              children: [
+                ...isNotNull(user?.id)
+                    ? [
+                        Container(
+                          padding: EdgeInsets.all(4),
+                          margin: EdgeInsets.only(left: 10, right: 10, top: 8),
+                          color: Colors.white,
+                          child: MListTile(
+                            url: CommonUtils.handleSrcUrl(user?.avatar ?? ''),
+                            title: user?.nickname ?? '-',
+                            subtitle: isNotNull(user?.signature)
+                                ? (user?.signature)
+                                : '这个小可爱好懒',
+                            trailing: MButton(
+                              label: '已关注',
+                              width: 64,
+                              height: 32,
+                              bgColor: MColors.grey9.withOpacity(0.8),
+                              onTap: () => userZoneCtl.cancelFollow(user?.id),
+                            ),
+                          ),
+                        ),
+                      ]
+                    : [],
+                ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (_, index) => VideoWidthCard(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                          item: videoList?[index],
+                        ),
+                    itemCount: videoList?.length),
+              ],
+            ),
+          )
+        : MEmpty(text: '暂无搜索结果');
   }
 }
