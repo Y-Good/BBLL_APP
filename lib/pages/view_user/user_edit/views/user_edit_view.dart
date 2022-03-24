@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/utils/utils.dart';
-import 'package:mvideo/widgets/common/m_pick_sheet.dart';
 import 'package:mvideo/widgets/public.dart';
 import '../controllers/user_edit_controller.dart';
 

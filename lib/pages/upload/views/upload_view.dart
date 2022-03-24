@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
-import 'package:mvideo/widgets/common/m_pick_sheet.dart';
-import 'package:mvideo/widgets/common/m_player.dart';
 import 'package:mvideo/widgets/public.dart';
 
 import '../controllers/upload_controller.dart';

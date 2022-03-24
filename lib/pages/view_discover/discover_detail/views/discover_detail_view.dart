@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_barrage/flutter_barrage.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/public.dart';
-import 'package:mvideo/widgets/common/m_player.dart';
-import 'package:mvideo/widgets/common/m_send_box.dart';
+import 'package:mvideo/utils/common_utils.dart';
+import 'package:mvideo/utils/utils.dart';
 import 'package:mvideo/widgets/public.dart';
 import 'package:mvideo/widgets/text/m_double_text.dart';
 import '../controllers/discover_detail_controller.dart';
@@ -34,9 +34,10 @@ class DiscoverDetailView extends GetView<DiscoverDetailController> {
                     ),
                     Expanded(
                       child: MListTile(
-                        url:
-                            'https://img2.baidu.com/it/u=1052567076,3275246168&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=800',
-                        title: '我的快点咯撒是快点咯撒',
+                        url: CommonUtils.handleSrcUrl(
+                          controller.room?.user?.avatar ?? '',
+                        ),
+                        title: controller.room?.user?.nickname,
                         subtitle: '123关注',
                         padding: EdgeInsets.only(top: 6, bottom: 6, left: 8),
                         titleColor: MColors.white,
@@ -59,7 +60,7 @@ class DiscoverDetailView extends GetView<DiscoverDetailController> {
                   width: Get.width,
                   height: Get.width * 9 / 16,
                   player: controller.player,
-                  curPlayUrl: controller.gg,
+                  curPlayUrl: controller.room?.video?.url,
                   showConfig: controller.discoverShowConfig,
                 ),
               ),
@@ -70,7 +71,7 @@ class DiscoverDetailView extends GetView<DiscoverDetailController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     MText(
-                      '变形金刚',
+                      controller.room?.video?.title ?? '',
                       color: MColors.white,
                       size: 18,
                     ),
@@ -79,7 +80,8 @@ class DiscoverDetailView extends GetView<DiscoverDetailController> {
                       children: [
                         MDoubleText(
                           icon: IconFonts.iconLiulan,
-                          value: '111 次观看',
+                          value:
+                              '${transformView(int.parse(controller.room?.video?.view ?? '0'))}次观看',
                           lableColor: MColors.blackTipColor,
                           labelSize: 16,
                           valueSize: 12,
@@ -88,7 +90,8 @@ class DiscoverDetailView extends GetView<DiscoverDetailController> {
                         SizedBox(width: 24),
                         MDoubleText(
                           icon: IconFonts.iconDianzan2,
-                          value: '1231 赞',
+                          value:
+                              '${transformView(int.parse(controller.room?.video?.thumbUp ?? '0'))} 赞',
                           lableColor: MColors.blackTipColor,
                           labelSize: 14,
                           valueSize: 12,
@@ -115,28 +118,29 @@ class DiscoverDetailView extends GetView<DiscoverDetailController> {
                     // physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
+                      bool isUser = controller.user?.id ==
+                          controller.msgList[index].user?.id;
                       return Padding(
                         padding:
                             EdgeInsets.symmetric(vertical: 4, horizontal: 16),
                         child: Row(
-                          textDirection: index == 4
-                              ? TextDirection.rtl
-                              : TextDirection.ltr,
+                          textDirection:
+                              isUser ? TextDirection.rtl : TextDirection.ltr,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            MAvatar(
-                              'https://img0.baidu.com/it/u=4183146585,2121935578&fm=26&fmt=auto',
-                            ),
+                            MAvatar(CommonUtils.handleSrcUrl(
+                                controller.msgList[index].user?.avatar ?? '')),
                             SizedBox(width: 8),
                             Expanded(
                                 child: Column(
-                              textDirection: index == 4
+                              textDirection: isUser
                                   ? TextDirection.rtl
                                   : TextDirection.ltr,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 MText(
-                                  '阿西吧',
+                                  controller.msgList[index].user?.nickname ??
+                                      '',
                                   color: MColors.white,
                                 ),
                                 Padding(
@@ -155,7 +159,7 @@ class DiscoverDetailView extends GetView<DiscoverDetailController> {
                                               bottomRight:
                                                   Radius.circular(10))),
                                       child: MText(
-                                        controller.msgList[index],
+                                        controller.msgList[index].data ?? '',
                                         color: MColors.blackTipColor,
                                         maxLines: 10,
                                       ),
@@ -182,6 +186,7 @@ class DiscoverDetailView extends GetView<DiscoverDetailController> {
                 inputBgColor: MColors.black,
                 inputColor: MColors.white,
                 cursorColor: MColors.white,
+                onChange: (val) => controller.content = val,
                 submitWidget: MIcon(
                   IconFonts.iconSend,
                   padding: EdgeInsets.symmetric(horizontal: 2),

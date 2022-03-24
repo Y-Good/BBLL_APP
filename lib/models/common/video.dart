@@ -11,13 +11,13 @@ class Video extends Object {
 
   String? title;
 
-  int? view;
+  String? view;
 
-  int? thumbUp;
+  String? thumbUp;
 
-  int? collections;
+  // int? collections;
 
-  int? share;
+  String? share;
 
   String? url;
 
@@ -25,7 +25,7 @@ class Video extends Object {
 
   User? user;
 
-  int? duration;
+  String? duration;
 
   List<Tag>? tags;
 
@@ -40,7 +40,6 @@ class Video extends Object {
     this.category,
     this.view,
     this.thumbUp,
-    this.collections,
     this.share,
     this.url,
     this.cover,

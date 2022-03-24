@@ -30,6 +30,7 @@ abstract class ShowConfigAbs {
   late bool bottomPro;
   late bool stateAuto;
   late bool liveMode;
+  late bool completeTop;
 }
 
 String _duration2String(Duration duration) {
@@ -404,7 +405,7 @@ class _CustomFijkPanelState extends State<CustomFijkPanel>
             ),
           ),
         ),
-        _buildTopBackBtn(),
+        showConfig.completeTop ? _buildTopBackBtn() : SizedBox(),
       ],
     );
   }

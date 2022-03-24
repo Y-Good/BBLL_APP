@@ -5,7 +5,6 @@ import 'package:mvideo/pages/home/views/default.dart';
 import 'package:mvideo/pages/home/views/hot.dart';
 import 'package:mvideo/pages/home/views/rank.dart';
 import 'package:mvideo/routes/app_pages.dart';
-import 'package:mvideo/widgets/common/m_badge.dart';
 import 'package:mvideo/widgets/public.dart';
 import '../controllers/home_controller.dart';
 

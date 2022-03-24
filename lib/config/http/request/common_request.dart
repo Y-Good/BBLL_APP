@@ -1,5 +1,6 @@
 import 'package:mvideo/config/http/api/common_api.dart';
 import 'package:mvideo/config/http/http.dart';
+import 'package:mvideo/models/common/room.dart';
 import 'package:mvideo/models/common/tag.dart';
 import 'package:mvideo/models/common/user.dart';
 import 'package:mvideo/models/common/video.dart';
@@ -62,5 +63,11 @@ class CommonRequest {
   static Future<Tag> createTag(String tag) async {
     var json = await HttpUtil.post(CommonApi.tag, data: {'tag': tag});
     return Tag.fromJson(json);
+  }
+
+  //在线房间
+  static Future<List<Room>?> getOnline() async {
+    var json = await HttpUtil.get(CommonApi.room);
+    return getRoomList(json);
   }
 }

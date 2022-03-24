@@ -14,6 +14,8 @@ class VideoShowConfig implements ShowConfigAbs {
   bool stateAuto = true;
   @override
   bool liveMode = false;
+  @override
+  bool completeTop = true;
 }
 
 ///直播配置
@@ -30,6 +32,8 @@ class LiveShowConfig implements ShowConfigAbs {
   bool stateAuto = true;
   @override
   bool liveMode = true;
+  @override
+  bool completeTop = true;
 }
 
 ///发现页视频配置
@@ -47,4 +51,6 @@ class DiscoverShowConfig implements ShowConfigAbs {
   bool stateAuto = false;
   @override
   bool liveMode = false;
+  @override
+  bool completeTop = false;
 }

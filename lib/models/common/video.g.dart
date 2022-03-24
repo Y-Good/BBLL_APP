@@ -12,10 +12,9 @@ Video _$VideoFromJson(Map<String, dynamic> json) => Video(
       category: json['category'] == null
           ? null
           : Category.fromJson(json['category'] as Map<String, dynamic>),
-      view: json['view'] as int?,
-      thumbUp: json['thumbUp'] as int?,
-      collections: json['collections'] as int?,
-      share: json['share'] as int?,
+      view: json['view'] as String?,
+      thumbUp: json['thumbUp'] as String?,
+      share: json['share'] as String?,
       url: json['url'] as String?,
       cover: json['cover'] as String?,
       user: json['user'] == null
@@ -24,7 +23,7 @@ Video _$VideoFromJson(Map<String, dynamic> json) => Video(
       tags: (json['tags'] as List<dynamic>?)
           ?.map((e) => Tag.fromJson(e as Map<String, dynamic>))
           .toList(),
-      duration: json['duration'] as int?,
+      duration: json['duration'] as String?,
       time: json['createDate'] as String?,
     );
 
@@ -33,7 +32,6 @@ Map<String, dynamic> _$VideoToJson(Video instance) => <String, dynamic>{
       'title': instance.title,
       'view': instance.view,
       'thumbUp': instance.thumbUp,
-      'collections': instance.collections,
       'share': instance.share,
       'url': instance.url,
       'cover': instance.cover,

@@ -53,7 +53,7 @@ class CommonUtils {
     Widget? content,
   }) async {
     return await Get.defaultDialog(
-      title: '提示',
+      title: isNull(content) ? '提示' : text ?? '',
       middleText: text ?? '',
       content: content,
       cancel: Padding(

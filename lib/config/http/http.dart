@@ -12,6 +12,7 @@ class HttpUtil {
     String? token = UserUtils.getToken;
     _dio.options.baseUrl = Server.host;
     // xprint(token);
+    _dio.options.connectTimeout = 5000;
     _dio.options.headers.addAll({
       'Accept': 'application/json',
       'Authorization': UserUtils.hasToken ? 'Bearer $token' : null

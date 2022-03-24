@@ -13,4 +13,7 @@ class CommonApi {
 
   ///搜索
   static String searchUser = "/search/user";
+
+  ///在线房间
+  static String room = "/ws/room";
 }

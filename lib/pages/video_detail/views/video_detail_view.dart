@@ -7,8 +7,6 @@ import 'package:mvideo/config/public.dart';
 import 'package:mvideo/models/common/comment.dart';
 import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/utils/common_utils.dart';
-import 'package:mvideo/widgets/common/m_player.dart';
-import 'package:mvideo/widgets/common/m_send_box.dart';
 import 'package:mvideo/widgets/public.dart';
 import '../controllers/video_detail_controller.dart';
 
@@ -147,7 +145,11 @@ class VideoDetailView extends GetView<VideoDetailController> {
                                 onTap: controller.onCollect,
                               ),
                             )),
-                        MIcon(CupertinoIcons.share_up),
+                        MIcon(
+                          CupertinoIcons.share_up,
+                          onTap: () => Get.toNamed(Routes.DISCOVER_DETAIL,
+                              arguments: {'video': controller.video}),
+                        ),
                       ],
                     ),
                   )

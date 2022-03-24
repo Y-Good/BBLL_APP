@@ -113,7 +113,7 @@ class UploadController extends GetxController {
           "cover": await MultipartFile.fromFile(compressCoverPath!,
               filename: cover!.name),
           'title': title,
-          'duration': double.parse(duration ?? '0').round(),
+          'duration': double.parse(duration ?? '0').round().toString(),
           'tags': tags
         });
         bool? res = await VideoRequest.uploadVideo(formdata);

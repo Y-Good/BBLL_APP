@@ -95,14 +95,16 @@ class VideoCard extends StatelessWidget {
                                   ),
                                   SizedBox(width: 2),
                                   MText(
-                                    transformView(video?.view ?? 0),
+                                    transformView(
+                                        int.parse(video?.view ?? '0')),
                                     size: 10,
                                     color: MColors.white,
                                   )
                                 ],
                               ),
                               MText(
-                                VideoUtils.duration2String(video?.duration),
+                                VideoUtils.duration2String(
+                                    int.parse(video?.view ?? '10')),
                                 size: 10,
                                 color: MColors.white,
                               )

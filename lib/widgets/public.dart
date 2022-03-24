@@ -13,6 +13,10 @@ export '../widgets/common/m_tab_page_view.dart';
 export '../widgets/common/m_bottom_bar.dart';
 export '../widgets/common/m_empty.dart';
 export '../widgets/common/m_swiper.dart';
+export '../widgets/common/m_send_box.dart';
+export '../widgets/common/m_badge.dart';
+export '../widgets/common/m_player.dart';
+export '../widgets/common/m_pick_sheet.dart';
 
 export '../widgets/text/m_text.dart';
 export '../widgets/text/m_icon_text.dart';

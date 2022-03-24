@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_barrage/flutter_barrage.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/public.dart';
+import 'package:mvideo/models/common/message.dart';
+import 'package:mvideo/models/common/room.dart';
 import 'package:mvideo/models/public.dart';
+import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/utils/user_utils.dart';
 import 'package:mvideo/widgets/public.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -15,22 +18,26 @@ class DiscoverDetailController extends GetxController {
   FijkPlayer player = FijkPlayer();
   DiscoverShowConfig discoverShowConfig = DiscoverShowConfig();
   BarrageWallController barrageWallController = BarrageWallController();
-  User? user;
-  String gg =
-      'https://gd-sycdn.kuwo.cn/697efad4abe961b6cbbdb9ed0c8a0602/620f5859/resource/m3/35/83/2343069577.mp4';
-  final msgList = <String>[].obs;
+  User? get user => UserUtils.getUser;
+  Video? get video => Get.arguments['video'] ?? null;
+  Room? get room => Get.arguments['room'] ?? null;
+  String? content;
+
+  final msgList = <Message>[].obs;
   final joinRoom = ''.obs;
   final people = 0.obs;
   final showTime = Random().nextInt(60000);
   @override
   void onInit() {
     socketInit();
-    user = UserUtils.getUser;
-    player.setDataSource(gg, showCover: true, autoPlay: true);
+    player.setDataSource(
+      CommonUtils.handleSrcUrl(video?.url ?? room?.video?.url ?? ''),
+      autoPlay: true,
+    );
 
     ///房间消息
     socket?.on('room', (data) {
-      msgList.add(data);
+      msgList.add(Message.fromJson(data));
     });
 
     ///加入房间提示
@@ -57,7 +64,6 @@ class DiscoverDetailController extends GetxController {
     ///在新人数
     socket?.on('online', (data) {
       people.value = data;
-      print(data);
     });
     super.onInit();
   }
@@ -66,18 +72,27 @@ class DiscoverDetailController extends GetxController {
   void onClose() {
     player.dispose();
     socket?.dispose();
+    barrageWallController.dispose();
     super.onClose();
   }
 
   void onSumbit() {
-    socket?.emit('msg', '哈哈哈哈');
+    socket?.emit('msg', content);
   }
 
   void socketInit() {
+    var params = {
+      'userId': UserUtils.getUser?.id,
+      'videoId': video?.id,
+      'room': room?.room
+    };
+    params.removeWhere((key, value) => value == null);
     socket = IO.io(
         Server.socket,
-        IO.OptionBuilder().setTransports(['websocket']).setQuery(
-            {'userId': UserUtils.getUser?.id, 'videoId': '1'}).build());
+        IO.OptionBuilder()
+            .setTransports(['websocket'])
+            .setQuery(params)
+            .build());
     socket?.connect();
     socket?.onConnect((res) {
       print('--------socket链接成功---------');
