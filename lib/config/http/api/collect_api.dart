@@ -10,4 +10,7 @@ class CollectApi {
 
   ///guanzhu
   static String isFollow = "/collect/isFollow";
+
+  ///统计数量
+  static String count = "/collect/count";
 }

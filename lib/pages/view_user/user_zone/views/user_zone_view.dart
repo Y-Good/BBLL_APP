@@ -57,18 +57,37 @@ class UserZoneView extends GetView<UserZoneController> {
                       width: 82,
                     )),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      MDoubleText(
-                          label: '获赞', value: '1233万', lableColor: Colors.grey),
-                      SizedBox(width: 48),
-                      MDoubleText(
-                          label: '粉丝', value: '13万', lableColor: Colors.grey)
-                    ],
-                  ),
+                  padding: const EdgeInsets.only(top: 8),
+                  child: MText(controller.user?.nickname ?? '-'),
                 ),
+                Obx(() => Container(
+                      height: 40,
+                      margin:
+                          EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+                      // padding: const EdgeInsets.symmetric(vertical: 20),
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF5F6F8),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          MDoubleText(
+                            label: '关注',
+                            value: controller.followCount.value,
+                            valueSize: 16,
+                            lableColor: Colors.grey,
+                          ),
+                          SizedBox(width: 48),
+                          MDoubleText(
+                            label: '粉丝',
+                            value: controller.fansCount.value,
+                            valueSize: 16,
+                            lableColor: Colors.grey,
+                          )
+                        ],
+                      ),
+                    )),
                 Flexible(
                   child: MTabPageView(
                       initialIndex: controller.initialIndex,

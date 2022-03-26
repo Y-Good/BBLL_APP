@@ -32,7 +32,7 @@ class VideoDetailController extends GetxController {
   @override
   void onInit() async {
     FijkVolume.setUIMode(2);
-    video = Get.arguments['video'] ?? null;
+    video = Get.arguments?['video'] ?? null;
     if (isNotNull(video?.url)) {
       player.setDataSource(CommonUtils.handleSrcUrl(video?.url ?? ''),
           autoPlay: true, showCover: true);

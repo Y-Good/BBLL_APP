@@ -19,6 +19,8 @@ class UserZoneController extends GetxController {
   final commentList = <Comment>[].obs;
   final videotList = <Video>[].obs;
   final isFollow = false.obs;
+  final followCount = '0'.obs;
+  final fansCount = '0'.obs;
   User? get user => argUser ?? UserUtils.getUser;
   final VideoDetailController vdCtl = Get.put(VideoDetailController());
 
@@ -43,6 +45,9 @@ class UserZoneController extends GetxController {
         [];
     commentList.value = await CommentRequest.getMyComment(argUser?.id) ?? [];
     videoList.value = await VideoRequest.getMyVideo(argUser?.id) ?? [];
+    var count = await CollectRequest.getCount(userId: user?.id);
+    followCount.value = count['follow'];
+    fansCount.value = count['fans'];
     LoadingUtil.dismissLoading();
     super.onInit();
   }
@@ -95,5 +100,11 @@ class UserZoneController extends GetxController {
     isFollow.value = !isFollow.value;
     vdCtl.isFollow.value = isFollow.value;
     CollectRequest.createColloect(followId: argUser?.id);
+  }
+
+  @override
+  void onClose() {
+    LoadingUtil.dismissLoading();
+    super.onClose();
   }
 }

@@ -7,15 +7,24 @@ class MRefresh extends StatelessWidget {
   final Widget child;
   final VoidCallback? onRefresh;
   final bool isEmpty;
+  final EasyRefreshController? controller;
   const MRefresh(
-      {Key? key, required this.child, this.onRefresh, this.isEmpty = false})
+      {Key? key,
+      required this.child,
+      this.onRefresh,
+      this.controller,
+      this.isEmpty = false})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return EasyRefresh(
+        controller: controller,
         onRefresh: () async => onRefresh!(),
-        header: MaterialHeader(backgroundColor: MColors.primiaryColor),
+        header: MaterialHeader(
+          enableHapticFeedback: true,
+          backgroundColor: MColors.primiaryColor,
+        ),
         emptyWidget: isEmpty ? MEmpty() : null,
         child: child);
   }

@@ -22,6 +22,7 @@ class _DefaultPageState extends State<DefaultPage>
   Widget build(BuildContext context) {
     super.build(context);
     return Obx(() => MRefresh(
+          controller: controller.easyRefreshController,
           onRefresh: () => controller.onInit(),
           isEmpty: controller.videoList.length == 0,
           child: SingleChildScrollView(

@@ -18,7 +18,7 @@ class UserCollectView extends GetView<UserCollectController> {
             items[index].video?.time = items[index].time;
             return VideoWidthCard(
               item: controller.collectList[index].video,
-              isCollect: true,
+              isFormatTime: true,
             );
           },
           itemCount: controller.collectList.length,

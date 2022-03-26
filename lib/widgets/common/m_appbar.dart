@@ -15,6 +15,7 @@ class MAppBar extends AppBar {
       double? elevation = 0,
       Color color = Colors.black,
       Color? bgcolor = Colors.white,
+      Color? leadingColor,
       Widget? leading,
       VoidCallback? onTap,
       List<Widget>? actions,
@@ -44,7 +45,7 @@ class MAppBar extends AppBar {
                           onTap: () => Get.back(),
                           child: Icon(
                             IconFonts.iconFanhui,
-                            color: Colors.black,
+                            color: leadingColor ?? Colors.black,
                             size: 24,
                           ),
                         ),

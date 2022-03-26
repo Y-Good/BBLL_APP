@@ -147,8 +147,11 @@ class VideoDetailView extends GetView<VideoDetailController> {
                             )),
                         MIcon(
                           CupertinoIcons.share_up,
-                          onTap: () => Get.toNamed(Routes.DISCOVER_DETAIL,
-                              arguments: {'video': controller.video}),
+                          onTap: () {
+                            controller.player.pause();
+                            Get.toNamed(Routes.DISCOVER_DETAIL,
+                                arguments: {'video': controller.video});
+                          },
                         ),
                       ],
                     ),

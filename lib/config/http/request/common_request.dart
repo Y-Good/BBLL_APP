@@ -5,8 +5,6 @@ import 'package:mvideo/models/common/tag.dart';
 import 'package:mvideo/models/common/user.dart';
 import 'package:mvideo/models/common/video.dart';
 import 'package:mvideo/models/type/search_type.dart';
-import 'package:mvideo/utils/common_utils.dart';
-import 'package:mvideo/utils/loading_util.dart';
 import 'package:mvideo/utils/utils.dart';
 
 class CommonRequest {
@@ -28,13 +26,10 @@ class CommonRequest {
   }
 
   static Future<List<Object>?> getSearch(String key, [String? type]) async {
-    var json = await HttpUtil.get(CommonApi.search,
-        queryParameters: {'key': key, 'type': type});
-    if (isNull(json)) {
-      LoadingUtil.dismissLoading();
-      CommonUtils.toast('没有搜索到结果');
-      return null;
-    }
+    var params = {'key': key, 'type': type};
+    params.removeWhere((key, value) => value == null);
+    var json = await HttpUtil.get(CommonApi.search, queryParameters: params);
+    if (isNull(json)) return null;
     // ///视频
     if (type == SearchType.video) {
       return getVideoList(json);
@@ -51,11 +46,8 @@ class CommonRequest {
     var params = {'key': key};
     var json =
         await HttpUtil.get(CommonApi.searchUser, queryParameters: params);
-    if (isNull(json)) {
-      LoadingUtil.dismissLoading();
-      CommonUtils.toast('没有搜索到结果');
-      return null;
-    }
+    if (isNull(json)) return null;
+
     return User.fromJson(json);
   }
 

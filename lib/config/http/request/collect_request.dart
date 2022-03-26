@@ -33,4 +33,17 @@ class CollectRequest {
     var json = await HttpUtil.get(CollectApi.isFollow, queryParameters: params);
     return json;
   }
+
+  ///获取粉丝数量
+  static getCount({int? userId}) async {
+    var params = {'userId': userId};
+    params.removeWhere((key, value) => value == null);
+    var json = await HttpUtil.get(CollectApi.count, queryParameters: params);
+
+    /* {
+        "fans": 0,
+        "follow": 3
+    } */
+    return json;
+  }
 }

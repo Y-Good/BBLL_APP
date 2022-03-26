@@ -9,10 +9,10 @@ import 'package:mvideo/widgets/public.dart';
 
 class VideoWidthCard extends StatelessWidget {
   final Video? item;
-  final bool isCollect;
+  final bool isFormatTime;
   final EdgeInsetsGeometry? padding;
   const VideoWidthCard(
-      {Key? key, this.item, this.padding, this.isCollect = false})
+      {Key? key, this.item, this.padding, this.isFormatTime = false})
       : super(key: key);
 
   @override
@@ -78,7 +78,7 @@ class VideoWidthCard extends StatelessWidget {
                                 text: item?.view.toString() ?? '',
                               ),
                               MText(
-                                isCollect && isNotNull(item?.time)
+                                isFormatTime && isNotNull(item?.time)
                                     ? CommonUtils.format(
                                             DateTime.parse(item?.time ?? '')) ??
                                         ''

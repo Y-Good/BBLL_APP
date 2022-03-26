@@ -15,6 +15,9 @@ class MSwiper extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+        ),
         child: AspectRatio(
           aspectRatio: 16 / 7,
           child: Swiper(

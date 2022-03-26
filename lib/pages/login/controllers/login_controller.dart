@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/http/request/user_request.dart';
 import 'package:mvideo/routes/app_pages.dart';
+import 'package:mvideo/utils/loading_util.dart';
 import 'package:mvideo/utils/utils.dart';
 
 class LoginController extends GetxController {
@@ -26,10 +27,11 @@ class LoginController extends GetxController {
   }
 
   void submit() async {
+    LoadingUtil.showLoading(msg: '正在登录');
     bool res = await UserRequest.userLogin(number, password);
     if (res == true) {
       UserRequest.getUserInfo();
-
+      LoadingUtil.dismissLoading();
       Get.back();
     }
   }

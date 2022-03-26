@@ -47,6 +47,7 @@ class SearchSynthesisPage extends StatelessWidget {
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (_, index) => VideoWidthCard(
+                          isFormatTime: true,
                           padding:
                               EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                           item: videoList?[index],

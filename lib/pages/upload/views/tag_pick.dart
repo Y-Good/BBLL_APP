@@ -58,6 +58,10 @@ class TagPickWidget extends GetView<UploadController> {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 8, vertical: 2),
                                 onTap: () {
+                                  if (controller.checkTagList.length >= 6 &&
+                                      !controller.checkTagList.contains(
+                                          controller.tagList[index].id!))
+                                    return CommonUtils.toast('只能选择六个标签');
                                   controller.checkTagList.contains(
                                           controller.tagList[index].id!)
                                       ? controller.checkTagList

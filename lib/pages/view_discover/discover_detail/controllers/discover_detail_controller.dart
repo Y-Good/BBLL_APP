@@ -37,7 +37,10 @@ class DiscoverDetailController extends GetxController {
 
     ///房间消息
     socket?.on('room', (data) {
-      msgList.add(Message.fromJson(data));
+      Message msg = Message.fromJson(data);
+      if (msg.user?.id != user?.id) {
+        msgList.add(Message.fromJson(data));
+      }
     });
 
     ///加入房间提示

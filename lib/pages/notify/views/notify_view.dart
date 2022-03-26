@@ -43,9 +43,12 @@ class NotifyView extends GetView<NotifyController> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            MText(items[index].fromUser?.nickname ?? '-'),
+                            MText(
+                              items[index].fromUser?.nickname ?? '-',
+                              color: MColors.grey6,
+                            ),
                             Padding(
-                              padding: EdgeInsets.symmetric(vertical: 2),
+                              padding: EdgeInsets.symmetric(vertical: 4),
                               child: items[index].type == NotifyType.thumbUp
                                   ? Icon(
                                       IconFonts.iconDianzan2,

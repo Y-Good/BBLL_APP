@@ -12,9 +12,12 @@ import 'package:mvideo/models/common/tag.dart';
 import 'package:mvideo/pages/upload/views/tag_pick.dart';
 import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/utils/loading_util.dart';
+import 'package:mvideo/utils/utils.dart';
 import 'package:mvideo/widgets/public.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 
 class UploadController extends GetxController {
   FijkPlayer playerView = FijkPlayer();
@@ -22,7 +25,6 @@ class UploadController extends GetxController {
   ShowConfigAbs vSkinCfg = VideoShowConfig();
   FlutterFFmpeg _flutterFFmpeg = FlutterFFmpeg();
   FlutterFFprobe _flutterFFprobe = FlutterFFprobe();
-  // FlutterFFmpegConfig _flutterFFmpegConfig = FlutterFFmpegConfig();
   final videoPath = ''.obs;
   final coverPath = ''.obs;
   final tagList = <Tag>[].obs;
@@ -33,9 +35,27 @@ class UploadController extends GetxController {
   String? tagName;
   XFile? cover;
   XFile? video;
+  Directory? tempDirVideo;
+  Directory? tempDirCover;
+
+  ///时长
+  String? duration;
+
+  ///大小
+  String? size;
+
+  ///视频临时缓存
+  String? tempVideo;
+
+  ///图片临时缓存
+  String? tempCover;
 
   @override
   Future<void> onInit() async {
+    tempDirVideo = await getTemporaryDirectory();
+    tempDirCover = await getTemporaryDirectory();
+    tempVideo = "${tempDirVideo?.path}/temp.mp4";
+    tempCover = tempDirCover?.path;
     tagList.value = await CommonRequest.getTag() ?? [];
     super.onInit();
   }
@@ -80,55 +100,70 @@ class UploadController extends GetxController {
 
   ///上传
   Future<void> onSumbit() async {
-    String? duration;
-    String tempVideo = '/data/user/0/com.example.mvideo/cache/1.mp4';
-    String tempCover = cover!.path.substring(0, cover?.path.lastIndexOf('/'));
-    String? compressCoverPath;
+    LoadingUtil.showLoading(msg: '上传中');
+    handleFile();
+    if (video != null && title != null) {
+      FormData formdata = FormData.fromMap({
+        'video':
+            await MultipartFile.fromFile(tempVideo!, filename: video!.name),
+        "cover": await MultipartFile.fromFile(coverPath.value,
+            filename: coverPath.value.split('/').last),
+        'title': title,
+        'duration': duration ?? '0',
+        'tags': tags
+      });
 
-    MediaInformation? fileInfo =
-        await _flutterFFprobe.getMediaInformation(video!.path);
-    duration = fileInfo.getMediaProperties()?['duration'];
-
-    ///图片压缩
-    CompressObject compressObject = CompressObject(
-      imageFile: File(cover!.path),
-      path: tempCover,
-      quality: 85,
-      step: 9,
-    );
-    Luban.compressImage(compressObject)
-        .then((_path) => compressCoverPath = _path);
-
-    ///视频压缩
-    ///
-    LoadingUtil.showLoading(msg: '压缩文件中');
-    _flutterFFmpeg
-        .execute("-i ${video!.path} -r 20 -b:v 1.5M $tempVideo")
-        .then((info) async {
-      if (info == 1) LoadingUtil.dismissLoading();
-      if (cover != null && video != null && title != null) {
-        FormData formdata = FormData.fromMap({
-          'video':
-              await MultipartFile.fromFile(tempVideo, filename: video!.name),
-          "cover": await MultipartFile.fromFile(compressCoverPath!,
-              filename: cover!.name),
-          'title': title,
-          'duration': double.parse(duration ?? '0').round().toString(),
-          'tags': tags
-        });
-        bool? res = await VideoRequest.uploadVideo(formdata);
-        CommonUtils.toast(res == true ? '上传成功' : '上传失败');
-        if (res == true) Get.back();
-      } else {
-        CommonUtils.toast('还有东西没填');
-      }
-    });
+      bool? res = await VideoRequest.uploadVideo(formdata);
+      LoadingUtil.dismissLoading();
+      CommonUtils.toast(res == true ? '上传成功' : '上传失败');
+      if (res == true) Get.back();
+    } else {
+      CommonUtils.toast('还有东西没填');
+    }
   }
 
   //创建标签
-  createTag() async {
+  void createTag() async {
     Tag tag = await CommonRequest.createTag(tagName ?? '');
     tagList.add(tag);
+  }
+
+  Future<void> handleFile() async {
+    //获取视频略缩图
+    if (isNull(cover)) {
+      coverPath.value = (await VideoThumbnail.thumbnailFile(
+        video: video!.path,
+        thumbnailPath: tempCover,
+        imageFormat: ImageFormat.JPEG,
+        quality: 75,
+      ))!;
+    } else {
+      //有图就压缩
+      CompressObject compressObject = CompressObject(
+        imageFile: File(cover!.path),
+        path: tempCover,
+        quality: 85,
+        step: 9,
+      );
+      Luban.compressImage(compressObject)
+          .then((_path) => coverPath.value = _path!);
+    }
+
+    //获取视频文件信息
+    MediaInformation? videoInfo =
+        await _flutterFFprobe.getMediaInformation(video!.path);
+    duration = videoInfo.getMediaProperties()?['duration'];
+    size = videoInfo.getMediaProperties()?['size'];
+    if (isNotNull(size) && (int.parse(size!) / 1000000).toDouble() > 20) {
+      LoadingUtil.showLoading(msg: '压缩文件中');
+      _flutterFFmpeg
+          .execute("-i ${video!.path} -r 20 -b:v 1.5M $tempVideo")
+          .then((info) async {
+        if (info == 1) LoadingUtil.dismissLoading();
+      });
+    } else {
+      tempVideo = videoPath.value;
+    }
   }
 
   @override
