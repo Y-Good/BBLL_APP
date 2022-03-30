@@ -100,16 +100,17 @@ class UploadController extends GetxController {
 
   ///上传
   Future<void> onSumbit() async {
-    LoadingUtil.showLoading(msg: '上传中');
-    handleFile();
+    LoadingUtil.showLoading(msg: '上传中', dismissOnTap: true);
+
     if (video != null && title != null) {
+      handleFile();
       FormData formdata = FormData.fromMap({
         'video':
             await MultipartFile.fromFile(tempVideo!, filename: video!.name),
         "cover": await MultipartFile.fromFile(coverPath.value,
             filename: coverPath.value.split('/').last),
         'title': title,
-        'duration': duration ?? '0',
+        'duration': duration?.split('.').first ?? '0',
         'tags': tags
       });
 
@@ -118,6 +119,7 @@ class UploadController extends GetxController {
       CommonUtils.toast(res == true ? '上传成功' : '上传失败');
       if (res == true) Get.back();
     } else {
+      LoadingUtil.dismissLoading();
       CommonUtils.toast('还有东西没填');
     }
   }
@@ -154,7 +156,7 @@ class UploadController extends GetxController {
         await _flutterFFprobe.getMediaInformation(video!.path);
     duration = videoInfo.getMediaProperties()?['duration'];
     size = videoInfo.getMediaProperties()?['size'];
-    if (isNotNull(size) && (int.parse(size!) / 1000000).toDouble() > 20) {
+    if (isNotNull(size) && (int.parse(size!) ~/ 1000000).toDouble() > 20) {
       LoadingUtil.showLoading(msg: '压缩文件中');
       _flutterFFmpeg
           .execute("-i ${video!.path} -r 20 -b:v 1.5M $tempVideo")
@@ -170,6 +172,7 @@ class UploadController extends GetxController {
   void onClose() {
     player.dispose();
     playerView.dispose();
+    LoadingUtil.dismissLoading();
     super.onClose();
   }
 }

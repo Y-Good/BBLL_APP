@@ -16,4 +16,10 @@ class VideoApi {
 
   ///删除
   static String remove = "/video/remove";
+
+  ///热门
+  static String hot = "/video/hot";
+
+  ///排行
+  static String rank = "/video/rank";
 }

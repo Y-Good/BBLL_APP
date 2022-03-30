@@ -5,8 +5,11 @@ import 'package:mvideo/config/http/request/collect_request.dart';
 import 'package:mvideo/config/http/request/comment_request.dart';
 import 'package:mvideo/config/http/request/histroy_request.dart';
 import 'package:mvideo/config/http/request/video_request.dart';
+import 'package:mvideo/config/public.dart';
 import 'package:mvideo/models/public.dart';
 import 'package:mvideo/utils/common_utils.dart';
+import 'package:mvideo/utils/loading_util.dart';
+import 'package:mvideo/utils/setting_util.dart';
 import 'package:mvideo/utils/user_utils.dart';
 import 'package:mvideo/utils/utils.dart';
 
@@ -23,6 +26,7 @@ class VideoDetailController extends GetxController {
 
   final contentController = TextEditingController();
   FijkPlayer player = FijkPlayer();
+  VideoShowConfig videoShowConfig = VideoShowConfig();
   FocusNode focus = FocusNode();
   Video? video;
   User? get user => UserUtils.getUser;
@@ -31,11 +35,12 @@ class VideoDetailController extends GetxController {
 
   @override
   void onInit() async {
+    LoadingUtil.showLoading();
     FijkVolume.setUIMode(2);
     video = Get.arguments?['video'] ?? null;
     if (isNotNull(video?.url)) {
       player.setDataSource(CommonUtils.handleSrcUrl(video?.url ?? ''),
-          autoPlay: true, showCover: true);
+          autoPlay: SettingUtil.getAutoPlay(), showCover: true);
     }
 
     ///获取评论
@@ -53,18 +58,17 @@ class VideoDetailController extends GetxController {
     contentController.addListener(() {
       isText.value = isNotNull(contentController.text);
     });
+    LoadingUtil.dismissLoading();
     super.onInit();
   }
 
   Future<void> onSubmit() async {
     Comment? res = await CommentRequest.createComment(video?.id, content);
     if (isNotNull(res)) {
-      print(res?.time);
       contentList.insert(0, res!);
     }
     CommonUtils.toast(isNotNull(res) ? '评论成功' : '评论失败');
-    // FocusScope.of(Get.context!).requestFocus(focus);
-    focus.unfocus();
+    FocusScope.of(Get.context!).requestFocus(focus);
     contentController.clear();
   }
 

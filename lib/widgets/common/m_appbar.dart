@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
 
@@ -20,6 +21,7 @@ class MAppBar extends AppBar {
       VoidCallback? onTap,
       List<Widget>? actions,
       double? toolbarHeight,
+      SystemUiOverlayStyle? systemOverlayStyle,
       PreferredSizeWidget? bottom})
       : super(
             key: key,
@@ -33,7 +35,7 @@ class MAppBar extends AppBar {
             // leadingWidth: 50,
             elevation: elevation,
             backgroundColor: bgcolor,
-            // brightness: Brightness.dark,
+            systemOverlayStyle: systemOverlayStyle,
             leading: hiddenLeading
                 ? null
                 : IconButton(

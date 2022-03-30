@@ -3,6 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mvideo/config/color/m_colors.dart';
+import 'package:mvideo/config/http/request/user_request.dart';
 import 'package:mvideo/pages/public.dart';
 import 'routes/app_pages.dart';
 
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         ),
         builder: EasyLoading.init(),
         initialRoute: AppPages.INITIAL,
+        onInit: () => UserRequest.getUserInfo(),
         debugShowCheckedModeBanner: false,
         getPages: AppPages.routes,
         defaultTransition: Transition.cupertino,

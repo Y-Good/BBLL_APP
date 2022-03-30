@@ -84,6 +84,11 @@ flutter:
   assets:
     - assets/avatar/default.jpg
     - assets/svg/empty.svg
+    - assets/svg/search.svg
+    - assets/svg/build.svg
+    - assets/svg/img.svg
+    - assets/svg/upload.svg
+    - assets/svg/empty2.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

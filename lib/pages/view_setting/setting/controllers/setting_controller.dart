@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/utils/common_utils.dart';
+import 'package:mvideo/utils/setting_util.dart';
 
 class SettingItem {
   String? title;
@@ -39,7 +40,7 @@ class SettingController extends GetxController {
 
   @override
   void onInit() {
-    print(isSwitch.value);
+    isSwitch.value = SettingUtil.getAutoPlay();
     super.onInit();
   }
 
@@ -54,6 +55,7 @@ class SettingController extends GetxController {
 
   void changeSwitch(e) {
     isSwitch.value = e;
+    SettingUtil.autoPlay(e);
   }
 
   void loginOut() async {

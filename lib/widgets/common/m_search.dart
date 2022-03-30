@@ -39,7 +39,7 @@ class MSearch extends StatelessWidget {
             enabled: enabled,
             isCollapsed: true,
             contentPadding: EdgeInsets.only(left: -12),
-            hintText: '搜索好友',
+            hintText: '搜索视频',
             border: InputBorder.none,
             prefixStyle: TextStyle(color: Colors.black),
             icon: Icon(

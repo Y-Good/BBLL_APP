@@ -24,8 +24,8 @@ class UserHeadItem {
 class UserController extends GetxController {
   final isLogin = true.obs;
   final updateAvatar = ''.obs;
+  final user = User().obs;
   GetStorage? st = GetStorage();
-  User? user;
   List<UserHeadItem> userHeadList = [
     UserHeadItem(icon: IconFonts.iconBianji, path: Routes.USER_EDIT),
     UserHeadItem(icon: IconFonts.iconTongzhi, path: Routes.NOTIFY),
@@ -42,7 +42,7 @@ class UserController extends GetxController {
       ];
   @override
   void onInit() async {
-    user = await UserRequest.getUserInfo();
+    user.value = await UserRequest.getUserInfo() ?? User();
     isLogin.value = !UserUtils.hasToken;
     super.onInit();
   }

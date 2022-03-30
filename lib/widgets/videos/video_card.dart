@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:mvideo/common/enums/video_mode_enum.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/models/public.dart';
 import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/utils/utils.dart';
 import 'package:mvideo/utils/video_utils.dart';
+import 'package:mvideo/widgets/common/m_empty.dart';
 import 'package:mvideo/widgets/text/m_text.dart';
 
 class VideoCard extends StatelessWidget {
@@ -50,12 +52,9 @@ class VideoCard extends StatelessWidget {
                       errorBuilder:
                           (context, Object exception, StackTrace? stackTrace) {
                         return Container(
-                          width: double.infinity,
-                          color: MColors.grey9.withOpacity(0.6),
-                          child: Center(
-                            child: MText('图片加载失败'),
-                          ),
-                        );
+                            width: double.infinity,
+                            color: MColors.white,
+                            child: SvgPicture.asset(Msvg.img));
                       },
                       // loadingBuilder: (context, Widget child, loadingProgress) {
                       //   return Container(
@@ -104,7 +103,7 @@ class VideoCard extends StatelessWidget {
                               ),
                               MText(
                                 VideoUtils.duration2String(
-                                    int.parse(video?.view ?? '10')),
+                                    int.parse(video?.duration ?? '0')),
                                 size: 10,
                                 color: MColors.white,
                               )

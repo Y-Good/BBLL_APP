@@ -32,7 +32,7 @@ class VideoRequest {
 
   ///上传视频
   static Future<bool>? uploadVideo(FormData params) async {
-    var json = await HttpUtil.post(FileApi.upload, data: params);
+    var json = await HttpUtil.post(FileApi.upload, data: params, upload: true);
     return json != null;
   }
 
@@ -62,5 +62,17 @@ class VideoRequest {
     var json = await HttpUtil.get(VideoApi.remove,
         queryParameters: {'videoId': videoId});
     return json;
+  }
+
+  ///热门
+  static Future<List<Video>?> hot() async {
+    var json = await HttpUtil.get(VideoApi.hot);
+    return getVideoList(json);
+  }
+
+  ///排行
+  static Future<List<Video>?> rank() async {
+    var json = await HttpUtil.get(VideoApi.rank);
+    return getVideoList(json);
   }
 }

@@ -38,6 +38,7 @@ class TrendView extends GetView<TrendController> {
               ),
             )
           : MEmpty(
+              type: Msvg.empty,
               text: '登录App才能使用',
             ),
     );

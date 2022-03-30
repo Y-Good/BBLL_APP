@@ -9,6 +9,8 @@ import 'package:mvideo/utils/user_utils.dart';
 
 class HomeController extends GetxController {
   final videoList = <Video>[].obs;
+  final hotList = <Video>[].obs;
+  final rankList = <Video>[].obs;
   final bannerList = <Video>[].obs;
   final notifyCount = 0.obs;
   EasyRefreshController easyRefreshController = EasyRefreshController();
@@ -18,6 +20,8 @@ class HomeController extends GetxController {
     LoadingUtil.showLoading();
     bannerList.value = await CommonRequest.getBanner() ?? [];
     videoList.value = await VideoRequest.getAllVideo() ?? [];
+    hotList.value = await VideoRequest.hot() ?? [];
+    rankList.value = await VideoRequest.rank() ?? [];
     notifyCount.value = UserUtils.getNotifyCount ?? 0;
     // easyRefreshController.finishRefresh();
     LoadingUtil.dismissLoading();

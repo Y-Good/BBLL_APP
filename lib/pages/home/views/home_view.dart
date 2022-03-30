@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mvideo/config/fonts/m_iconfont.dart';
 import 'package:mvideo/pages/home/views/default.dart';
 import 'package:mvideo/pages/home/views/hot.dart';
+import 'package:mvideo/pages/home/views/other.dart';
 import 'package:mvideo/pages/home/views/rank.dart';
 import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/widgets/public.dart';
@@ -51,7 +52,7 @@ class HomeView extends GetView<HomeController> {
           initialIndex: 0,
           padding: EdgeInsets.zero,
           tabs: tabs,
-          children: [DefaultPage(), HotPage(), RankPage(), HotPage()]),
+          children: [DefaultPage(), HotPage(), RankPage(), OtherPage()]),
     );
   }
 }

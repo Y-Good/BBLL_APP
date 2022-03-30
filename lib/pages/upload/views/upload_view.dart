@@ -47,10 +47,15 @@ class UploadView extends GetView<UploadController> {
               margin: EdgeInsets.symmetric(horizontal: 4),
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (_, index) => MLabel(
-                  controller.checkTagName[index],
-                  color: MColors.primiaryColor,
-                  size: 16,
+                itemBuilder: (_, index) => Container(
+                  padding: EdgeInsets.symmetric(vertical: 2),
+                  child: MLabel(
+                    controller.checkTagName[index],
+                    color: MColors.primiaryColor,
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                    radius: 20,
+                    size: 12,
+                  ),
                 ),
                 itemCount: controller.checkTagName.length,
               ),

@@ -20,17 +20,16 @@ class VideoWidthCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => Get.toNamed(Routes.VIDEO_DETAIL, arguments: {'video': item}),
       child: Padding(
-        padding:
-            padding ?? EdgeInsets.only(left: 10, right: 10, top: 8, bottom: 8),
+        padding: padding ?? EdgeInsets.symmetric(horizontal: 10, vertical: 4),
         child: Container(
-          height: 90,
+          height: 100,
           decoration: BoxDecoration(
             color: MColors.white,
             borderRadius: BorderRadius.all(Radius.circular(4)),
           ),
           child: Row(
             children: [
-              SizedBox(width: 4),
+              SizedBox(width: 8),
               Expanded(
                 flex: 4,
                 child: Container(
@@ -41,7 +40,7 @@ class VideoWidthCard extends StatelessWidget {
                     child: MAvatar(
                       CommonUtils.handleSrcUrl(item?.cover ?? ''),
                       radius: 4,
-                      height: 80,
+                      height: 84,
                     )),
               ),
               Expanded(

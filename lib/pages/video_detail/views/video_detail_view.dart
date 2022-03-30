@@ -37,6 +37,7 @@ class VideoDetailView extends GetView<VideoDetailController> {
                   player: controller.player,
                   curPlayUrl: controller.video?.url,
                   title: controller.video?.title,
+                  showConfig: controller.videoShowConfig,
                 ),
                 collapsedHeight: Get.size.width * 9 / 16,
               ),
@@ -83,8 +84,9 @@ class VideoDetailView extends GetView<VideoDetailController> {
                         child: Row(
                           children: List.generate(
                               video?.tags?.length ?? 0,
-                              (index) =>
-                                  MLabel(video?.tags?[index].name ?? '')),
+                              (index) => MLabel(
+                                    video?.tags?[index].name ?? '',
+                                  )),
                         ),
                       )
                     ],
@@ -173,16 +175,18 @@ class VideoDetailView extends GetView<VideoDetailController> {
           child: Obx(
               () => MText('评论(${controller.contentList.length}条)', size: 16)),
         ),
-        Obx(() => ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemBuilder: (_, index) =>
-                  controller.contentList[index].level == 2
-                      ? SizedBox()
-                      : commentWidget(
-                          item: controller.contentList[index], index: index),
-              itemCount: controller.contentList.length,
-            )),
+        Obx(() => controller.contentList.length == 0
+            ? MEmpty(text: '暂无评论')
+            : ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (_, index) =>
+                    controller.contentList[index].level == 2
+                        ? SizedBox()
+                        : commentWidget(
+                            item: controller.contentList[index], index: index),
+                itemCount: controller.contentList.length,
+              )),
         SizedBox(height: 88)
       ],
     );
@@ -205,10 +209,34 @@ class VideoDetailView extends GetView<VideoDetailController> {
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              MText(
-                item?.user?.nickname ?? '-',
-                size: 13,
-                color: Colors.grey,
+              Row(
+                children: [
+                  MText(
+                    item?.user?.nickname ?? '-',
+                    size: 13,
+                    color: Colors.grey,
+                  ),
+                  Offstage(
+                    offstage: item?.user?.id != controller.video?.user?.id,
+                    child: Container(
+                      margin: EdgeInsets.only(left: 8),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          border: Border.all(
+                            width: .5,
+                            color: MColors.primiaryColor,
+                          )),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2),
+                        child: MText(
+                          '作者',
+                          size: 10,
+                          color: MColors.primiaryColor,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),

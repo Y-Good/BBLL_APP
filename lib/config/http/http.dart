@@ -31,6 +31,7 @@ class HttpUtil {
       return BaseResponse.fromJson(response.data).data;
     } on DioError catch (error) {
       if (error.response?.statusCode != 403) {
+        LoadingUtil.dismissLoading();
         CommonUtils.toast(error.response?.data['message'] ?? '请求失败');
       }
       LoadingUtil.dismissLoading();
@@ -38,20 +39,24 @@ class HttpUtil {
   }
 
   static Future post(String path,
-      {dynamic data, dynamic queryParameters, Options? options}) async {
+      {dynamic data, dynamic queryParameters, bool upload = false}) async {
     try {
       initDio();
-      var response = await _dio
-          .post(path, data: data, queryParameters: queryParameters,
-              onSendProgress: (int progress, int total) {
-        Future.delayed(Duration(milliseconds: 1000)).then((value) {
-          final currentProgress = (progress / total);
-          LoadingUtil.progressLoading(currentProgress);
-        });
-      });
+      var response = await _dio.post(path,
+          data: data,
+          queryParameters: queryParameters,
+          onSendProgress: upload
+              ? (int progress, int total) {
+                  Future.delayed(Duration(milliseconds: 1000)).then((value) {
+                    final currentProgress = (progress / total);
+                    LoadingUtil.progressLoading(currentProgress);
+                  });
+                }
+              : null);
       return BaseResponse.fromJson(response.data).data;
     } on DioError catch (error) {
       if (error.response != null) {
+        LoadingUtil.dismissLoading();
         return CommonUtils.toast(error.response?.data['message']);
       }
       throw error;

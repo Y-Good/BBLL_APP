@@ -19,6 +19,9 @@ class _HotPageState extends State<HotPage> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return VideoList();
+    return Obx(() => VideoList(
+          // ignore: invalid_use_of_protected_member
+          videoList: controller.hotList.value,
+        ));
   }
 }

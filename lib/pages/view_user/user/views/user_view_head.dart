@@ -38,7 +38,7 @@ class UserViewHead extends GetView<UserController> {
                         CommonUtils.handleSrcUrl(
                             isNotNull(controller.updateAvatar.value)
                                 ? controller.updateAvatar.value
-                                : controller.user?.avatar ?? ''),
+                                : controller.user.value.avatar ?? ''),
                         height: 82,
                         width: 82,
                         onTap: () => Get.toNamed(Routes.USER_ZONE),

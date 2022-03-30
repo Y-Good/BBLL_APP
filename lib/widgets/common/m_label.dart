@@ -8,8 +8,9 @@ class MLabel extends StatelessWidget {
   final Color? color;
   final EdgeInsetsGeometry? padding;
   final VoidCallback? onTap;
+  final double? radius;
   const MLabel(this.label,
-      {Key? key, this.size, this.color, this.onTap, this.padding})
+      {Key? key, this.size, this.color, this.onTap, this.radius, this.padding})
       : super(key: key);
 
   @override
@@ -20,9 +21,9 @@ class MLabel extends StatelessWidget {
         // height: 16,
         constraints: BoxConstraints(minHeight: 16),
         margin: EdgeInsets.symmetric(horizontal: 4),
-        padding: padding ?? EdgeInsets.symmetric(horizontal: 8),
+        padding: padding ?? EdgeInsets.symmetric(horizontal: 8, vertical: 2),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(radius ?? 8),
           color: color ?? MColors.primiaryColor,
         ),
         child: MText(

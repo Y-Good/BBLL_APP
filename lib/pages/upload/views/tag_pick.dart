@@ -54,9 +54,10 @@ class TagPickWidget extends GetView<UploadController> {
                               ),
                               child: MLabel(
                                 controller.tagList[index].name ?? '',
-                                size: 16,
+                                size: 14,
+                                radius: 20,
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 8, vertical: 2),
+                                    horizontal: 10, vertical: 2),
                                 onTap: () {
                                   if (controller.checkTagList.length >= 6 &&
                                       !controller.checkTagList.contains(

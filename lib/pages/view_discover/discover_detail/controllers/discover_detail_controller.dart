@@ -4,10 +4,12 @@ import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barrage/flutter_barrage.dart';
 import 'package:get/get.dart';
+import 'package:mvideo/config/http/request/collect_request.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/models/common/message.dart';
 import 'package:mvideo/models/common/room.dart';
 import 'package:mvideo/models/public.dart';
+import 'package:mvideo/pages/video_detail/controllers/video_detail_controller.dart';
 import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/utils/user_utils.dart';
 import 'package:mvideo/widgets/public.dart';
@@ -16,20 +18,33 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 class DiscoverDetailController extends GetxController {
   IO.Socket? socket;
   FijkPlayer player = FijkPlayer();
+  FocusNode focusNode = FocusNode();
   DiscoverShowConfig discoverShowConfig = DiscoverShowConfig();
   BarrageWallController barrageWallController = BarrageWallController();
+  TextEditingController textEditingController = TextEditingController();
   User? get user => UserUtils.getUser;
   Video? get video => Get.arguments['video'] ?? null;
   Room? get room => Get.arguments['room'] ?? null;
+  int? get userId => video?.user?.id ?? room?.user?.id;
+  bool get isUser => user?.id == userId;
   String? content;
 
+  final VideoDetailController vdCtl = Get.put(VideoDetailController());
   final msgList = <Message>[].obs;
   final joinRoom = ''.obs;
   final people = 0.obs;
+  final fans = '0'.obs;
+  final isFollow = false.obs;
   final showTime = Random().nextInt(60000);
   @override
-  void onInit() {
+  Future<void> onInit() async {
     socketInit();
+    var count = await CollectRequest.getCount(userId: userId);
+    fans.value = count['fans'];
+
+    ///是否关注
+    isFollow.value = await CollectRequest.isFollow(userId) ?? false;
+    player.reset();
     player.setDataSource(
       CommonUtils.handleSrcUrl(video?.url ?? room?.video?.url ?? ''),
       autoPlay: true,
@@ -38,9 +53,9 @@ class DiscoverDetailController extends GetxController {
     ///房间消息
     socket?.on('room', (data) {
       Message msg = Message.fromJson(data);
-      if (msg.user?.id != user?.id) {
-        msgList.add(Message.fromJson(data));
-      }
+      // if (msg.user?.id != user?.id) {
+      msgList.add(msg);
+      // }
     });
 
     ///加入房间提示
@@ -71,16 +86,21 @@ class DiscoverDetailController extends GetxController {
     super.onInit();
   }
 
-  @override
-  void onClose() {
-    player.dispose();
-    socket?.dispose();
-    barrageWallController.dispose();
-    super.onClose();
+  ///关注滴干活
+  void onFollow() {
+    if (UserUtils.hasToken == false) return CommonUtils.toast('请先登录APP');
+    CommonUtils.toast(isFollow.value ? '取消关注' : '关注成功');
+    isFollow.value = !isFollow.value;
+    vdCtl.isFollow.value = isFollow.value;
+    CollectRequest.createColloect(followId: video?.user?.id);
   }
 
   void onSumbit() {
-    socket?.emit('msg', content);
+    if (content == null) return CommonUtils.toast('请输入内容');
+    socket?.emit('msg', content?.trim());
+    FocusScope.of(Get.context!).requestFocus(focusNode);
+    textEditingController.clear();
+    content = null;
   }
 
   void socketInit() {
@@ -100,5 +120,14 @@ class DiscoverDetailController extends GetxController {
     socket?.onConnect((res) {
       print('--------socket链接成功---------');
     });
+  }
+
+  @override
+  void onClose() {
+    player.dispose();
+    socket?.dispose();
+    textEditingController.dispose();
+    barrageWallController.dispose();
+    super.onClose();
   }
 }

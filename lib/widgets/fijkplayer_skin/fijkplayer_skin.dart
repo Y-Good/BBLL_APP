@@ -538,6 +538,7 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
   StreamSubscription? _bufferingSubs;
 
   Timer? _hideTimer;
+
   bool _hideStuff = true;
 
   bool _hideSpeedStu = true;

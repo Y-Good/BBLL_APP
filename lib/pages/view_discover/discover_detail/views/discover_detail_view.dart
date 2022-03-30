@@ -11,6 +11,8 @@ import '../controllers/discover_detail_controller.dart';
 class DiscoverDetailView extends GetView<DiscoverDetailController> {
   @override
   Widget build(BuildContext context) {
+    var userFormVideo = controller.video?.user;
+    var userFormRoom = controller.room?.user;
     return Scaffold(
       backgroundColor: MColors.blackBackground,
       appBar: AppBar(
@@ -33,20 +35,29 @@ class DiscoverDetailView extends GetView<DiscoverDetailController> {
                       onTap: () => Get.back(),
                     ),
                     Expanded(
-                      child: MListTile(
-                        url: CommonUtils.handleSrcUrl(
-                          controller.room?.user?.avatar ?? '',
-                        ),
-                        title: controller.room?.user?.nickname,
-                        subtitle: '123关注',
-                        padding: EdgeInsets.only(top: 6, bottom: 6, left: 8),
-                        titleColor: MColors.white,
-                        subtitleColor: MColors.blackTipColor,
-                        trailing: MButton(
-                          label: '关注',
-                          width: 64,
-                          height: 32,
-                          bgColor: MColors.primiaryColor,
+                      child: Obx(
+                        () => MListTile(
+                          url: CommonUtils.handleSrcUrl(
+                            userFormRoom?.avatar ?? userFormVideo?.avatar ?? '',
+                          ),
+                          title:
+                              userFormRoom?.nickname ?? userFormVideo?.nickname,
+                          subtitle: '${controller.fans.value}粉丝',
+                          padding: EdgeInsets.only(top: 6, bottom: 6, left: 8),
+                          titleColor: MColors.white,
+                          subtitleColor: MColors.blackTipColor,
+                          trailing: Offstage(
+                            offstage: controller.isUser,
+                            child: MButton(
+                              label: controller.isFollow.value ? '已关注' : '关注',
+                              width: 64,
+                              height: 32,
+                              bgColor: controller.isFollow.value
+                                  ? MColors.grey9.withOpacity(0.8)
+                                  : null,
+                              onTap: controller.onFollow,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -181,6 +192,7 @@ class DiscoverDetailView extends GetView<DiscoverDetailController> {
           Positioned(
               bottom: 0,
               child: MSendBox(
+                textEditingController: controller.textEditingController,
                 bgColor: Color(0xFF252836),
                 placeholderColor: MColors.blackTipColor,
                 inputBgColor: MColors.black,

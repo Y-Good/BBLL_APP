@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/models/public.dart';
+import 'package:mvideo/routes/app_pages.dart';
+import 'package:mvideo/utils/common_utils.dart';
+import 'package:mvideo/utils/utils.dart';
 import 'package:mvideo/widgets/public.dart';
 
 class VideoList extends StatelessWidget {
@@ -30,85 +35,112 @@ class VideoList extends StatelessWidget {
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              return Padding(
-                padding: EdgeInsets.only(
-                    left: 10,
-                    right: 10,
-                    top: isShowTip ? 4 : 8,
-                    bottom: index == 19 ? 8 : 0),
-                child: Container(
-                  height: 100,
-                  decoration: BoxDecoration(
-                      color: MColors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(4))),
-                  child: Row(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(4)),
-                        child: Image.network(
-                          'http://img.netbian.com/file/2021/1219/small2155455WXHD1639922145.jpg',
-                          height: 100,
-                          fit: BoxFit.cover,
-                          width: 100 * 16 / 9,
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 4),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              MText(
-                                "页面中间的加载框，可以配置显示置显示置显示置显示置显示的文字。",
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
+              return GestureDetector(
+                onTap: () => Get.toNamed(
+                  Routes.VIDEO_DETAIL,
+                  arguments: {'video': videoList?[index]},
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      left: 10,
+                      right: 10,
+                      top: isShowTip ? 4 : 8,
+                      bottom: index == 19 ? 8 : 0),
+                  child: Container(
+                    height: 100,
+                    padding: EdgeInsets.only(left: 8),
+                    decoration: BoxDecoration(
+                        color: MColors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(4))),
+                    child: Row(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(4)),
+                          child: Image(
+                            image: NetworkImage(
+                              CommonUtils.handleSrcUrl(
+                                videoList?[index].cover ?? '',
                               ),
-                              // SizedBox(height: 24),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  MText(
-                                    "倔强的小强",
-                                    color: MColors.grey9,
-                                    size: 10,
-                                  ),
-                                  MText(
-                                    "2020-12-32",
-                                    color: MColors.grey9,
-                                    size: 10,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      MIconText(
-                                        icon: IconFonts.iconBofangqiBofang,
-                                        iconSize: 14,
-                                        textSize: 12,
-                                        text: '123万',
-                                      ),
-                                      MIconText(
-                                        icon: IconFonts.iconDianzan2,
-                                        iconSize: 14,
-                                        textSize: 12,
-                                        text: '123万',
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              )
-                            ],
+                            ),
+                            height: 80,
+                            fit: BoxFit.cover,
+                            width: 80 * 16 / 9,
+                            errorBuilder: (context, Object exception,
+                                StackTrace? stackTrace) {
+                              return Container(
+                                  width: 80 * 16 / 9,
+                                  height: 80,
+                                  color: MColors.white,
+                                  child: SvgPicture.asset(Msvg.img));
+                            },
                           ),
                         ),
-                      ),
-                    ],
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                MText(
+                                  videoList?[index].title ?? '-',
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                ),
+                                // SizedBox(height: 24),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    MText(
+                                      videoList?[index].user?.nickname ?? '-',
+                                      color: MColors.grey9,
+                                      size: 10,
+                                    ),
+                                    SizedBox(height: 4),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        MIconText(
+                                          icon: IconFonts.iconLiulan,
+                                          iconSize: 14,
+                                          textSize: 12,
+                                          text: transformView(int.parse(
+                                              videoList?[index].view ?? '0')),
+                                        ),
+                                        SizedBox(width: 16),
+                                        Expanded(
+                                          child: MIconText(
+                                            icon: IconFonts.iconDianzan2,
+                                            iconSize: 12,
+                                            textSize: 12,
+                                            text: videoList?[index].thumbUp ??
+                                                '0',
+                                          ),
+                                        ),
+                                        MText(
+                                          CommonUtils.format(DateTime.parse(
+                                                  videoList?[index].time ??
+                                                      '')) ??
+                                              '',
+                                          color: MColors.grey9,
+                                          size: 12,
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               );
             },
-            itemCount: 20,
+            itemCount: videoList?.length ?? 0,
           ),
         ],
       ),

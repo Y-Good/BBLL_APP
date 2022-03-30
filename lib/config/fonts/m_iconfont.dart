@@ -41,4 +41,6 @@ class IconFonts {
       IconData(0xe608, fontFamily: 'iconfont');
   static const IconData iconSend = IconData(0xe624, fontFamily: 'iconfont');
   static const IconData iconLiulan = IconData(0xe640, fontFamily: 'iconfont');
+  static const IconData dongTai = IconData(0xe662, fontFamily: 'iconfont');
+  static const IconData shanchu = IconData(0xe8b6, fontFamily: 'iconfont');
 }

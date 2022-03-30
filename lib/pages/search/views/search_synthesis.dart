@@ -56,6 +56,9 @@ class SearchSynthesisPage extends StatelessWidget {
               ],
             ),
           )
-        : MEmpty(text: '暂无搜索结果');
+        : MEmpty(
+            text: '暂无搜索结果',
+            type: Msvg.search,
+          );
   }
 }
