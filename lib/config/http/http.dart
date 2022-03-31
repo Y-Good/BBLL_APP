@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
+import 'package:mvideo/common/controllers/refresh_controller.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/models/base/base_response.dart';
 import 'package:mvideo/utils/common_utils.dart';
@@ -12,7 +14,7 @@ class HttpUtil {
     String? token = UserUtils.getToken;
     _dio.options.baseUrl = Server.host;
     // xprint(token);
-    _dio.options.connectTimeout = 8000;
+    _dio.options.connectTimeout = 5000;
     _dio.options.headers.addAll({
       'Accept': 'application/json',
       'Authorization': UserUtils.hasToken ? 'Bearer $token' : null
@@ -31,8 +33,17 @@ class HttpUtil {
       return BaseResponse.fromJson(response.data).data;
     } on DioError catch (error) {
       if (error.response?.statusCode != 403) {
+        RefreshController refreshHome =
+            Get.find<RefreshController>(tag: 'home');
+        RefreshController refreshTrend =
+            Get.find<RefreshController>(tag: 'trend');
         LoadingUtil.dismissLoading();
         CommonUtils.toast(error.response?.data['message'] ?? '请求失败');
+        refreshHome.easyRefreshController.finishRefresh(success: false);
+        refreshTrend.easyRefreshController.finishRefresh(success: false);
+      } else {
+        LoadingUtil.dismissLoading();
+        CommonUtils.toast(error.response?.data['message'] ?? '');
       }
       LoadingUtil.dismissLoading();
     }

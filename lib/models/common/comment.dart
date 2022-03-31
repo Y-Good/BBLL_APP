@@ -31,20 +31,24 @@ class Comment extends Object {
 
   int? thumbUpCount;
 
+  bool isThumbUp;
+
   @JsonKey(name: 'createDate')
   String? time;
 
-  Comment(
-      {this.id,
-      this.content,
-      this.parentId,
-      this.level,
-      this.user,
-      this.replyUser,
-      this.video,
-      this.time,
-      this.replyCount,
-      this.thumbUpCount});
+  Comment({
+    this.id,
+    this.content,
+    this.parentId,
+    this.level,
+    this.user,
+    this.replyUser,
+    this.video,
+    this.time,
+    this.replyCount,
+    this.thumbUpCount,
+    this.isThumbUp = false,
+  });
 
   factory Comment.fromJson(Map<String, dynamic> srcJson) =>
       _$CommentFromJson(srcJson);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:mvideo/common/controllers/refresh_controller.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/models/common/trend.dart';
 import 'package:mvideo/models/public.dart';
@@ -12,6 +13,7 @@ import 'package:mvideo/widgets/public.dart';
 import '../controllers/trend_controller.dart';
 
 class TrendView extends GetView<TrendController> {
+  final refreshCtl = Get.find<RefreshController>(tag: 'trend');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +30,7 @@ class TrendView extends GetView<TrendController> {
       body: controller.isUser == true
           ? Obx(
               () => MRefresh(
+                controller: refreshCtl.easyRefreshController,
                 onRefresh: controller.onInit,
                 isEmpty: controller.trendList.length == 0,
                 child: ListView.builder(

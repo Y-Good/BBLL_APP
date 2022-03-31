@@ -14,13 +14,12 @@ import 'package:mvideo/utils/user_utils.dart';
 import 'package:mvideo/utils/utils.dart';
 
 class VideoDetailController extends GetxController {
-  final like = 33.obs;
-  final isLike = false.obs;
   final isText = false.obs;
   final isFollow = false.obs;
   final isThumbUpVideo = false.obs;
   final isCollect = false.obs;
-  final contentList = <Comment>[].obs;
+  final placeholder = ''.obs;
+  final commentList = <Comment>[].obs;
   final secondCommentList = <Comment>[].obs;
   final userVideoList = <Video>[].obs;
 
@@ -33,6 +32,11 @@ class VideoDetailController extends GetxController {
   bool get isUser => user?.id == video?.user?.id;
   String? content;
 
+  ///二级评论
+  ///评论父id
+  int? parentId;
+  int level = 1;
+
   @override
   void onInit() async {
     LoadingUtil.showLoading();
@@ -44,7 +48,8 @@ class VideoDetailController extends GetxController {
     }
 
     ///获取评论
-    contentList.value = await CommentRequest.getAllComment(video?.id) ?? [];
+    commentList.value =
+        await CommentRequest.getAllComment(video?.id, user?.id ?? null) ?? [];
 
     ///添加历史记录
     HistroyRequset.createHistroy(video?.id);
@@ -63,9 +68,16 @@ class VideoDetailController extends GetxController {
   }
 
   Future<void> onSubmit() async {
-    Comment? res = await CommentRequest.createComment(video?.id, content);
+    Comment? res;
+    if (level == 2 && isNotNull(parentId)) {
+      res = await CommentRequest.createSecond(video?.id, parentId, content);
+    } else {
+      res = await CommentRequest.createComment(video?.id, content);
+    }
     if (isNotNull(res)) {
-      contentList.insert(0, res!);
+      res?.level == 1
+          ? commentList.insert(0, res!)
+          : secondCommentList.insert(0, res!);
     }
     CommonUtils.toast(isNotNull(res) ? '评论成功' : '评论失败');
     FocusScope.of(Get.context!).requestFocus(focus);
@@ -76,8 +88,15 @@ class VideoDetailController extends GetxController {
   void removeComment(int? commentId, int index) async {
     bool isConfirm = await CommonUtils.dialog('确认删除该条评论吗？') ?? false;
     if (isConfirm) {
-      bool isRemove = await CommentRequest.removeComment(commentId);
-      if (isRemove) contentList.removeAt(index);
+      bool isRemove = await CommentRequest.removeComment(
+        commentId,
+        isNotNull(Get.isBottomSheetOpen) ? parentId : null,
+      );
+      if (isRemove) commentList.removeAt(index);
+      if (Get.isBottomSheetOpen == true && isRemove) {
+        secondCommentList.removeAt(index);
+        commentList[index].replyCount = commentList[index].replyCount! - 1;
+      }
       CommonUtils.toast(isRemove ? '删除成功' : '删除失败');
     }
   }
@@ -90,11 +109,10 @@ class VideoDetailController extends GetxController {
     CollectRequest.createColloect(followId: video?.user?.id);
   }
 
-  void onThumbUpComment(int? commentId) async {
+  void onThumbUpComment(int? commentId, index) async {
     bool res = await CommentRequest.thumbUp(commentId) ?? false;
     if (res) {
-      isLike.value ? like.value-- : like.value++;
-      isLike.value = !(isLike.value);
+      commentList[index].isThumbUp = !commentList[index].isThumbUp;
     }
   }
 
@@ -106,8 +124,6 @@ class VideoDetailController extends GetxController {
       isThumbUpVideo.value = !isThumbUpVideo.value;
     }
   }
-
-  void onCreateSecond() {}
 
   void getSecondComment(int? parentId) async {
     secondCommentList.value =
@@ -129,6 +145,7 @@ class VideoDetailController extends GetxController {
   void onClose() {
     player.dispose();
     contentController.dispose();
+    LoadingUtil.dismissLoading();
     super.onClose();
   }
 }

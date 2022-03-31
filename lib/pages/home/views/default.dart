@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mvideo/common/controllers/refresh_controller.dart';
 import 'package:mvideo/pages/home/controllers/home_controller.dart';
 import 'package:mvideo/widgets/common/m_refresh.dart';
 import 'package:mvideo/widgets/public.dart';
@@ -17,12 +18,13 @@ class _DefaultPageState extends State<DefaultPage>
   bool get wantKeepAlive => true;
 
   HomeController controller = Get.find<HomeController>();
+  RefreshController refreshCtl = Get.find<RefreshController>(tag: 'home');
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return Obx(() => MRefresh(
-          controller: controller.easyRefreshController,
+          controller: refreshCtl.easyRefreshController,
           onRefresh: () => controller.onInit(),
           isEmpty: controller.videoList.length == 0,
           child: SingleChildScrollView(

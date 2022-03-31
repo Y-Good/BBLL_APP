@@ -14,6 +14,7 @@ class MSendBox extends StatelessWidget {
   final Color? inputBgColor;
   final Color? placeholderColor;
   final Color? cursorColor;
+  final String? placeholder;
 
   const MSendBox(
       {Key? key,
@@ -26,6 +27,7 @@ class MSendBox extends StatelessWidget {
       this.inputColor,
       this.inputBgColor,
       this.placeholderColor,
+      this.placeholder,
       this.cursorColor})
       : super(key: key);
 
@@ -49,6 +51,7 @@ class MSendBox extends StatelessWidget {
                 bgColor: inputBgColor ?? MColors.background,
                 inputColor: inputColor,
                 cursorColor: cursorColor,
+                placeholder: placeholder,
                 placeholderColor: placeholderColor,
                 height: 32,
                 onChange: onChange,

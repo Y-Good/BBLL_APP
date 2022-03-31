@@ -5,9 +5,11 @@ import 'package:mvideo/utils/utils.dart';
 
 class CommentRequest {
   ///获取评论
-  static Future<List<Comment>?> getAllComment(int? videoId) async {
-    var json = await HttpUtil.get(CommentApi.comment,
-        queryParameters: {'videoId': videoId});
+  static Future<List<Comment>?> getAllComment(int? videoId,
+      [int? userId]) async {
+    var params = {'videoId': videoId, 'userId': userId};
+    params.removeWhere((key, value) => value == null);
+    var json = await HttpUtil.get(CommentApi.comment, queryParameters: params);
     if (isNotNull(json)) return getCommentList(json);
     return null;
   }
@@ -20,9 +22,11 @@ class CommentRequest {
   }
 
   ///删除评论
-  static Future<bool> removeComment(int? commentId) async {
-    var json = await HttpUtil.get(CommentApi.removeComment,
-        queryParameters: {'commentId': commentId});
+  static Future<bool> removeComment(int? commentId, [int? parentId]) async {
+    var params = {'commentId': commentId, 'parentId': parentId};
+    params.removeWhere((key, value) => value == null);
+    var json =
+        await HttpUtil.get(CommentApi.removeComment, queryParameters: params);
     return json == true;
   }
 

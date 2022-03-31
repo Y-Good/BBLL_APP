@@ -10,6 +10,6 @@ class SettingUtil {
   }
 
   static bool getAutoPlay() {
-    return _st.read('auto');
+    return _st.read('auto') ?? true;
   }
 }

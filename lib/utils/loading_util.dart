@@ -1,8 +1,12 @@
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class LoadingUtil {
-  static void showLoading({String? msg, bool? dismissOnTap}) {
-    EasyLoading.show(status: msg ?? "加载中...", dismissOnTap: dismissOnTap);
+  static void showLoading({String? msg, bool dismissOnTap = false}) {
+    EasyLoading.show(
+      status: msg ?? "加载中...",
+      dismissOnTap: dismissOnTap,
+      maskType: EasyLoadingMaskType.clear,
+    );
   }
 
   static void dismissLoading() {

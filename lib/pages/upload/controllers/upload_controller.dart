@@ -69,6 +69,15 @@ class UploadController extends GetxController {
     if (video?.path != null) {
       videoPath.value = video!.path;
       player.setDataSource(video?.path ?? '', showCover: true);
+      //获取视频略缩图
+      if (isNull(cover)) {
+        coverPath.value = (await VideoThumbnail.thumbnailFile(
+          video: video!.path,
+          thumbnailPath: tempCover,
+          imageFormat: ImageFormat.JPEG,
+          quality: 75,
+        ))!;
+      }
     }
   }
 
@@ -80,6 +89,14 @@ class UploadController extends GetxController {
         source: pickType ?? ImageSource.gallery, imageQuality: 70);
 
     if (cover?.path != null) {
+      CompressObject compressObject = CompressObject(
+        imageFile: File(cover!.path),
+        path: tempCover,
+        quality: 85,
+        step: 9,
+      );
+      Luban.compressImage(compressObject)
+          .then((_path) => coverPath.value = _path!);
       coverPath.value = cover!.path;
     }
   }
@@ -100,7 +117,7 @@ class UploadController extends GetxController {
 
   ///上传
   Future<void> onSumbit() async {
-    LoadingUtil.showLoading(msg: '上传中', dismissOnTap: true);
+    // LoadingUtil.showLoading(msg: '上传中', dismissOnTap: true);
 
     if (video != null && title != null) {
       handleFile();
@@ -131,26 +148,6 @@ class UploadController extends GetxController {
   }
 
   Future<void> handleFile() async {
-    //获取视频略缩图
-    if (isNull(cover)) {
-      coverPath.value = (await VideoThumbnail.thumbnailFile(
-        video: video!.path,
-        thumbnailPath: tempCover,
-        imageFormat: ImageFormat.JPEG,
-        quality: 75,
-      ))!;
-    } else {
-      //有图就压缩
-      CompressObject compressObject = CompressObject(
-        imageFile: File(cover!.path),
-        path: tempCover,
-        quality: 85,
-        step: 9,
-      );
-      Luban.compressImage(compressObject)
-          .then((_path) => coverPath.value = _path!);
-    }
-
     //获取视频文件信息
     MediaInformation? videoInfo =
         await _flutterFFprobe.getMediaInformation(video!.path);
@@ -158,13 +155,14 @@ class UploadController extends GetxController {
     size = videoInfo.getMediaProperties()?['size'];
     if (isNotNull(size) && (int.parse(size!) ~/ 1000000).toDouble() > 20) {
       LoadingUtil.showLoading(msg: '压缩文件中');
-      _flutterFFmpeg
-          .execute("-i ${video!.path} -r 20 -b:v 1.5M $tempVideo")
-          .then((info) async {
-        if (info == 1) LoadingUtil.dismissLoading();
+      String command = "-i ${video!.path} -r 20 -b:v 1.5M  $tempVideo";
+      _flutterFFmpeg.execute(command).then((info) async {
+        if (info == 0) LoadingUtil.dismissLoading();
       });
+      print("${tempVideo}haha");
     } else {
       tempVideo = videoPath.value;
+      print("${tempVideo}ddd");
     }
   }
 
