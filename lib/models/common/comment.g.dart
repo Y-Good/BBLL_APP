@@ -23,7 +23,7 @@ Comment _$CommentFromJson(Map<String, dynamic> json) => Comment(
       time: json['createDate'] as String?,
       replyCount: json['replyCount'] as int?,
       thumbUpCount: json['thumbUpCount'] as int?,
-      isThumbUp: json['isThumbUp'] as bool,
+      isThumbUp: json['isThumbUp'] as bool?,
     );
 
 Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{

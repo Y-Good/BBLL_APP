@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -24,7 +25,10 @@ class MyApp extends StatelessWidget {
         ),
         builder: EasyLoading.init(),
         initialRoute: AppPages.INITIAL,
-        onInit: () => UserRequest.getUserInfo(),
+        onInit: () async {
+          await FlutterDisplayMode.setHighRefreshRate();
+          UserRequest.getUserInfo();
+        },
         debugShowCheckedModeBanner: false,
         getPages: AppPages.routes,
         defaultTransition: Transition.cupertino,

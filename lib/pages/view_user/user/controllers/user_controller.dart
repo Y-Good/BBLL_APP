@@ -23,7 +23,6 @@ class UserHeadItem {
 
 class UserController extends GetxController {
   final isLogin = true.obs;
-  final updateAvatar = ''.obs;
   final user = User().obs;
   GetStorage? st = GetStorage();
   List<UserHeadItem> userHeadList = [
@@ -50,7 +49,7 @@ class UserController extends GetxController {
   void onPages(String url) async {
     var res = await Get.toNamed(url);
     if (url == Routes.USER_EDIT && res is Map) {
-      updateAvatar.value = res['avatar'];
+      user(User(avatar: res['avatar']));
     }
     isLogin.value = !UserUtils.hasToken;
   }

@@ -112,7 +112,8 @@ class VideoDetailController extends GetxController {
   void onThumbUpComment(int? commentId, index) async {
     bool res = await CommentRequest.thumbUp(commentId) ?? false;
     if (res) {
-      commentList[index].isThumbUp = !commentList[index].isThumbUp;
+      commentList[index].isThumbUp = !commentList[index].isThumbUp!;
+      commentList(commentList);
     }
   }
 

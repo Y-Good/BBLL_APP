@@ -27,7 +27,7 @@ class MEmpty extends StatelessWidget {
           width: 150,
           height: 150,
           child: SvgPicture.asset(
-            type ?? 'assets/svg/empty2.svg',
+            type ?? Msvg.empty2,
           ),
         ),
         SizedBox(height: 5),

@@ -64,11 +64,12 @@ class UserRequest {
   }
 
   ///上传
-  static void uploadAvatar(FormData params) async {
+  static Future<User> uploadAvatar(FormData params) async {
     var json = await HttpUtil.post(
       FileApi.upload,
       data: params,
     );
     UserUtils.saveUserInfo(User.fromJson(json));
+    return User.fromJson(json);
   }
 }

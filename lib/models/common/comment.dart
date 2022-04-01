@@ -31,7 +31,7 @@ class Comment extends Object {
 
   int? thumbUpCount;
 
-  bool isThumbUp;
+  bool? isThumbUp;
 
   @JsonKey(name: 'createDate')
   String? time;

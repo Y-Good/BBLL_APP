@@ -42,11 +42,11 @@ class UserEditController extends GetxController {
     }
   }
 
-  onSubmit() {
+  onSubmit() async {
     if (formdata != null) {
-      UserRequest.uploadAvatar(formdata!);
+      var res = await UserRequest.uploadAvatar(formdata!);
+      Get.back(result: {'avatar': res.avatar});
     }
     // UserRequest.updateUser(nickname);
-    Get.back(result: {'avatar': UserUtils.getUser?.avatar});
   }
 }
