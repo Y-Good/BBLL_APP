@@ -36,6 +36,7 @@ class VideoDetailController extends GetxController {
   ///评论父id
   int? parentId;
   int level = 1;
+  int? replyIndex;
 
   @override
   void onInit() async {
@@ -70,7 +71,12 @@ class VideoDetailController extends GetxController {
   Future<void> onSubmit() async {
     Comment? res;
     if (level == 2 && isNotNull(parentId)) {
-      res = await CommentRequest.createSecond(video?.id, parentId, content);
+      res = await CommentRequest.createSecond(
+        video?.id,
+        parentId,
+        content,
+        commentList[replyIndex ?? 0].user?.id,
+      );
     } else {
       res = await CommentRequest.createComment(video?.id, content);
     }
@@ -78,6 +84,13 @@ class VideoDetailController extends GetxController {
       res?.level == 1
           ? commentList.insert(0, res!)
           : secondCommentList.insert(0, res!);
+
+      ///回复评论添加数量
+      if (res.level == 2) {
+        commentList[replyIndex ?? 0].replyCount =
+            commentList[replyIndex ?? 0].replyCount! + 1;
+        commentList.refresh();
+      }
     }
     CommonUtils.toast(isNotNull(res) ? '评论成功' : '评论失败');
     FocusScope.of(Get.context!).requestFocus(focus);
@@ -96,6 +109,7 @@ class VideoDetailController extends GetxController {
       if (Get.isBottomSheetOpen == true && isRemove) {
         secondCommentList.removeAt(index);
         commentList[index].replyCount = commentList[index].replyCount! - 1;
+        commentList.refresh();
       }
       CommonUtils.toast(isRemove ? '删除成功' : '删除失败');
     }
@@ -109,11 +123,15 @@ class VideoDetailController extends GetxController {
     CollectRequest.createColloect(followId: video?.user?.id);
   }
 
-  void onThumbUpComment(int? commentId, index) async {
+  void onThumbUpComment(int? commentId, int index, int? level) async {
+    var item = level == 1 ? commentList[index] : secondCommentList[index];
     bool res = await CommentRequest.thumbUp(commentId) ?? false;
     if (res) {
-      commentList[index].isThumbUp = !commentList[index].isThumbUp!;
-      commentList(commentList);
+      item.isThumbUp = !item.isThumbUp!;
+      item.thumbUpCount = item.isThumbUp == true
+          ? item.thumbUpCount! + 1
+          : item.thumbUpCount! - 1;
+      level == 1 ? commentList.refresh() : secondCommentList.refresh();
     }
   }
 

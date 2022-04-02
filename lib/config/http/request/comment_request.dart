@@ -1,6 +1,7 @@
 import 'package:mvideo/config/http/api/comment_api.dart';
 import 'package:mvideo/config/http/http.dart';
 import 'package:mvideo/models/public.dart';
+import 'package:mvideo/utils/user_utils.dart';
 import 'package:mvideo/utils/utils.dart';
 
 class CommentRequest {
@@ -56,16 +57,26 @@ class CommentRequest {
 
   ///创建erji
   static Future<Comment>? createSecond(
-      int? videoId, int? parentId, String? content) async {
-    var json = await HttpUtil.post(CommentApi.second,
-        data: {'videoId': videoId, 'parentId': parentId, 'content': content});
+    int? videoId,
+    int? parentId,
+    String? content,
+    int? replayUserId,
+  ) async {
+    var params = {
+      'videoId': videoId,
+      'parentId': parentId,
+      'content': content,
+      'replayUserId': replayUserId
+    };
+    var json = await HttpUtil.post(CommentApi.second, data: params);
     return Comment.fromJson(json);
   }
 
   ///huoqu二级
   static Future<List<Comment>?> getSecondComment(int? parentId) async {
-    var json = await HttpUtil.get(CommentApi.second,
-        queryParameters: {'parentId': parentId});
+    var params = {'parentId': parentId, 'userId': UserUtils.getUser?.id};
+    params.removeWhere((key, value) => value == null);
+    var json = await HttpUtil.get(CommentApi.second, queryParameters: params);
     if (isNotNull(json)) return getCommentList(json);
     return null;
   }

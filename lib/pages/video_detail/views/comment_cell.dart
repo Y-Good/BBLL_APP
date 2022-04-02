@@ -30,7 +30,9 @@ class CommentCell extends StatelessWidget {
                       padding: EdgeInsets.only(top: 28),
                       itemBuilder: (context, index) {
                         return CommentCell(
-                            item: controller.secondCommentList[index]);
+                          item: controller.secondCommentList[index],
+                          index: index,
+                        );
                       },
                       itemCount: controller.secondCommentList.length,
                     )),
@@ -104,7 +106,8 @@ class CommentCell extends StatelessWidget {
                   onTap: () {
                     controller.level = 2;
                     controller.parentId = item?.id;
-                    controller.placeholder.value = '回复：${item?.user?.nickname}';
+                    controller.replyIndex = index;
+                    controller.placeholder.value = '回复：${item?.content}';
                     // FocusNode().requestFocus();
                   },
                 ),
@@ -130,8 +133,11 @@ class CommentCell extends StatelessWidget {
                             ? MColors.primiaryColor
                             : null,
                         text: item?.thumbUpCount.toString(),
-                        onTap: () =>
-                            controller.onThumbUpComment(item?.id, index),
+                        onTap: () => controller.onThumbUpComment(
+                          item?.id,
+                          index!,
+                          item?.level,
+                        ),
                       ),
                       Offstage(
                         offstage: item?.level == 2,

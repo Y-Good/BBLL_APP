@@ -163,11 +163,14 @@ class UserZoneView extends GetView<UserZoneController> {
                         CommonUtils.handleSrcUrl(controller.user?.avatar ?? ''),
                     title: controller.user?.nickname,
                     subtitle: CommonUtils.remindTime(items[index].time),
-                    trailing: MIcon(
-                      IconFonts.shanchu,
-                      size: 18,
-                      onTap: () =>
-                          controller.removeComment(items[index].id, index),
+                    trailing: Offstage(
+                      offstage: isNotNull(controller.argUser),
+                      child: MIcon(
+                        IconFonts.shanchu,
+                        size: 18,
+                        onTap: () =>
+                            controller.removeComment(items[index].id, index),
+                      ),
                     ),
                   ),
                   Container(
@@ -196,7 +199,7 @@ class UserZoneView extends GetView<UserZoneController> {
                                   const EdgeInsets.symmetric(horizontal: 16),
                               child: MText(
                                 items[index].level == 2
-                                    ? '回复：${items[index].replyUser?.nickname}'
+                                    ? '回复用户：${items[index].replyUser?.nickname ?? '-'}'
                                     : items[index].video?.title ?? '-',
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 2,

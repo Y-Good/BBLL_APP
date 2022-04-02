@@ -28,7 +28,7 @@ class HomeView extends GetView<HomeController> {
         hiddenLeading: true,
         titleWidget: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 48),
-          child: InkWell(
+          child: GestureDetector(
               onTap: () => Get.toNamed(Routes.SEARCH),
               child: MSearch(enabled: false)),
         ),

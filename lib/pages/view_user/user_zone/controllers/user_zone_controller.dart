@@ -13,16 +13,16 @@ import 'package:mvideo/utils/user_utils.dart';
 import 'package:mvideo/utils/utils.dart';
 
 class UserZoneController extends GetxController {
-  int initialIndex = Get.arguments?['index'] ?? 1;
-  User? argUser = Get.arguments?['user'];
+  final VideoDetailController vdCtl = Get.put(VideoDetailController());
   final followList = <Collect>[].obs;
   final commentList = <Comment>[].obs;
   final videotList = <Video>[].obs;
   final isFollow = false.obs;
   final followCount = '0'.obs;
   final fansCount = '0'.obs;
+  int initialIndex = Get.arguments?['index'] ?? 1;
+  User? argUser = Get.arguments?['user'];
   User? get user => argUser ?? UserUtils.getUser;
-  final VideoDetailController vdCtl = Get.put(VideoDetailController());
 
   List<Widget> tabs = [
     Tab(text: "关注", height: 36),

@@ -18,9 +18,9 @@ class SearchController extends GetxController {
   String? type;
 
   onSearch() async {
-    // user.value = User();
-    // videoList.value = [];
-    // userList.value = [];
+    user.value = User();
+    videoList.value = [];
+    userList.value = [];
     if (isNull(key?.trim())) return CommonUtils.toast('请输入关键词');
     // print(tabKey.currentState?.pageIndex);
     switch (tabKey.currentState?.pageIndex) {
@@ -41,7 +41,7 @@ class SearchController extends GetxController {
       }
 
       var res = await CommonRequest.getSearch(key!.trim(), type);
-      if (isNull(res) && isNull(user)) {
+      if (isNull(res) && isNull(user.value.id)) {
         LoadingUtil.dismissLoading();
         return CommonUtils.toast('没有搜索到结果');
       }

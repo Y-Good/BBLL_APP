@@ -48,7 +48,7 @@ class UserController extends GetxController {
 
   void onPages(String url) async {
     var res = await Get.toNamed(url);
-    if (url == Routes.USER_EDIT && res is Map) {
+    if ((url == Routes.USER_EDIT || url == Routes.LOGIN) && res is Map) {
       user(User(avatar: res['avatar']));
     }
     isLogin.value = !UserUtils.hasToken;

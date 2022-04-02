@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:mvideo/common/enums/notify.enum.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/utils/common_utils.dart';
+import 'package:mvideo/utils/utils.dart';
 import 'package:mvideo/widgets/public.dart';
 
 import '../controllers/notify_controller.dart';
@@ -61,6 +62,7 @@ class NotifyView extends GetView<NotifyController> {
                                       overflow: TextOverflow.ellipsis,
                                     ),
                             ),
+                            SizedBox(height: 4),
                             MText(
                               CommonUtils.remindTime(items[index].time ?? '') ??
                                   '-',
@@ -71,12 +73,28 @@ class NotifyView extends GetView<NotifyController> {
                         ),
                       ),
                     ),
-                    MAvatar(
-                      CommonUtils.handleSrcUrl(items[index].video?.cover ?? ''),
-                      width: 64,
-                      height: 64,
-                      radius: 0,
-                    )
+                    isNull(items[index].video)
+                        ? Container(
+                            color: MColors.grey9.withOpacity(0.1),
+                            width: 64,
+                            height: 64,
+                            padding: EdgeInsets.symmetric(horizontal: 2),
+                            alignment: Alignment.center,
+                            child: MText(
+                              items[index].comment?.content ?? '',
+                              maxLines: 3,
+                              size: 12,
+                              color: Colors.grey[700],
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          )
+                        : MAvatar(
+                            CommonUtils.handleSrcUrl(
+                                items[index].video?.cover ?? ''),
+                            width: 64,
+                            height: 64,
+                            radius: 0,
+                          )
                   ],
                 ),
               ),

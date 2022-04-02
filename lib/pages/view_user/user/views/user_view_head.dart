@@ -22,8 +22,10 @@ class UserViewHead extends GetView<UserController> {
         decoration: BoxDecoration(
             color: MColors.white,
             image: DecorationImage(
+                // colorFilter: ColorFilter.linearToSrgbGamma(),
                 image: NetworkImage(
-                  "https://img1.baidu.com/it/u=2471177670,3575582393&fm=26&fmt=auto",
+                  // "https://img1.baidu.com/it/u=2471177670,3575582393&fm=26&fmt=auto",
+                  "https://img2.baidu.com/it/u=3812206001,1543514960&fm=253&fmt=auto&app=120&f=JPEG?w=667&h=500",
                 ),
                 fit: BoxFit.cover)),
         child: Stack(
@@ -48,7 +50,7 @@ class UserViewHead extends GetView<UserController> {
                   height: 48,
                   margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                   decoration: BoxDecoration(
-                      color: Colors.white24,
+                      // color: Colors.white24,
                       borderRadius: BorderRadius.all(Radius.circular(24))),
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(24)),
@@ -61,6 +63,7 @@ class UserViewHead extends GetView<UserController> {
                             (index) => MIcon(
                                   controller.userHeadList[index].icon,
                                   size: 26,
+                                  color: MColors.black,
                                   onTap: () => controller.onPages(
                                       controller.userHeadList[index].path ??
                                           ''),
