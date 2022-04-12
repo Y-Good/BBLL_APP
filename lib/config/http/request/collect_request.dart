@@ -24,7 +24,8 @@ class CollectRequest {
     var params = {'day': day};
     params.removeWhere((key, value) => value == null);
     var json = await HttpUtil.get(CollectApi.trend, queryParameters: params);
-    return getTrendList(json);
+    if (json != null) return getTrendList(json);
+    return null;
   }
 
   ///是否关注

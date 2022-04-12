@@ -12,6 +12,8 @@ class HomeController extends GetxController {
   final rankList = <Video>[].obs;
   final bannerList = <Video>[].obs;
   final notifyCount = 0.obs;
+  int pageIndex = 0;
+  final isLoadingFinsh = false.obs;
   @override
   Future<void> onInit() async {
     NotifyRequest.getNotifyCount();
@@ -23,6 +25,15 @@ class HomeController extends GetxController {
     notifyCount.value = UserUtils.getNotifyCount ?? 0;
     LoadingUtil.dismissLoading();
     super.onInit();
+  }
+
+  onLoading() async {
+    pageIndex++;
+    List<Video>? res = await VideoRequest.getAllVideo(pageIndex) ?? [];
+    if (res.length == 0) {
+      isLoadingFinsh.value = true;
+    }
+    videoList.addAll(res);
   }
 
   @override

@@ -17,34 +17,33 @@ class TrendView extends GetView<TrendController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MAppBar(
-        hiddenLeading: true,
-        title: '动态',
-        actionWidget: MIcon(
-          Icons.more_vert,
-          size: 24,
-          onTap: controller.onMenu,
+        appBar: MAppBar(
+          hiddenLeading: true,
+          title: '动态',
+          actionWidget: MIcon(
+            Icons.more_vert,
+            size: 24,
+            onTap: controller.onMenu,
+          ),
+          bgcolor: MColors.white,
         ),
-        bgcolor: MColors.white,
-      ),
-      body: controller.isUser == true
-          ? Obx(
-              () => MRefresh(
-                controller: refreshCtl.easyRefreshController,
-                onRefresh: controller.onInit,
-                isEmpty: controller.trendList.length == 0,
-                child: ListView.builder(
-                  itemBuilder: (_, index) =>
-                      trendCard(controller.trendList[index]),
-                  itemCount: controller.trendList.length,
+        body: Obx(
+          () => controller.isUser == true
+              ? MRefresh(
+                  controller: refreshCtl.easyRefreshController,
+                  onRefresh: controller.onInit,
+                  isEmpty: controller.trendList.length == 0,
+                  child: ListView.builder(
+                    itemBuilder: (_, index) =>
+                        trendCard(controller.trendList[index]),
+                    itemCount: controller.trendList.length,
+                  ),
+                )
+              : MEmpty(
+                  type: Msvg.empty,
+                  text: '登录App才能使用',
                 ),
-              ),
-            )
-          : MEmpty(
-              type: Msvg.empty,
-              text: '登录App才能使用',
-            ),
-    );
+        ));
   }
 
   Widget trendCard(Trend item) {

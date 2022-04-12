@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:mvideo/config/http/request/notify_request.dart';
 import 'package:mvideo/models/common/notify.dart';
 import 'package:mvideo/pages/home/controllers/home_controller.dart';
+import 'package:mvideo/utils/loading_util.dart';
 import 'package:mvideo/utils/user_utils.dart';
 
 class NotifyController extends GetxController {
@@ -10,10 +11,12 @@ class NotifyController extends GetxController {
 
   @override
   Future<void> onInit() async {
+    LoadingUtil.showLoading();
     notifyList.value = await NotifyRequest.getNotify() ?? [];
     NotifyRequest.markNotify();
     homeController.notifyCount.value = 0;
     UserUtils.saveNotifyCount(0);
+    LoadingUtil.dismissLoading();
     super.onInit();
   }
 

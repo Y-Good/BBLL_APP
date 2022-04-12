@@ -29,6 +29,7 @@ class SearchController extends GetxController {
         break;
       case 2:
         type = SearchType.user;
+        // onSearchUser();
         break;
       default:
         break;
@@ -53,4 +54,9 @@ class SearchController extends GetxController {
     }
     LoadingUtil.dismissLoading();
   }
+
+  // onSearchUser() async {
+  //   var res = await CommonRequest.getSearch(key!.trim(), SearchType.user);
+  //   userList.value = res as List<User>;
+  // }
 }

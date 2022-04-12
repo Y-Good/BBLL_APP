@@ -7,7 +7,8 @@ import 'package:mvideo/utils/utils.dart';
 class NotifyRequest {
   static Future<List<Notify>?> getNotify() async {
     var json = await HttpUtil.get(NotifyApi.notify);
-    return getNotifyList(json);
+    if (json != null) return getNotifyList(json);
+    return null;
   }
 
   ///获取未读

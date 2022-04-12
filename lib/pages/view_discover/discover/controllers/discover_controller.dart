@@ -5,12 +5,16 @@ import 'package:mvideo/config/http/request/common_request.dart';
 import 'package:mvideo/models/common/room.dart';
 import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/utils/common_utils.dart';
+import 'package:mvideo/utils/user_utils.dart';
 import 'package:mvideo/widgets/public.dart';
 
 class DiscoverController extends GetxController {
   final roomList = <Room>[].obs;
 
   void onGetRoom() async {
+    if (UserUtils.hasToken == false) {
+      return CommonUtils.toast('登录App才能使用');
+    }
     EasyLoading.show(status: '正在查找', dismissOnTap: false);
     roomList.value = await CommonRequest.getOnline() ?? [];
     if (roomList.length == 0) {

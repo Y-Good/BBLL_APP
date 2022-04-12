@@ -73,7 +73,12 @@ class VideoCard extends StatelessWidget {
                         right: 0,
                         bottom: 0,
                         child: Container(
-                          padding: EdgeInsets.only(top: 16, right: 8, left: 8),
+                          padding: EdgeInsets.only(
+                            top: 16,
+                            right: 8,
+                            left: 8,
+                            bottom: 4,
+                          ),
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               begin: Alignment.bottomCenter,

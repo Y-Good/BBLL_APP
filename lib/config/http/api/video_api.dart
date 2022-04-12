@@ -14,6 +14,9 @@ class VideoApi {
   ///是否点赞
   static String isThumbUp = "/video/isThumbUp";
 
+  ///是否点赞
+  static String isCollect = "/video/isCollect";
+
   ///删除
   static String remove = "/video/remove";
 

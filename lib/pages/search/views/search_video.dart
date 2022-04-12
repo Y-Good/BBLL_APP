@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mvideo/models/public.dart';
+import 'package:mvideo/utils/utils.dart';
 import 'package:mvideo/widgets/public.dart';
 
 class SearchVideoPage extends StatelessWidget {
@@ -8,6 +9,11 @@ class SearchVideoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return VideoList(videoList: videoList);
+    return isNotNull(videoList)
+        ? VideoList(videoList: videoList)
+        : MEmpty(
+            text: '暂无搜索结果',
+            type: Msvg.search,
+          );
   }
 }

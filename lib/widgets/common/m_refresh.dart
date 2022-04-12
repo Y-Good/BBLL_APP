@@ -6,12 +6,14 @@ import 'package:mvideo/widgets/public.dart';
 class MRefresh extends StatelessWidget {
   final Widget child;
   final VoidCallback? onRefresh;
+  final VoidCallback? onLoad;
   final bool isEmpty;
   final EasyRefreshController? controller;
   const MRefresh(
       {Key? key,
       required this.child,
       this.onRefresh,
+      this.onLoad,
       this.controller,
       this.isEmpty = false})
       : super(key: key);
@@ -25,6 +27,7 @@ class MRefresh extends StatelessWidget {
           enableHapticFeedback: true,
           backgroundColor: MColors.primiaryColor,
         ),
+        // footer: ClassicalFooter(loadText: '加载中', loadReadyText: '上拉加载更多'),
         emptyWidget: isEmpty ? MEmpty() : null,
         child: child);
   }

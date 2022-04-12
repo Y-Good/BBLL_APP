@@ -26,6 +26,9 @@ class _DefaultPageState extends State<DefaultPage>
     return Obx(() => MRefresh(
           controller: refreshCtl.easyRefreshController,
           onRefresh: () => controller.onInit(),
+          // onLoad: controller.isLoadingFinsh.value
+          //     ? null
+          //     : () => controller.onLoading(),
           isEmpty: controller.videoList.length == 0,
           child: SingleChildScrollView(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),

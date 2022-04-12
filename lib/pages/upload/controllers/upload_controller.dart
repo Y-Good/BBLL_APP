@@ -9,6 +9,8 @@ import 'package:mvideo/config/http/request/common_request.dart';
 import 'package:mvideo/config/http/request/video_request.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/models/common/tag.dart';
+import 'package:mvideo/models/public.dart';
+import 'package:mvideo/pages/home/controllers/home_controller.dart';
 import 'package:mvideo/pages/upload/views/tag_pick.dart';
 import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/utils/loading_util.dart';
@@ -25,6 +27,7 @@ class UploadController extends GetxController {
   ShowConfigAbs vSkinCfg = VideoShowConfig();
   FlutterFFmpeg _flutterFFmpeg = FlutterFFmpeg();
   FlutterFFprobe _flutterFFprobe = FlutterFFprobe();
+  final homeCtl = Get.find<HomeController>();
   final videoPath = ''.obs;
   final coverPath = ''.obs;
   final tagList = <Tag>[].obs;
@@ -119,7 +122,7 @@ class UploadController extends GetxController {
   Future<void> onSumbit() async {
     // LoadingUtil.showLoading(msg: '上传中', dismissOnTap: true);
 
-    if (video != null && title != null) {
+    if (video != null && title != null && isNotNull(coverPath.value.trim())) {
       handleFile();
       FormData formdata = FormData.fromMap({
         'video':
@@ -131,13 +134,16 @@ class UploadController extends GetxController {
         'tags': tags
       });
 
-      bool? res = await VideoRequest.uploadVideo(formdata);
+      Video? res = await VideoRequest.uploadVideo(formdata);
       LoadingUtil.dismissLoading();
-      CommonUtils.toast(res == true ? '上传成功' : '上传失败');
-      if (res == true) Get.back();
+      // CommonUtils.toast(res == true ? '上传成功' : '上传失败');
+      if (res?.id != null) {
+        homeCtl.videoList.insert(0, res!);
+        Get.back();
+      }
     } else {
       LoadingUtil.dismissLoading();
-      CommonUtils.toast('还有东西没填');
+      CommonUtils.toast('请填写完整内容');
     }
   }
 

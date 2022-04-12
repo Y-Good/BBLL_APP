@@ -114,15 +114,15 @@ class VideoList extends StatelessWidget {
                                             icon: IconFonts.iconDianzan2,
                                             iconSize: 12,
                                             textSize: 12,
-                                            text: videoList?[index].thumbUp ??
-                                                '0',
+                                            text: transformView(int.parse(
+                                                videoList?[index].thumbUp ??
+                                                    '0')),
                                           ),
                                         ),
                                         MText(
-                                          CommonUtils.format(DateTime.parse(
-                                                  videoList?[index].time ??
-                                                      '')) ??
-                                              '',
+                                          CommonUtils.remindTime(
+                                                  videoList?[index].time) ??
+                                              '-',
                                           color: MColors.grey9,
                                           size: 12,
                                         ),

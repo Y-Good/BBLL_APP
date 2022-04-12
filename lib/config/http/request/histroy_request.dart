@@ -5,7 +5,8 @@ import 'package:mvideo/models/common/histroy.dart';
 class HistroyRequset {
   static Future<List<Histroy>?> getHistroy() async {
     var json = await HttpUtil.get(HistroyApi.histroy);
-    return getHistroyList(json);
+    if (json != null) return getHistroyList(json);
+    return null;
   }
 
   static void createHistroy(int? videoId) {

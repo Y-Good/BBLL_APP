@@ -40,6 +40,7 @@ class UserViewHead extends GetView<UserController> {
                             controller.user.value.avatar ?? ''),
                         height: 82,
                         width: 82,
+                        isBorder: true,
                         onTap: () => Get.toNamed(Routes.USER_ZONE),
                       )),
                 ),

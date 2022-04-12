@@ -2,6 +2,7 @@ import 'dart:io' show File;
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/utils/common_utils.dart';
@@ -100,6 +101,21 @@ class UserEditView extends GetView<UserEditController> {
                               controller.nickname = val;
                             }),
                       )
+                      // Expanded(
+                      //   child: MIcon(
+                      //     Icons.add,
+                      //     onTap: () async {
+                      //       DatePicker.showDatePicker(context,
+                      //           showTitleActions: true, onChanged: (date) {
+                      //         print('change $date');
+                      //       }, onConfirm: (date) {
+                      //         print('confirm $date');
+                      //       },
+                      //           currentTime: DateTime.now(),
+                      //           locale: LocaleType.zh);
+                      //     },
+                      //   ),
+                      // )
                     ],
                   ),
                 );

@@ -3,6 +3,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mvideo/config/color/m_colors.dart';
+import 'package:mvideo/pages/trend/controllers/trend_controller.dart';
 import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/utils/setting_util.dart';
@@ -16,12 +17,13 @@ class SettingItem {
 
 class SettingController extends GetxController {
   final isSwitch = false.obs;
+  final trendCtl = Get.find<TrendController>();
   //列表
   List<List<SettingItem>> get items => [
         [SettingItem(title: '更改密码', onTap: onAccount)],
         [
-          SettingItem(title: '测试1', onTap: test),
-          SettingItem(title: '测试2', onTap: test),
+          SettingItem(title: '占位', onTap: test),
+          SettingItem(title: '占位', onTap: test),
           SettingItem(
               title: '视频自动播放',
               onTap: test,
@@ -66,6 +68,7 @@ class SettingController extends GetxController {
     if (Get.isDialogOpen == false && res == true) {
       storage.remove('token');
       storage.remove('user');
+      trendCtl.onInit();
       Get.back();
     }
   }

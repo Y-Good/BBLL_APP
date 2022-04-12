@@ -58,6 +58,9 @@ class VideoDetailController extends GetxController {
     ///是否点赞
     isThumbUpVideo.value = await VideoRequest.isThumbUp(video?.id) ?? false;
 
+    ///是否收藏
+    isCollect.value = await VideoRequest.isCollect(video?.id) ?? false;
+
     ///是否关注
     isFollow.value = await CollectRequest.isFollow(video?.user?.id) ?? false;
 

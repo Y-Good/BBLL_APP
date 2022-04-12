@@ -43,7 +43,7 @@ class HttpUtil {
         refreshTrend.easyRefreshController.finishRefresh(success: false);
       } else {
         LoadingUtil.dismissLoading();
-        CommonUtils.toast(error.response?.data['message'] ?? '');
+        // CommonUtils.toast(error.response?.data['message'] ?? '');
       }
       LoadingUtil.dismissLoading();
     }

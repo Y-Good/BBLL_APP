@@ -7,8 +7,11 @@ import 'package:mvideo/utils/utils.dart';
 
 class VideoRequest {
   ///获取视频
-  static Future<List<Video>?> getAllVideo() async {
-    var json = await HttpUtil.get(VideoApi.video);
+  static Future<List<Video>?> getAllVideo([int pageNumber = 0]) async {
+    var json = await HttpUtil.get(
+      VideoApi.video,
+      // queryParameters: {'pageNumber': pageNumber},
+    );
     if (isNotNull(json)) {
       return getVideoList(json);
     }
@@ -31,9 +34,9 @@ class VideoRequest {
   }
 
   ///上传视频
-  static Future<bool>? uploadVideo(FormData params) async {
+  static Future<Video>? uploadVideo(FormData params) async {
     var json = await HttpUtil.post(FileApi.upload, data: params, upload: true);
-    return json != null;
+    return Video.fromJson(json);
   }
 
   ///点赞
@@ -53,6 +56,12 @@ class VideoRequest {
   ///我是不是点赞
   static Future<bool?> isThumbUp(int? videoId) async {
     var json = await HttpUtil.get(VideoApi.isThumbUp,
+        queryParameters: {'videoId': videoId});
+    return json;
+  }
+
+  static Future<bool?> isCollect(int? videoId) async {
+    var json = await HttpUtil.get(VideoApi.isCollect,
         queryParameters: {'videoId': videoId});
     return json;
   }

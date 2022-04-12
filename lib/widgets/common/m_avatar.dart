@@ -8,10 +8,18 @@ class MAvatar extends StatelessWidget {
   final double? height;
   final double? radius;
   final VoidCallback? onTap;
+  final bool isBorder;
   final ImageProvider<Object>? image;
-  const MAvatar(this.url,
-      {Key? key, this.width, this.height, this.radius, this.onTap, this.image})
-      : super(key: key);
+  const MAvatar(
+    this.url, {
+    Key? key,
+    this.width,
+    this.height,
+    this.radius,
+    this.onTap,
+    this.image,
+    this.isBorder = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +28,12 @@ class MAvatar extends StatelessWidget {
       child: Container(
         width: width ?? _MSize,
         height: height ?? _MSize,
+        decoration: isBorder
+            ? BoxDecoration(
+                border: Border.all(width: 1),
+                borderRadius: BorderRadius.circular((width ?? _MSize) / 2),
+              )
+            : null,
         child: ClipRRect(
           borderRadius:
               BorderRadius.circular(radius ?? ((width ?? _MSize) / 2)),
