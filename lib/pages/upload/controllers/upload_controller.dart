@@ -120,10 +120,10 @@ class UploadController extends GetxController {
 
   ///上传
   Future<void> onSumbit() async {
-    // LoadingUtil.showLoading(msg: '上传中', dismissOnTap: true);
+    LoadingUtil.showLoading(msg: '上传中', dismissOnTap: true);
 
     if (video != null && title != null && isNotNull(coverPath.value.trim())) {
-      handleFile();
+      await handleFile();
       FormData formdata = FormData.fromMap({
         'video':
             await MultipartFile.fromFile(tempVideo!, filename: video!.name),
@@ -159,16 +159,16 @@ class UploadController extends GetxController {
         await _flutterFFprobe.getMediaInformation(video!.path);
     duration = videoInfo.getMediaProperties()?['duration'];
     size = videoInfo.getMediaProperties()?['size'];
-    if (isNotNull(size) && (int.parse(size!) ~/ 1000000).toDouble() > 20) {
+    if (isNotNull(size) && (int.parse(size!) ~/ 1000000).toDouble() > 10) {
       LoadingUtil.showLoading(msg: '压缩文件中');
-      String command = "-i ${video!.path} -r 20 -b:v 1.5M  $tempVideo";
+      String command = "-i ${video!.path} -r 20 -b:v 1M -s 1280x720 $tempVideo";
       _flutterFFmpeg.execute(command).then((info) async {
+        tempDirCover = await getTemporaryDirectory();
+        tempVideo = "${tempDirVideo?.path}/temp.mp4";
         if (info == 0) LoadingUtil.dismissLoading();
       });
-      print("${tempVideo}haha");
     } else {
       tempVideo = videoPath.value;
-      print("${tempVideo}ddd");
     }
   }
 

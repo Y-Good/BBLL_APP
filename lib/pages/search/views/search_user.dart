@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/models/public.dart';
-import 'package:mvideo/pages/view_user/user_zone/controllers/user_zone_controller.dart';
+import 'package:mvideo/pages/search/controllers/search_controller.dart';
 import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/utils/utils.dart';
 import 'package:mvideo/widgets/public.dart';
 
 class SearchUserPage extends StatelessWidget {
-  final UserZoneController userZoneCtl = Get.put(UserZoneController());
+  final SearchController searchCtl = Get.find<SearchController>();
   final List<User>? userList;
   SearchUserPage({Key? key, this.userList}) : super(key: key);
 
@@ -29,11 +29,11 @@ class SearchUserPage extends StatelessWidget {
                       ? (userList?[index].signature)
                       : '无无无',
                   trailing: MButton(
-                    label: '已关注',
+                    label: searchCtl.isFollow.value ? '已关注' : '关注',
                     width: 64,
                     height: 32,
                     bgColor: MColors.grey9.withOpacity(0.8),
-                    onTap: () => userZoneCtl.cancelFollow(userList?[index].id),
+                    onTap: () => searchCtl.cancelFollow(userList?[index].id),
                   ),
                 ),
             itemCount: userList?.length)

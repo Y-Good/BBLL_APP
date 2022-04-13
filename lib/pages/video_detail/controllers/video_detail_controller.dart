@@ -43,6 +43,7 @@ class VideoDetailController extends GetxController {
     LoadingUtil.showLoading();
     FijkVolume.setUIMode(2);
     video = Get.arguments?['video'] ?? null;
+    print(video?.title);
     if (isNotNull(video?.url)) {
       player.setDataSource(CommonUtils.handleSrcUrl(video?.url ?? ''),
           autoPlay: SettingUtil.getAutoPlay(), showCover: true);

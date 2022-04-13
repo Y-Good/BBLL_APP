@@ -15,26 +15,26 @@ class UserEditController extends GetxController {
 
   final params = <String, dynamic>{}.obs;
 
-  List<MFormItem> get test => [
+  List<MFormItem> get uForm => [
         MFormItem(
           key: 'nickname',
           label: "昵称",
-          text: user.value?.nickname,
+          value: user.value?.nickname,
         ),
         MFormItem(
           key: 'gender',
           label: "性别",
-          text: user.value?.gender.toString(),
+          value: user.value?.gender.toString(),
           type: MFormType.gender,
         ),
-        MFormItem(key: 'mobile', label: '手机', text: user.value?.mobile),
+        MFormItem(key: 'mobile', label: '手机', value: user.value?.mobile),
         MFormItem(
           key: 'birthday',
           label: '生日',
-          text: user.value?.birthday,
+          value: user.value?.birthday,
           type: MFormType.date,
         ),
-        MFormItem(key: 'signature', label: '签名', text: user.value?.signature),
+        MFormItem(key: 'signature', label: '签名', value: user.value?.signature),
       ].obs;
 
   @override

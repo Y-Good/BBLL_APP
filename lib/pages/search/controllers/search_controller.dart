@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:mvideo/config/http/request/collect_request.dart';
 import 'package:mvideo/config/http/request/common_request.dart';
 import 'package:mvideo/models/common/user.dart';
 import 'package:mvideo/models/common/video.dart';
@@ -14,6 +15,7 @@ class SearchController extends GetxController {
   final user = User().obs;
   final userList = <User>[].obs;
   final tabKey = GlobalKey<MTabPageViewState>();
+  final isFollow = false.obs;
   String? key;
   String? type;
 
@@ -55,8 +57,12 @@ class SearchController extends GetxController {
     LoadingUtil.dismissLoading();
   }
 
-  // onSearchUser() async {
-  //   var res = await CommonRequest.getSearch(key!.trim(), SearchType.user);
-  //   userList.value = res as List<User>;
-  // }
+  void cancelFollow(int? followId) async {
+    var dialog = await CommonUtils.dialog('您确定取消关注吗？');
+
+    if (dialog == true) {
+      isFollow.value = !isFollow.value;
+      CollectRequest.createColloect(followId: followId);
+    }
+  }
 }

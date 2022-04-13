@@ -7,9 +7,10 @@ import 'package:mvideo/utils/user_utils.dart';
 
 class TrendController extends GetxController {
   final trendList = <Trend>[].obs;
-  bool get isUser => UserUtils.hasToken;
+  Rx<bool> isUser = false.obs;
   @override
   void onInit() async {
+    isUser.value = UserUtils.hasToken;
     trendList.value = await CollectRequest.getTrend() ?? [];
     super.onInit();
   }

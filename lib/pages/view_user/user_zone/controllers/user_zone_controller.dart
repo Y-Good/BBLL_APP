@@ -13,7 +13,6 @@ import 'package:mvideo/utils/user_utils.dart';
 import 'package:mvideo/utils/utils.dart';
 
 class UserZoneController extends GetxController {
-  final VideoDetailController vdCtl = Get.put(VideoDetailController());
   final followList = <Collect>[].obs;
   final commentList = <Comment>[].obs;
   final videotList = <Video>[].obs;
@@ -34,6 +33,7 @@ class UserZoneController extends GetxController {
 
   @override
   void onInit() async {
+    print('sssss');
     LoadingUtil.showLoading();
     if (isNotNull(argUser)) {
       isFollow.value = await CollectRequest.isFollow(argUser?.id) ?? false;
@@ -80,6 +80,7 @@ class UserZoneController extends GetxController {
       bool isRemove = await VideoRequest.removeVideo(videoId) ?? false;
       if (isRemove) {
         videotList.removeWhere((e) => e.id == videoId);
+        videoList.refresh();
         CommonUtils.toast('删除成功');
         Get.close(0);
       }
@@ -95,6 +96,7 @@ class UserZoneController extends GetxController {
 
   ///关注滴干活
   void onFollow() {
+    final VideoDetailController vdCtl = Get.put(VideoDetailController());
     if (UserUtils.hasToken == false) return CommonUtils.toast('请先登录APP');
     CommonUtils.toast(isFollow.value ? '取消关注' : '关注成功');
     isFollow.value = !isFollow.value;

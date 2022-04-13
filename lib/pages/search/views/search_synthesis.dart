@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/models/public.dart';
-import 'package:mvideo/pages/view_user/user_zone/controllers/user_zone_controller.dart';
+import 'package:mvideo/pages/search/controllers/search_controller.dart';
 import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/utils/utils.dart';
 import 'package:mvideo/widgets/public.dart';
@@ -11,7 +11,7 @@ import 'package:mvideo/widgets/videos/video_width_card.dart';
 class SearchSynthesisPage extends StatelessWidget {
   final User? user;
   final List<Video>? videoList;
-  final UserZoneController userZoneCtl = Get.put(UserZoneController());
+  final SearchController userZoneCtl = Get.find<SearchController>();
   SearchSynthesisPage({Key? key, this.user, this.videoList}) : super(key: key);
 
   @override

@@ -48,7 +48,7 @@ class VideoCard extends StatelessWidget {
                       width: double.infinity,
                       image: NetworkImage(
                           CommonUtils.handleSrcUrl(video?.cover ?? '')),
-                      fit: BoxFit.fitWidth,
+                      fit: BoxFit.cover,
                       errorBuilder:
                           (context, Object exception, StackTrace? stackTrace) {
                         return Container(

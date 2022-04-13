@@ -34,8 +34,10 @@ class VideoGrid extends StatelessWidget {
             video: videoList?[index],
             onLongPress: () =>
                 onLongPress != null ? onLongPress!(videoList![index].id) : null,
-            onTap: () => Get.toNamed(Routes.VIDEO_DETAIL,
-                arguments: {"video": videoList?[index]}),
+            onTap: () => Get.toNamed(
+              Routes.VIDEO_DETAIL,
+              arguments: {'video': videoList?[index]},
+            ),
           );
         });
   }

@@ -122,7 +122,7 @@ class CommonUtils {
         InkWell(
           onTap: () {
             value();
-            Get.back();
+            // Get.back();
           },
           child: Container(
             height: 50,

@@ -108,12 +108,10 @@ class UserZoneView extends GetView<UserZoneController> {
         : Container(
             color: MColors.background,
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            child: controller.videoList.length == 0
-                ? Center(child: MText('没得视频'))
-                : VideoGrid(
-                    onLongPress: (videoId) => controller.onMenu(videoId),
-                    videoList: controller.videoList,
-                  ),
+            child: VideoGrid(
+              onLongPress: (videoId) => controller.onMenu(videoId),
+              videoList: controller.videoList,
+            ),
           ));
   }
 
@@ -131,13 +129,15 @@ class UserZoneView extends GetView<UserZoneController> {
                   subtitle: isNotNull(followUser?.signature)
                       ? followUser?.signature
                       : '这个小可爱好懒',
-                  trailing: MButton(
-                    label: '已关注',
-                    width: 64,
-                    height: 32,
-                    bgColor: MColors.grey9.withOpacity(0.8),
-                    onTap: () => controller.cancelFollow(followUser?.id),
-                  ),
+                  trailing: isNotNull(controller.argUser)
+                      ? SizedBox()
+                      : MButton(
+                          label: '已关注',
+                          width: 64,
+                          height: 32,
+                          bgColor: MColors.grey9.withOpacity(0.8),
+                          onTap: () => controller.cancelFollow(followUser?.id),
+                        ),
                   // onTap: () => Get.toNamed(Routes.USER_ZONE,
                   //     arguments: {'user': followUser}, id: 2),
                 );

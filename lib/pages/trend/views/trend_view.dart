@@ -28,7 +28,7 @@ class TrendView extends GetView<TrendController> {
           bgcolor: MColors.white,
         ),
         body: Obx(
-          () => controller.isUser == true
+          () => controller.isUser.value == true
               ? MRefresh(
                   controller: refreshCtl.easyRefreshController,
                   onRefresh: controller.onInit,

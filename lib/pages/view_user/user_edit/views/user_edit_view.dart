@@ -14,7 +14,7 @@ import 'dart:math' as math;
 
 class UserEditView extends GetView<UserEditController> {
   ///直接手搓
-  Widget mFormCell(String key, String label, String value,
+  Widget mFormCell(String key, String label, String? value,
       {String? type = 'text'}) {
     return Container(
       height: 50,
@@ -37,7 +37,7 @@ class UserEditView extends GetView<UserEditController> {
               ? Expanded(
                   flex: 8,
                   child: MInput(
-                      placeholder: value,
+                      placeholder: value ?? '无',
                       padding: EdgeInsets.zero,
                       textAlign: TextAlign.right,
                       onChange: (val) {
@@ -61,7 +61,7 @@ class UserEditView extends GetView<UserEditController> {
                         Obx(
                           () => MText(
                             CommonUtils.getGender(controller.params[key] ??
-                                    int.parse(value)) ??
+                                    int.parse(value ?? '0')) ??
                                 '未知',
                             color: isNotNull(controller.params[key])
                                 ? Colors.black
@@ -102,9 +102,11 @@ class UserEditView extends GetView<UserEditController> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Obx(() => MText(
-                              CommonUtils.format(DateTime.tryParse(
-                                      controller.params[key] ?? value)) ??
-                                  '',
+                              isNull(value)
+                                  ? '无'
+                                  : CommonUtils.format(DateTime.tryParse(
+                                          controller.params[key] ?? value)) ??
+                                      '无',
                               color: isNotNull(controller.params[key])
                                   ? Colors.black
                                   : CupertinoColors.placeholderText,
@@ -195,13 +197,13 @@ class UserEditView extends GetView<UserEditController> {
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 return Obx(() => mFormCell(
-                      controller.test[index].key ?? '',
-                      controller.test[index].label ?? '',
-                      controller.test[index].text ?? '',
-                      type: controller.test[index].type,
+                      controller.uForm[index].key ?? '',
+                      controller.uForm[index].label ?? '',
+                      controller.uForm[index].value ?? '',
+                      type: controller.uForm[index].type,
                     ));
               },
-              itemCount: controller.test.length,
+              itemCount: controller.uForm.length,
             )
           ],
         ),
@@ -213,9 +215,9 @@ class UserEditView extends GetView<UserEditController> {
 class MFormItem {
   String? key;
   String? label;
-  String? text;
+  String? value;
   String? type;
-  MFormItem({this.key, this.label, this.text, this.type = 'text'});
+  MFormItem({this.key, this.label, this.value, this.type = 'text'});
 }
 
 class MFormType {
