@@ -53,14 +53,17 @@ class UserRequest {
   }
 
   /* 更新信息 */
-  static void updateUser(String? nickname) async {
-    var params = {'nickname': nickname};
+  static Future<User?> updateUser(Map<String, dynamic> params) async {
     var json = await HttpUtil.post(
       UserApi.update,
       data: params,
       // options: CommonUtils.getNewOption(),
     );
-    UserUtils.saveUserInfo(User.fromJson(json));
+    if (json != null) {
+      UserUtils.saveUserInfo(User.fromJson(json));
+      return User.fromJson(json);
+    }
+    return null;
   }
 
   ///上传

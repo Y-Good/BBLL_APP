@@ -1,6 +1,7 @@
 import 'dart:io' show File;
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
@@ -9,8 +10,124 @@ import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/utils/utils.dart';
 import 'package:mvideo/widgets/public.dart';
 import '../controllers/user_edit_controller.dart';
+import 'dart:math' as math;
 
 class UserEditView extends GetView<UserEditController> {
+  ///直接手搓
+  Widget mFormCell(String key, String label, String value,
+      {String? type = 'text'}) {
+    return Container(
+      height: 50,
+      constraints: BoxConstraints(minHeight: 50),
+      color: MColors.white,
+      width: double.infinity,
+      margin: EdgeInsets.only(bottom: 1),
+      padding: EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            flex: 2,
+            child: MText(
+              label,
+              size: 14,
+            ),
+          ),
+          type == MFormType.text
+              ? Expanded(
+                  flex: 8,
+                  child: MInput(
+                      placeholder: value,
+                      padding: EdgeInsets.zero,
+                      textAlign: TextAlign.right,
+                      onChange: (val) {
+                        controller.params[key] = val;
+                      }),
+                )
+              : SizedBox(),
+          type == MFormType.gender
+              ? Expanded(
+                  child: GestureDetector(
+                    onTap: () async {
+                      controller.params[key] =
+                          await CommonUtils.mActionSheetValue(
+                        {'男': 1, '女': 2},
+                      );
+                    },
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Obx(
+                          () => MText(
+                            CommonUtils.getGender(controller.params[key] ??
+                                    int.parse(value)) ??
+                                '未知',
+                            color: isNotNull(controller.params[key])
+                                ? Colors.black
+                                : CupertinoColors.placeholderText,
+                            textAlign: TextAlign.right,
+                          ),
+                        ),
+                        Transform.rotate(
+                          angle: math.pi,
+                          child: MIcon(
+                            IconFonts.iconFanhui,
+                            size: 16,
+                            color: Colors.grey,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              : SizedBox(),
+          type == MFormType.date
+              ? Expanded(
+                  child: GestureDetector(
+                    onTap: () async {
+                      DatePicker.showDatePicker(
+                        Get.context!,
+                        showTitleActions: true,
+                        onConfirm: (date) {
+                          controller.params[key] = date.toString();
+                        },
+                        currentTime: DateTime.tryParse(
+                                controller.params[key] ?? value) ??
+                            DateTime.now(),
+                        locale: LocaleType.zh,
+                      );
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Obx(() => MText(
+                              CommonUtils.format(DateTime.tryParse(
+                                      controller.params[key] ?? value)) ??
+                                  '',
+                              color: isNotNull(controller.params[key])
+                                  ? Colors.black
+                                  : CupertinoColors.placeholderText,
+                              textAlign: TextAlign.end,
+                            )),
+                        Transform.rotate(
+                          angle: math.pi,
+                          child: MIcon(
+                            IconFonts.iconFanhui,
+                            size: 16,
+                            color: Colors.grey,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              : SizedBox()
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,57 +194,15 @@ class UserEditView extends GetView<UserEditController> {
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                return Container(
-                  height: 50,
-                  constraints: BoxConstraints(minHeight: 50),
-                  color: MColors.white,
-                  width: double.infinity,
-                  margin: EdgeInsets.only(bottom: 1),
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: MText(
-                          controller.test[index].label ?? '',
-                          size: 14,
-                        ),
-                      ),
-                      Expanded(
-                        child: MInput(
-                            placeholder: controller.test[index].text,
-                            textAlign: TextAlign.right,
-                            onChange: (val) {
-                              controller.nickname = val;
-                            }),
-                      )
-                      // Expanded(
-                      //   child: MIcon(
-                      //     Icons.add,
-                      //     onTap: () async {
-                      //       DatePicker.showDatePicker(context,
-                      //           showTitleActions: true, onChanged: (date) {
-                      //         print('change $date');
-                      //       }, onConfirm: (date) {
-                      //         print('confirm $date');
-                      //       },
-                      //           currentTime: DateTime.now(),
-                      //           locale: LocaleType.zh);
-                      //     },
-                      //   ),
-                      // )
-                    ],
-                  ),
-                );
+                return Obx(() => mFormCell(
+                      controller.test[index].key ?? '',
+                      controller.test[index].label ?? '',
+                      controller.test[index].text ?? '',
+                      type: controller.test[index].type,
+                    ));
               },
               itemCount: controller.test.length,
             )
-            // newListCell('昵称', controller.user?.nickname ?? ''),
-            // newListCell('签名', controller.user?.signature ?? ''),
-            // newListCell(
-            //     '性别', CommonUtils.getGender(controller.user?.gender) ?? '外星人'),
-            // newListCell('生日', "呜呜呜"),
-            // newListCell('电话', "13333333333"),
           ],
         ),
       ),
@@ -136,9 +211,16 @@ class UserEditView extends GetView<UserEditController> {
 }
 
 class MFormItem {
+  String? key;
   String? label;
   String? text;
-  MFormItem({this.label, this.text});
+  String? type;
+  MFormItem({this.key, this.label, this.text, this.type = 'text'});
 }
 
-class MForm {}
+class MFormType {
+  MFormType._();
+  static String text = 'text';
+  static String date = 'date';
+  static String gender = 'gender';
+}

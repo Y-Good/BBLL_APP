@@ -90,7 +90,7 @@ class UserZoneController extends GetxController {
 
   void onMenu(int? videoId) {
     Map<String, VoidCallback> sheet = {'删除': () => removeVideo(videoId)};
-    CommonUtils.mActionSheeet(sheet);
+    CommonUtils.mActionSheet(sheet);
   }
 
   ///关注滴干活

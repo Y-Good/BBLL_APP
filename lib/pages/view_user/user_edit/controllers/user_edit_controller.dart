@@ -6,21 +6,36 @@ import 'package:mvideo/models/public.dart';
 import 'package:mvideo/pages/view_user/user_edit/views/user_edit_view.dart';
 import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/utils/user_utils.dart';
+import 'package:mvideo/utils/utils.dart';
 
 class UserEditController extends GetxController {
   Rx<User?> get user => UserUtils.getUser.obs;
   RxString imgPath = ''.obs;
-
   FormData? formdata;
-  String? nickname;
+
+  final params = <String, dynamic>{}.obs;
 
   List<MFormItem> get test => [
-        MFormItem(label: "昵称", text: user.value?.nickname),
-        MFormItem(label: "性别", text: CommonUtils.getGender(user.value?.gender)),
-        MFormItem(label: '手机', text: user.value?.mobile),
-        MFormItem(label: '生日', text: user.value?.birthday),
-        MFormItem(label: '签名', text: user.value?.signature),
-      ];
+        MFormItem(
+          key: 'nickname',
+          label: "昵称",
+          text: user.value?.nickname,
+        ),
+        MFormItem(
+          key: 'gender',
+          label: "性别",
+          text: user.value?.gender.toString(),
+          type: MFormType.gender,
+        ),
+        MFormItem(key: 'mobile', label: '手机', text: user.value?.mobile),
+        MFormItem(
+          key: 'birthday',
+          label: '生日',
+          text: user.value?.birthday,
+          type: MFormType.date,
+        ),
+        MFormItem(key: 'signature', label: '签名', text: user.value?.signature),
+      ].obs;
 
   @override
   void onInit() {
@@ -47,6 +62,12 @@ class UserEditController extends GetxController {
       var res = await UserRequest.uploadAvatar(formdata!);
       Get.back(result: {'avatar': res.avatar});
     }
-    // UserRequest.updateUser(nickname);
+    if (isNotNull(params)) {
+      var res = await UserRequest.updateUser(params);
+      if (res != null) {
+        CommonUtils.toast('修改成功');
+        Get.back();
+      }
+    }
   }
 }

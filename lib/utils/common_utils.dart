@@ -114,7 +114,7 @@ class CommonUtils {
     }
   }
 
-  static void mActionSheeet(Map<String, VoidCallback> sheet,
+  static void mActionSheet(Map<String, VoidCallback> sheet,
       {VoidCallback? onCancel}) {
     List<Widget> sheetList = [];
     sheet.forEach((key, value) {
@@ -139,6 +139,61 @@ class CommonUtils {
     });
 
     Get.bottomSheet(
+      Container(
+        height: 56 + sheet.length * 50,
+        child: Column(
+          children: [
+            ...sheetList,
+            Container(
+              height: 6,
+              color: MColors.background,
+            ),
+            InkWell(
+              onTap: () {
+                if (isNotNull(onCancel)) {
+                  onCancel!();
+                }
+                Get.back();
+              },
+              child: Container(
+                height: 50,
+                alignment: Alignment.center,
+                child: MText("取消"),
+              ),
+            )
+          ],
+        ),
+      ),
+      enableDrag: false,
+      backgroundColor: Colors.white,
+    );
+  }
+
+  ///回显值
+  static Future mActionSheetValue(Map<String, dynamic> sheet,
+      {VoidCallback? onCancel}) {
+    List<Widget> sheetList = [];
+    sheet.forEach((key, value) {
+      sheetList.add(
+        InkWell(
+          onTap: () {
+            Get.back(result: value);
+          },
+          child: Container(
+            height: 50,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(color: MColors.background, width: .5),
+              ),
+            ),
+            child: MText(key),
+          ),
+        ),
+      );
+    });
+
+    return Get.bottomSheet(
       Container(
         height: 56 + sheet.length * 50,
         child: Column(

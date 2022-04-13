@@ -16,6 +16,7 @@ class MInput extends StatelessWidget {
   final Color? placeholderColor;
   final Color? inputColor;
   final Color? cursorColor;
+  final EdgeInsetsGeometry? padding;
   final bool obscureText;
   final int? maxInput;
   const MInput(
@@ -27,6 +28,7 @@ class MInput extends StatelessWidget {
       this.bgColor,
       this.inputColor,
       this.placeholder,
+      this.padding,
       this.cursorColor,
       this.direction = Axis.horizontal,
       this.textAlign = TextAlign.start,
@@ -63,7 +65,7 @@ class MInput extends StatelessWidget {
       height: height ?? 48,
       width: Get.size.width,
       alignment: Alignment.center,
-      padding: EdgeInsets.symmetric(horizontal: 8),
+      padding: padding ?? EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
           color: bgColor ?? Colors.white,
           borderRadius: BorderRadius.circular(10)),

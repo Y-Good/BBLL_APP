@@ -23,6 +23,6 @@ class TrendController extends GetxController {
       '三天内': () => onSelectTime(3),
       '一周内': () => onSelectTime(7)
     };
-    CommonUtils.mActionSheeet(sheet, onCancel: () => onInit());
+    CommonUtils.mActionSheet(sheet, onCancel: () => onInit());
   }
 }

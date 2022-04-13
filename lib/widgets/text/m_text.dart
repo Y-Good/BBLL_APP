@@ -8,15 +8,18 @@ class MText extends StatelessWidget {
   final TextStyle? style;
   final VoidCallback? onTap;
   final TextOverflow? overflow;
-  const MText(this.text,
-      {Key? key,
-      this.size = 14,
-      this.color = Colors.black,
-      this.style,
-      this.onTap,
-      this.maxLines = 1,
-      this.overflow})
-      : super(key: key);
+  final TextAlign? textAlign;
+  const MText(
+    this.text, {
+    Key? key,
+    this.size = 14,
+    this.color = Colors.black,
+    this.style,
+    this.onTap,
+    this.maxLines = 1,
+    this.overflow,
+    this.textAlign,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +29,7 @@ class MText extends StatelessWidget {
         text,
         overflow: overflow,
         maxLines: maxLines,
+        textAlign: textAlign,
         style: style ?? TextStyle(fontSize: size, color: color),
       ),
     );

@@ -30,9 +30,16 @@ class MAvatar extends StatelessWidget {
         height: height ?? _MSize,
         decoration: isBorder
             ? BoxDecoration(
-                border: Border.all(width: 1),
+                // border: Border.all(width: 1),
                 borderRadius: BorderRadius.circular((width ?? _MSize) / 2),
-              )
+                boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, 0),
+                      blurRadius: 5,
+                      spreadRadius: 2,
+                      color: Colors.black.withOpacity(0.1),
+                    )
+                  ])
             : null,
         child: ClipRRect(
           borderRadius:

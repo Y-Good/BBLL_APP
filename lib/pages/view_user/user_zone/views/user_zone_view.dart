@@ -52,6 +52,7 @@ class UserZoneView extends GetView<UserZoneController> {
                       CommonUtils.handleSrcUrl(
                         controller.user?.avatar ?? '',
                       ),
+                      isBorder: true,
                       height: 82,
                       width: 82,
                     )),
