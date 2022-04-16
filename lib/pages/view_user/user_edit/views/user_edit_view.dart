@@ -102,7 +102,7 @@ class UserEditView extends GetView<UserEditController> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Obx(() => MText(
-                              isNull(value)
+                              isNull(controller.params[key]) && isNull(value)
                                   ? '无'
                                   : CommonUtils.format(DateTime.tryParse(
                                           controller.params[key] ?? value)) ??

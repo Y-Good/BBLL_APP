@@ -133,12 +133,12 @@ class UploadController extends GetxController {
         'duration': duration?.split('.').first ?? '0',
         'tags': tags
       });
-
       Video? res = await VideoRequest.uploadVideo(formdata);
       LoadingUtil.dismissLoading();
       // CommonUtils.toast(res == true ? '上传成功' : '上传失败');
       if (res?.id != null) {
         homeCtl.videoList.insert(0, res!);
+        delFile();
         Get.back();
       }
     } else {
@@ -159,16 +159,28 @@ class UploadController extends GetxController {
         await _flutterFFprobe.getMediaInformation(video!.path);
     duration = videoInfo.getMediaProperties()?['duration'];
     size = videoInfo.getMediaProperties()?['size'];
-    if (isNotNull(size) && (int.parse(size!) ~/ 1000000).toDouble() > 10) {
+    if (isNotNull(size) && (int.parse(size!) ~/ 1000000).toDouble() > 20) {
       LoadingUtil.showLoading(msg: '压缩文件中');
-      String command = "-i ${video!.path} -r 20 -b:v 1M -s 1280x720 $tempVideo";
-      _flutterFFmpeg.execute(command).then((info) async {
-        tempDirCover = await getTemporaryDirectory();
-        tempVideo = "${tempDirVideo?.path}/temp.mp4";
-        if (info == 0) LoadingUtil.dismissLoading();
-      });
+      // String command = "-i ${video!.path} -r 20 -b:v 1M -s 1280x720 $tempVideo";
+      String commands =
+          "-i ${video!.path} -c:v libx264 -preset veryfast -r 25 -b:v 1M -s 1280x720 -c:a copy -y -hide_banner  $tempVideo";
+      var info = await _flutterFFmpeg.execute(commands);
+      // tempDirCover = await getTemporaryDirectory();
+      // tempVideo = "${tempDirVideo?.path}/temp.mp4";
+      if (info == 0) LoadingUtil.dismissLoading();
+      if (info == 1) {
+        LoadingUtil.dismissLoading();
+        CommonUtils.toast('压缩失败');
+      }
     } else {
       tempVideo = videoPath.value;
+    }
+  }
+
+  Future<void> delFile() async {
+    var file = File(tempVideo!);
+    if (await file.exists()) {
+      await file.delete();
     }
   }
 
@@ -176,6 +188,7 @@ class UploadController extends GetxController {
   void onClose() {
     player.dispose();
     playerView.dispose();
+    delFile();
     LoadingUtil.dismissLoading();
     super.onClose();
   }

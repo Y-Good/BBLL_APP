@@ -26,5 +26,7 @@ class NotifyController extends GetxController {
   }
 
   @override
-  void onClose() {}
+  void onClose() {
+    LoadingUtil.dismissLoading();
+  }
 }
