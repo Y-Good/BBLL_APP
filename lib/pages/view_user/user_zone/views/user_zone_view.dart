@@ -128,7 +128,7 @@ class UserZoneView extends GetView<UserZoneController> {
                   title: followUser?.nickname ?? '-',
                   subtitle: isNotNull(followUser?.signature)
                       ? followUser?.signature
-                      : '这个小可爱好懒',
+                      : '没有签名',
                   trailing: isNotNull(controller.argUser)
                       ? SizedBox()
                       : MButton(

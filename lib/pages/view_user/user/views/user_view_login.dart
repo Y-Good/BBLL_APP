@@ -26,8 +26,7 @@ class UserViewLogin extends GetView<UserController> {
               child: InkWell(
                 onTap: () => Get.toNamed(Routes.USER_ZONE),
                 child: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      'https://img2.baidu.com/it/u=3782522808,1589825680&fm=26&fmt=auto'),
+                  backgroundImage: AssetImage('assets/avatar/logout.png'),
                 ),
               ),
             ),

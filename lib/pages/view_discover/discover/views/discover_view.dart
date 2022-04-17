@@ -14,6 +14,7 @@ class DiscoverView extends GetView<DiscoverController> {
         backgroundColor: MColors.blackBackground,
         appBar: AppBar(
           toolbarHeight: 0,
+          elevation: 0,
           backgroundColor: MColors.blackBackground,
         ),
         body: Container(
@@ -27,15 +28,44 @@ class DiscoverView extends GetView<DiscoverController> {
                   size: 32,
                   color: MColors.white,
                 )),
+            // Positioned(
+            //     top: 96,
+            //     width: Get.width,
+            //     height: 64,
+            //     child: Center(
+            //       child: Swiper(
+            //         scrollDirection: Axis.vertical,
+            //         itemBuilder: ((context, index) => MListTile(
+            //               title: '加入房间',
+            //               titleColor: Colors.white,
+            //             )),
+            //         itemCount: 2,
+            //       ),
+            //     )),
             Positioned(
-                width: 100,
-                height: 100,
+                width: 80,
+                height: 80,
                 bottom: 100,
-                child: MAvatar(
-                  'https://img1.baidu.com/it/u=1822384944,1157459425&fm=253&fmt=auto&app=138&f=JPEG?w=400&h=400',
-                  height: 100,
-                  width: 100,
+                child: GestureDetector(
                   onTap: controller.onGetRoom,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color(0xFFf81ffef),
+                          Color(0xFFff7676),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    child: Icon(
+                      Icons.keyboard_arrow_right,
+                      color: Colors.white,
+                      size: 64,
+                    ),
+                  ),
                 ))
           ]),
         ));

@@ -7,6 +7,7 @@ import 'package:mvideo/config/http/request/histroy_request.dart';
 import 'package:mvideo/config/http/request/video_request.dart';
 import 'package:mvideo/config/public.dart';
 import 'package:mvideo/models/public.dart';
+import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/utils/loading_util.dart';
 import 'package:mvideo/utils/setting_util.dart';
@@ -42,28 +43,32 @@ class VideoDetailController extends GetxController {
   void onInit() async {
     LoadingUtil.showLoading();
     FijkVolume.setUIMode(2);
+
     video = Get.arguments?['video'] ?? null;
-    print(video?.title);
     if (isNotNull(video?.url)) {
-      player.setDataSource(CommonUtils.handleSrcUrl(video?.url ?? ''),
-          autoPlay: SettingUtil.getAutoPlay(), showCover: true);
+      player.setDataSource(
+        CommonUtils.handleSrcUrl(video?.url ?? ''),
+        autoPlay: SettingUtil.getAutoPlay(),
+        showCover: true,
+      );
     }
 
     ///获取评论
     commentList.value =
         await CommentRequest.getAllComment(video?.id, user?.id ?? null) ?? [];
+    if (UserUtils.hasToken) {
+      ///添加历史记录
+      HistroyRequset.createHistroy(video?.id);
 
-    ///添加历史记录
-    HistroyRequset.createHistroy(video?.id);
+      ///是否点赞
+      isThumbUpVideo.value = await VideoRequest.isThumbUp(video?.id) ?? false;
 
-    ///是否点赞
-    isThumbUpVideo.value = await VideoRequest.isThumbUp(video?.id) ?? false;
+      ///是否收藏
+      isCollect.value = await VideoRequest.isCollect(video?.id) ?? false;
 
-    ///是否收藏
-    isCollect.value = await VideoRequest.isCollect(video?.id) ?? false;
-
-    ///是否关注
-    isFollow.value = await CollectRequest.isFollow(video?.user?.id) ?? false;
+      ///是否关注
+      isFollow.value = await CollectRequest.isFollow(video?.user?.id) ?? false;
+    }
 
     contentController.addListener(() {
       isText.value = isNotNull(contentController.text);
@@ -72,7 +77,8 @@ class VideoDetailController extends GetxController {
     super.onInit();
   }
 
-  Future<void> onSubmit() async {
+  Future<void> onSubmit(BuildContext context) async {
+    if (UserUtils.hasToken == false) return CommonUtils.toast('请先登录App');
     Comment? res;
     if (level == 2 && isNotNull(parentId)) {
       res = await CommentRequest.createSecond(
@@ -97,7 +103,7 @@ class VideoDetailController extends GetxController {
       }
     }
     CommonUtils.toast(isNotNull(res) ? '评论成功' : '评论失败');
-    FocusScope.of(Get.context!).requestFocus(focus);
+    FocusScope.of(context).requestFocus(focus);
     contentController.clear();
   }
 
@@ -128,6 +134,7 @@ class VideoDetailController extends GetxController {
   }
 
   void onThumbUpComment(int? commentId, int index, int? level) async {
+    if (UserUtils.hasToken == false) return CommonUtils.toast('请先登录App');
     var item = level == 1 ? commentList[index] : secondCommentList[index];
     bool res = await CommentRequest.thumbUp(commentId) ?? false;
     if (res) {
@@ -140,6 +147,7 @@ class VideoDetailController extends GetxController {
   }
 
   void onThumbUpVideo() async {
+    if (UserUtils.hasToken == false) return CommonUtils.toast('请先登录App');
     bool res = await VideoRequest.thumbUp(video?.id) ?? false;
     if (res == false) {
       CommonUtils.toast('点赞失败');
@@ -155,6 +163,7 @@ class VideoDetailController extends GetxController {
 
   ///收藏视频
   void onCollect() async {
+    if (UserUtils.hasToken == false) return CommonUtils.toast('请先登录App');
     bool res = await CollectRequest.createColloect(videoId: video?.id) ?? false;
     if (res) isCollect.value = !isCollect.value;
   }
@@ -162,6 +171,13 @@ class VideoDetailController extends GetxController {
   ///获取用户视频
   Future<List<Video>> getUserVideos() async {
     return await VideoRequest.getMyVideo(video?.user?.id) ?? [];
+  }
+
+  ///去个人中心
+  void onUserZone() {
+    player.pause();
+    Get.toNamed(Routes.USER_ZONE, arguments: {'user': video?.user})
+        ?.then((value) => player.start());
   }
 
   @override

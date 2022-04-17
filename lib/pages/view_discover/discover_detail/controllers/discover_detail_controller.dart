@@ -95,10 +95,10 @@ class DiscoverDetailController extends GetxController {
     CollectRequest.createColloect(followId: video?.user?.id);
   }
 
-  void onSumbit() {
+  void onSumbit(BuildContext context) {
     if (content == null) return CommonUtils.toast('请输入内容');
     socket?.emit('msg', content?.trim());
-    FocusScope.of(Get.context!).requestFocus(focusNode);
+    FocusScope.of(context).requestFocus(focusNode);
     textEditingController.clear();
     content = null;
   }

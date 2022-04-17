@@ -7,6 +7,7 @@ import 'package:mvideo/pages/trend/controllers/trend_controller.dart';
 import 'package:mvideo/routes/app_pages.dart';
 import 'package:mvideo/utils/common_utils.dart';
 import 'package:mvideo/utils/setting_util.dart';
+import 'package:mvideo/widgets/public.dart';
 
 class SettingItem {
   String? title;
@@ -37,7 +38,16 @@ class SettingController extends GetxController {
                     onToggle: (isSwitch) => changeSwitch(isSwitch)),
               ))
         ],
-        [SettingItem(title: '检查更新', onTap: test)]
+        [SettingItem(title: '检查更新', onTap: test)],
+        [
+          SettingItem(
+              title: '清除缓存',
+              onTap: test,
+              trailing: MText(
+                '12.3M',
+                color: Colors.grey,
+              ))
+        ],
       ].obs;
 
   @override

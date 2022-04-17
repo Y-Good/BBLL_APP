@@ -33,18 +33,17 @@ class UserZoneController extends GetxController {
 
   @override
   void onInit() async {
-    print('sssss');
     LoadingUtil.showLoading();
     if (isNotNull(argUser)) {
-      isFollow.value = await CollectRequest.isFollow(argUser?.id) ?? false;
+      isFollow.value = await CollectRequest.isFollow(user?.id) ?? false;
     }
     followList.value = await CollectRequest.getCollect(
           CollectType.user,
           userId: argUser?.id,
         ) ??
         [];
-    commentList.value = await CommentRequest.getMyComment(argUser?.id) ?? [];
-    videoList.value = await VideoRequest.getMyVideo(argUser?.id) ?? [];
+    commentList.value = await CommentRequest.getMyComment(user?.id) ?? [];
+    videoList.value = await VideoRequest.getMyVideo(user?.id) ?? [];
     var count = await CollectRequest.getCount(userId: user?.id);
     followCount.value = count['follow'];
     fansCount.value = count['fans'];

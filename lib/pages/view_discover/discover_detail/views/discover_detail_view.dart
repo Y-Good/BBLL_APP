@@ -82,7 +82,9 @@ class DiscoverDetailView extends GetView<DiscoverDetailController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     MText(
-                      controller.room?.video?.title ?? '',
+                      controller.room?.video?.title ??
+                          controller.video?.title ??
+                          '无',
                       color: MColors.white,
                       size: 18,
                     ),
@@ -92,7 +94,7 @@ class DiscoverDetailView extends GetView<DiscoverDetailController> {
                         MDoubleText(
                           icon: IconFonts.iconLiulan,
                           value:
-                              '${transformView(int.parse(controller.room?.video?.view ?? '0'))}次观看',
+                              '${transformView(int.parse(controller.room?.video?.view ?? controller.video?.view ?? '0'))}次观看',
                           lableColor: MColors.blackTipColor,
                           labelSize: 16,
                           valueSize: 12,
@@ -102,7 +104,7 @@ class DiscoverDetailView extends GetView<DiscoverDetailController> {
                         MDoubleText(
                           icon: IconFonts.iconDianzan2,
                           value:
-                              '${transformView(int.parse(controller.room?.video?.thumbUp ?? '0'))} 赞',
+                              '${transformView(int.parse(controller.room?.video?.thumbUp ?? controller.video?.thumbUp ?? '0'))} 赞',
                           lableColor: MColors.blackTipColor,
                           labelSize: 14,
                           valueSize: 12,
@@ -204,7 +206,7 @@ class DiscoverDetailView extends GetView<DiscoverDetailController> {
                   padding: EdgeInsets.symmetric(horizontal: 2),
                   color: MColors.blackTipColor,
                   size: 20,
-                  onTap: controller.onSumbit,
+                  onTap: () => controller.onSumbit(context),
                 ),
               )),
           Positioned(

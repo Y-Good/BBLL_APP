@@ -14,7 +14,7 @@ class RouteAuthMiddleware extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
     GetStorage storage = GetStorage();
-    if (storage.read('token') == null) {
+    if (storage.read('token') == null && Get.arguments == null) {
       CommonUtils.toast("请先登录APP");
       return RouteSettings(name: Routes.LOGIN);
     }
