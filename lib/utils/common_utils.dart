@@ -115,14 +115,14 @@ class CommonUtils {
   }
 
   static void mActionSheet(Map<String, VoidCallback> sheet,
-      {VoidCallback? onCancel}) {
+      {VoidCallback? onCancel, bool isBack = true}) {
     List<Widget> sheetList = [];
     sheet.forEach((key, value) {
       sheetList.add(
         InkWell(
           onTap: () {
             value();
-            // Get.back();
+            if (isBack == true) Get.back();
           },
           child: Container(
             height: 50,

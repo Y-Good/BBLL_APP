@@ -1,5 +1,4 @@
 import 'package:fijkplayer/fijkplayer.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -145,7 +144,9 @@ class VideoDetailView extends GetView<VideoDetailController> {
                                   const EdgeInsets.symmetric(horizontal: 32),
                               child: Obx(
                                 () => MIcon(
-                                  IconFonts.iconWodeshoucang,
+                                  controller.isCollect.value
+                                      ? IconFonts.yishoucang
+                                      : IconFonts.iconWodeshoucang,
                                   color: controller.isCollect.value
                                       ? MColors.primiaryColor
                                       : null,
@@ -154,7 +155,7 @@ class VideoDetailView extends GetView<VideoDetailController> {
                                 ),
                               )),
                           MIcon(
-                            CupertinoIcons.share_up,
+                            IconFonts.fenxiang,
                             onTap: () {
                               if (UserUtils.hasToken == false)
                                 return CommonUtils.toast('请先登录App');

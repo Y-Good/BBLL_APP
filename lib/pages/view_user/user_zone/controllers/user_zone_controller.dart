@@ -74,6 +74,7 @@ class UserZoneController extends GetxController {
 
   ///删除视频
   void removeVideo(int? videoId) async {
+    // if (Get.isBottomSheetOpen == true) Get.close(0);
     bool? res = await CommonUtils.dialog('确认删除？');
     if (res == true) {
       bool isRemove = await VideoRequest.removeVideo(videoId) ?? false;
@@ -90,7 +91,7 @@ class UserZoneController extends GetxController {
 
   void onMenu(int? videoId) {
     Map<String, VoidCallback> sheet = {'删除': () => removeVideo(videoId)};
-    CommonUtils.mActionSheet(sheet);
+    CommonUtils.mActionSheet(sheet, isBack: false);
   }
 
   ///关注滴干活

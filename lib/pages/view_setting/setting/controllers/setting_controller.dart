@@ -40,13 +40,17 @@ class SettingController extends GetxController {
         ],
         [SettingItem(title: '检查更新', onTap: test)],
         [
+          SettingItem(title: '意见反馈', onTap: test),
+        ],
+        [
           SettingItem(
-              title: '清除缓存',
-              onTap: test,
-              trailing: MText(
-                '12.3M',
-                color: Colors.grey,
-              ))
+            title: '清除缓存',
+            onTap: test,
+            trailing: MText(
+              '12.3M',
+              color: Colors.grey,
+            ),
+          )
         ],
       ].obs;
 

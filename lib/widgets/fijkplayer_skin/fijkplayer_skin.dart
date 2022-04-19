@@ -546,6 +546,8 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
 
   bool _isHorizontalMove = false;
 
+  bool _isSpeed = false;
+
   Map<String, double> speedList = {
     "2.0": 2.0,
     "1.8": 1.8,
@@ -870,11 +872,11 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
                 ),
               ),
             ),
-            itemCount: 5,
+            itemCount: videoList.length,
           ),
         ),
         // barrierColor: Colors.transparent,
-        backgroundColor: Colors.white.withOpacity(0.5));
+        backgroundColor: Colors.black.withOpacity(0.5));
   }
 //长按加速
 
@@ -1316,12 +1318,13 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
             child: Container(
               alignment: Alignment.center,
               width: 50,
-              height: 24,
               child: Text(
                 mapKey + " X",
                 style: TextStyle(
-                  color: _speed == speedVals ? Colors.blue : Colors.white,
-                  fontSize: 16,
+                  color: _speed == speedVals
+                      ? MColors.primiaryColor
+                      : Colors.white,
+                  fontSize: 14,
                 ),
               ),
             ),
@@ -1333,7 +1336,7 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
           padding: const EdgeInsets.only(top: 5, bottom: 5),
           child: Container(
             width: 50,
-            height: 1,
+            height: .5,
             color: Colors.white54,
           ),
         ),
@@ -1359,6 +1362,7 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
         setState(() {
           if (showConfig.liveMode == false) {
             _speed = speed = 2.0;
+            _isSpeed = true;
             player.setSpeed(2.0);
           }
         });
@@ -1366,6 +1370,7 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
       onLongPressEnd: (context) {
         setState(() {
           if (showConfig.liveMode == false) {
+            _isSpeed = false;
             _speed = speed = 1.0;
             player.setSpeed(1.0);
           }
@@ -1403,6 +1408,25 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
                       ],
                     ),
                   ),
+
+                  //二倍速
+                  Positioned(
+                      top: 0,
+                      left: 32,
+                      child: Offstage(
+                        offstage: !_isSpeed,
+                        child: Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                          decoration: BoxDecoration(
+                              color: Colors.black45,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: MText(
+                            '2X快进中',
+                            color: Colors.white,
+                          ),
+                        ),
+                      )),
                   // 中间按钮
                   Align(
                     alignment: Alignment.center,

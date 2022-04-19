@@ -11,12 +11,14 @@ class CommonRequest {
   ///轮播图
   static Future<List<Video>?> getBanner() async {
     var json = await HttpUtil.get(CommonApi.banner);
-    return getVideoList(json);
+    if (json != null) return getVideoList(json);
+    return null;
   }
 
   static Future<List<Tag>?> getTag() async {
     var json = await HttpUtil.get(CommonApi.tag);
-    return getTagList(json);
+    if (json != null) return getTagList(json);
+    return null;
   }
 
   static Future<List<Video>?> getVideoByTag(int tagId) async {

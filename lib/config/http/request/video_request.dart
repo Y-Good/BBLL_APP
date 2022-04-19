@@ -76,12 +76,14 @@ class VideoRequest {
   ///热门
   static Future<List<Video>?> hot() async {
     var json = await HttpUtil.get(VideoApi.hot);
-    return getVideoList(json);
+    if (json != null) return getVideoList(json);
+    return null;
   }
 
   ///排行
   static Future<List<Video>?> rank() async {
     var json = await HttpUtil.get(VideoApi.rank);
-    return getVideoList(json);
+    if (json != null) return getVideoList(json);
+    return null;
   }
 }
