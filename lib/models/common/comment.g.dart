@@ -23,7 +23,7 @@ Comment _$CommentFromJson(Map<String, dynamic> json) => Comment(
       time: json['createDate'] as String?,
       replyCount: json['replyCount'] as int?,
       thumbUpCount: json['thumbUpCount'] as int?,
-      isThumbUp: json['isThumbUp'] as bool?,
+      isThumbUp: json['isThumbUp'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{
@@ -36,5 +36,6 @@ Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{
       'video': instance.video,
       'replyCount': instance.replyCount,
       'thumbUpCount': instance.thumbUpCount,
+      'isThumbUp': instance.isThumbUp,
       'createDate': instance.time,
     };

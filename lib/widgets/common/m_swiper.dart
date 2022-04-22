@@ -16,6 +16,7 @@ class MSwiper extends StatelessWidget {
     return Container(
         width: double.infinity,
         decoration: BoxDecoration(
+          color: Colors.grey,
           borderRadius: BorderRadius.circular(8),
         ),
         child: AspectRatio(
@@ -32,11 +33,11 @@ class MSwiper extends StatelessWidget {
               arguments: {'video': bannerList?[index]},
             ),
             itemBuilder: (context, index) {
-              return Container(
-                decoration: BoxDecoration(
-                  color: MColors.black,
-                  borderRadius: BorderRadius.circular(8),
-                ),
+              return ClipRRect(
+                borderRadius: BorderRadius.circular(4),
+                // decoration: BoxDecoration(
+                //   color: MColors.black,
+                // ),
                 child: MAvatar(
                   CommonUtils.handleSrcUrl(bannerList?[index].cover ?? ''),
                   radius: 0,

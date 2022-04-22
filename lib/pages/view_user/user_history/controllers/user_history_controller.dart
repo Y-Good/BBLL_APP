@@ -12,4 +12,8 @@ class UserHistoryController extends GetxController {
     LoadingUtil.dismissLoading();
     super.onInit();
   }
+
+  Future<void> delHistroy(int histroyId) async {
+    bool res = await HistroyRequset.delHistroy(histroyId) ?? false;
+  }
 }

@@ -11,7 +11,7 @@ import 'package:mvideo/widgets/videos/video_width_card.dart';
 class SearchSynthesisPage extends StatelessWidget {
   final User? user;
   final List<Video>? videoList;
-  final SearchController userZoneCtl = Get.find<SearchController>();
+  final SearchController searchCtl = Get.find<SearchController>();
   SearchSynthesisPage({Key? key, this.user, this.videoList}) : super(key: key);
 
   @override
@@ -27,19 +27,26 @@ class SearchSynthesisPage extends StatelessWidget {
                           margin: EdgeInsets.only(left: 10, right: 10, top: 8),
                           color: Colors.white,
                           child: MListTile(
-                            url: CommonUtils.handleSrcUrl(user?.avatar ?? ''),
-                            title: user?.nickname ?? '-',
-                            subtitle: isNotNull(user?.signature)
-                                ? (user?.signature)
-                                : '这个小可爱好懒',
-                            trailing: MButton(
-                              label: '已关注',
-                              width: 64,
-                              height: 32,
-                              bgColor: MColors.grey9.withOpacity(0.8),
-                              onTap: () => userZoneCtl.cancelFollow(user?.id),
-                            ),
-                          ),
+                              url: CommonUtils.handleSrcUrl(user?.avatar ?? ''),
+                              title: user?.nickname ?? '-',
+                              subtitle: isNotNull(user?.signature)
+                                  ? (user?.signature)
+                                  : '暂无签名',
+                              trailing: Obx(
+                                () => MButton(
+                                  label: searchCtl.isFollow.value == false
+                                      ? '关注'
+                                      : '已关注',
+                                  width: 64,
+                                  height: 32,
+                                  bgColor: searchCtl.isFollow.value == false
+                                      ? MColors.primiaryColor
+                                      : MColors.grey9.withOpacity(0.8),
+                                  onTap: () => searchCtl.isFollow.value == false
+                                      ? searchCtl.onFollow(user?.id)
+                                      : searchCtl.cancelFollow(user?.id),
+                                ),
+                              )),
                         ),
                       ]
                     : [],

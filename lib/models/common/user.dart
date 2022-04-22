@@ -24,6 +24,8 @@ class User {
 
   List<User>? follows;
 
+  bool? isFollow;
+
   User({
     this.id,
     this.number,
@@ -35,6 +37,7 @@ class User {
     this.type,
     this.signature,
     this.follows,
+    this.isFollow,
   });
 
   factory User.fromJson(Map<String, dynamic> srcJson) =>

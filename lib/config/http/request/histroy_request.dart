@@ -12,4 +12,9 @@ class HistroyRequset {
   static void createHistroy(int? videoId) {
     HttpUtil.post(HistroyApi.histroy, queryParameters: {'videoId': videoId});
   }
+
+  static Future<bool?> delHistroy(int? histroyId) async {
+    return await HttpUtil.post(HistroyApi.histroy,
+        queryParameters: {'histroyId': histroyId});
+  }
 }

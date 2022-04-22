@@ -16,6 +16,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       birthday: json['birthday'] as String?,
       type: json['type'] as int?,
       signature: json['signature'] as String?,
+      isFollow: json['isFollow'] as bool?,
       follows: (json['follows'] as List<dynamic>?)
           ?.map((e) => User.fromJson(e as Map<String, dynamic>))
           .toList(),

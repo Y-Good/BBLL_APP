@@ -27,13 +27,17 @@ class SearchUserPage extends StatelessWidget {
                   backgroundColor: MColors.white,
                   subtitle: isNotNull(userList?[index].signature)
                       ? (userList?[index].signature)
-                      : '无无无',
+                      : '暂无签名',
                   trailing: MButton(
-                    label: searchCtl.isFollow.value ? '已关注' : '关注',
+                    label: userList?[index].isFollow == false ? '关注' : '已关注',
                     width: 64,
                     height: 32,
-                    bgColor: MColors.grey9.withOpacity(0.8),
-                    onTap: () => searchCtl.cancelFollow(userList?[index].id),
+                    bgColor: userList?[index].isFollow == false
+                        ? MColors.primiaryColor
+                        : MColors.grey9.withOpacity(0.8),
+                    onTap: () => userList?[index].isFollow == false
+                        ? searchCtl.onFollow(userList?[index].id)
+                        : searchCtl.cancelFollow(userList?[index].id),
                   ),
                 ),
             itemCount: userList?.length)

@@ -5,6 +5,7 @@ import 'package:mvideo/models/common/tag.dart';
 import 'package:mvideo/models/common/user.dart';
 import 'package:mvideo/models/common/video.dart';
 import 'package:mvideo/models/type/search_type.dart';
+import 'package:mvideo/utils/user_utils.dart';
 import 'package:mvideo/utils/utils.dart';
 
 class CommonRequest {
@@ -28,7 +29,11 @@ class CommonRequest {
   }
 
   static Future<List<Object>?> getSearch(String key, [String? type]) async {
-    var params = {'key': key, 'type': type};
+    var params = {
+      'key': key,
+      'type': type,
+      'userId': UserUtils.hasToken ? UserUtils.getUser?.id : null
+    };
     params.removeWhere((key, value) => value == null);
     var json = await HttpUtil.get(CommonApi.search, queryParameters: params);
     if (isNull(json)) return null;
@@ -45,7 +50,11 @@ class CommonRequest {
   }
 
   static Future<User?> searchUser(String key) async {
-    var params = {'key': key};
+    var params = {
+      'key': key,
+      'userId': UserUtils.hasToken ? UserUtils.getUser?.id : null
+    };
+    params.removeWhere((key, value) => value == null);
     var json =
         await HttpUtil.get(CommonApi.searchUser, queryParameters: params);
     if (isNull(json)) return null;

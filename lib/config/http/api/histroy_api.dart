@@ -3,4 +3,5 @@ class HistroyApi {
   static String histroy = '/histroy';
 
   ///删除
+  static String delHistroy = '/histroy/delete';
 }
