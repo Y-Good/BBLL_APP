@@ -159,7 +159,7 @@ class UploadController extends GetxController {
         await _flutterFFprobe.getMediaInformation(video!.path);
     duration = videoInfo.getMediaProperties()?['duration'];
     size = videoInfo.getMediaProperties()?['size'];
-    if (isNotNull(size) && (int.parse(size!) ~/ 1000000).toDouble() > 20) {
+    if (isNotNull(size) && (int.parse(size!) ~/ 1000000).toDouble() > 3) {
       LoadingUtil.showLoading(msg: '压缩文件中');
       // String command = "-i ${video!.path} -r 20 -b:v 1M -s 1280x720 $tempVideo";
       String commands =

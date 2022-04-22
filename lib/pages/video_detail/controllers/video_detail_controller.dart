@@ -118,7 +118,7 @@ class VideoDetailController extends GetxController {
       if (isRemove) commentList.removeAt(index);
       if (Get.isBottomSheetOpen == true && isRemove) {
         secondCommentList.removeAt(index);
-        commentList[index].replyCount = commentList[index].replyCount! - 1;
+        commentList[index].replyCount = (commentList[index].replyCount)! - 1;
         commentList.refresh();
       }
       CommonUtils.toast(isRemove ? '删除成功' : '删除失败');

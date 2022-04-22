@@ -36,8 +36,14 @@ class SearchUserPage extends StatelessWidget {
                         ? MColors.primiaryColor
                         : MColors.grey9.withOpacity(0.8),
                     onTap: () => userList?[index].isFollow == false
-                        ? searchCtl.onFollow(userList?[index].id)
-                        : searchCtl.cancelFollow(userList?[index].id),
+                        ? searchCtl.onFollow(
+                            userList?[index].id,
+                            index: index,
+                          )
+                        : searchCtl.cancelFollow(
+                            userList?[index].id,
+                            index: index,
+                          ),
                   ),
                 ),
             itemCount: userList?.length)

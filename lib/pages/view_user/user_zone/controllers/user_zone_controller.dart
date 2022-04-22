@@ -15,7 +15,7 @@ import 'package:mvideo/utils/utils.dart';
 class UserZoneController extends GetxController {
   final followList = <Collect>[].obs;
   final commentList = <Comment>[].obs;
-  final videotList = <Video>[].obs;
+  final videoList = <Video>[].obs;
   final isFollow = false.obs;
   final followCount = '0'.obs;
   final fansCount = '0'.obs;
@@ -28,8 +28,6 @@ class UserZoneController extends GetxController {
     Tab(text: '视频', height: 36),
     Tab(text: '评论', height: 36),
   ];
-
-  final videoList = <Video>[].obs;
 
   @override
   void onInit() async {
@@ -79,7 +77,7 @@ class UserZoneController extends GetxController {
     if (res == true) {
       bool isRemove = await VideoRequest.removeVideo(videoId) ?? false;
       if (isRemove) {
-        videotList.removeWhere((e) => e.id == videoId);
+        videoList.removeWhere((e) => e.id == videoId);
         videoList.refresh();
         CommonUtils.toast('删除成功');
         Get.close(0);

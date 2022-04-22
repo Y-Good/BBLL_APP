@@ -16,7 +16,8 @@ class SearchView extends GetView<SearchController> {
           titleWidget: MSearch(
             onChanged: (val) => controller.key = val,
           ),
-          actionWidget: MText('搜索', size: 16, onTap: controller.onSearch),
+          actionWidget:
+              MText('搜索', size: 16, onTap: () => controller.onSearch(context)),
         ),
         body: Obx(
           () => MTabPageView(

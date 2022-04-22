@@ -38,12 +38,12 @@ class SearchController extends GetxController {
             ),
           )).obs;
 
-  onSearch() async {
+  onSearch(BuildContext context) async {
     user.value = User();
     videoList.value = [];
     userList.value = [];
     if (isNull(key?.trim())) return CommonUtils.toast('请输入关键词');
-
+    FocusScope.of(context).requestFocus(FocusNode());
     LoadingUtil.showLoading(msg: '搜索中');
     if (isNotNull(key?.trim())) {
       var findUser = await CommonRequest.searchUser(key!.trim());
@@ -66,20 +66,30 @@ class SearchController extends GetxController {
     LoadingUtil.dismissLoading();
   }
 
-  void cancelFollow(int? followId) async {
+  void cancelFollow(int? followId, {int? index}) async {
     if (UserUtils.hasToken == false) return CommonUtils.toast('请先登录APP');
     var dialog = await CommonUtils.dialog('您确定取消关注吗？');
     if (dialog == true) {
-      isFollow.value = !isFollow.value;
+      if (index != null) {
+        userList[index].isFollow = !(userList[index].isFollow!);
+        userList.refresh();
+      } else {
+        isFollow.value = !isFollow.value;
+      }
       CollectRequest.createColloect(followId: followId);
     }
   }
 
   ///关注滴干活
-  void onFollow(int? userId) {
+  void onFollow(int? userId, {int? index}) {
     if (UserUtils.hasToken == false) return CommonUtils.toast('请先登录APP');
     CommonUtils.toast(isFollow.value ? '取消关注' : '关注成功');
-    isFollow.value = !isFollow.value;
+    if (index != null) {
+      userList[index].isFollow = !(userList[index].isFollow!);
+      userList.refresh();
+    } else {
+      isFollow.value = !isFollow.value;
+    }
     CollectRequest.createColloect(followId: userId);
   }
 }

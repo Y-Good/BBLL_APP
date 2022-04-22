@@ -181,9 +181,8 @@ class VideoDetailView extends GetView<VideoDetailController> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Obx(
-              () => MText('评论(${controller.commentList.length}条)', size: 16)),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          child: MText('评论', size: 16),
         ),
         Obx(() => controller.commentList.length == 0
             ? MEmpty(text: '暂无评论')
