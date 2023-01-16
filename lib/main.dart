@@ -8,6 +8,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:mvideo/config/color/m_colors.dart';
 import 'package:mvideo/config/http/request/user_request.dart';
 import 'package:mvideo/pages/public.dart';
+
 import 'routes/app_pages.dart';
 
 Future<void> main() async {
@@ -20,6 +21,7 @@ Future<void> main() async {
   }
 }
 
+/// 测试实施
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
